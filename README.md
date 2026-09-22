@@ -1,6 +1,6 @@
 # 🚗 KUNDAPURA_CARS — Kundapura's Certified Used Car Marketplace
 
-A modern, high-trust, light-themed web application inspired by **Spinny**, tailored exclusively for **Kundapura & Coastal Karnataka** used car buyers. Built with **React 18**, **TypeScript**, **Tailwind CSS**, and **21st.dev style** component design aesthetics.
+A modern, high-trust, light-themed web application tailored exclusively for **Kundapura & Coastal Karnataka** used car buyers. Built with **React 18**, **TypeScript**, **Tailwind CSS**, and **21st.dev style** component design aesthetics.
 
 ---
 

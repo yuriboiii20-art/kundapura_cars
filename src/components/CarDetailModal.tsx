@@ -109,7 +109,7 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
           {/* Main Gallery & Top Summary Section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             
-            {/* Left Column: Interactive Image Gallery & 360 Spinny Tour */}
+            {/* Left Column: Interactive Image Gallery & 360 Studio Tour */}
             <div className="lg:col-span-7 space-y-4">
               
               <div className="relative aspect-[16/10] bg-gradient-to-b from-[#FBF0E6] via-[#FDF8F4] to-[#FAF7F2] rounded-2xl overflow-hidden border border-[#ECC4A6] shadow-subtle group">
@@ -144,7 +144,7 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
                   }`}
                 >
                   <RotateCw className="w-3.5 h-3.5 text-[#D27848]" />
-                  <span>{view360Mode ? 'Exit 360° View' : '360° Spinny Tour'}</span>
+                  <span>{view360Mode ? 'Exit 360° View' : '360° Studio Tour'}</span>
                 </button>
 
                 {/* Gallery Prev / Next Controls */}
@@ -366,7 +366,7 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
           {activeTab === 'overview' && (
             <div className="space-y-6 animate-fade-in">
               
-              {/* Spinny Style Car Overview Grid */}
+              {/* Car Overview Grid */}
               <div className="bg-white p-5 sm:p-6 rounded-3xl border border-[#ECC4A6] shadow-subtle">
                 <h4 className="text-base font-black text-[#2E271F] mb-4">
                   Car Overview

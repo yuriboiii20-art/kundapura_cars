@@ -298,20 +298,6 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
             </div>
           </div>
 
-          {/* GET THE APP BUTTON */}
-          <button
-            onClick={() => {
-              alert('Kundapura Cars App download link sent to your SMS/WhatsApp.');
-              onClose();
-            }}
-            className="w-full py-2.5 px-4 bg-[#ECEEF2] hover:bg-[#E0E2E8] text-[#2E271F] font-bold text-xs rounded-xl flex items-center justify-center gap-2 transition-colors"
-          >
-            <svg className="w-4 h-4 text-[#0F9D58]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3.609 1.814L13.793 12 3.61 22.186a2.023 2.023 0 0 1-.22-.924V2.738c0-.34.08-.657.219-.924zM15.207 13.414l2.457 2.457-13.486 7.785 11.029-10.242zm0-2.828L4.178.344 17.664 8.13 15.207 10.586zm1.414 1.414l3.772-2.178c1.077-.622 1.077-1.636 0-2.258l-3.772-2.178-2.243 2.243 2.243 2.371z"/>
-            </svg>
-            <span>Get the Spinny App</span>
-          </button>
-
         </div>
 
       </div>
