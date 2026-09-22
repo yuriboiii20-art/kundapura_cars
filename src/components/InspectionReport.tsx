@@ -42,7 +42,7 @@ export const InspectionReport: React.FC<InspectionReportProps> = ({ car }) => {
             </h4>
           </div>
           <p className="text-xs text-[#8B785F]">
-            Conducted by certified Bangalore Master Automotive Engineers. 0 Major Accidental History Guaranteed.
+            Conducted by certified Master Automotive Engineers. 0 Major Accidental History Guaranteed.
           </p>
         </div>
 
@@ -123,7 +123,7 @@ export const InspectionReport: React.FC<InspectionReportProps> = ({ car }) => {
         {/* Diagnostic Confirmation Box */}
         <div className="p-3.5 rounded-2xl bg-[#241A15] text-[#FDF8F4] border border-[#451E10] flex items-center justify-between text-xs">
           <div className="text-[#DFCFBA]">
-            <strong className="text-[#FDF8F4] font-bold">Bangalore OBD Diagnostics:</strong> ECU scan verified zero trouble codes (DTCs), odometer tampering check passed, and chassis laser alignment verified.
+            <strong className="text-[#FDF8F4] font-bold">Kundapura OBD Diagnostics:</strong> ECU scan verified zero trouble codes (DTCs), odometer tampering check passed, and chassis laser alignment verified.
           </div>
           <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-lg bg-[#D27848] text-white shrink-0 ml-3">
             Verified

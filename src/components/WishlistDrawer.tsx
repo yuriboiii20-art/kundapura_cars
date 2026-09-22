@@ -42,7 +42,7 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
                 Saved Cars ({wishlistCars.length})
               </h3>
               <p className="text-[11px] text-[#8B785F]">
-                Your shortlisted Bangalore certified vehicles
+                Your shortlisted Kundapura certified vehicles
               </p>
             </div>
           </div>
@@ -142,7 +142,7 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
         {/* Footer info */}
         {wishlistCars.length > 0 && (
           <div className="p-4 border-t border-[#ECC4A6]/60 bg-[#FDF8F4] text-xs text-[#8B785F] flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-[#74351B]">📍 Parked at Bangalore Hubs</span>
+            <span className="text-[11px] font-semibold text-[#74351B]">📍 Parked at Kundapura Hubs</span>
             <button
               onClick={onClose}
               className="text-xs font-bold text-[#D27848] hover:underline"

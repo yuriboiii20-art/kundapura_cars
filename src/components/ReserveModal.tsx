@@ -121,7 +121,7 @@ export const ReserveModal: React.FC<ReserveModalProps> = ({ car, onClose }) => {
 
               <div>
                 <label className="text-xs font-bold text-[#2E271F] block mb-1">
-                  Bangalore Phone Number
+                  Phone Number
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-[#AA957A]">
@@ -249,7 +249,7 @@ export const ReserveModal: React.FC<ReserveModalProps> = ({ car, onClose }) => {
             </div>
 
             <div className="p-3 bg-[#FDF8F4] rounded-2xl text-xs text-[#6D5D49] text-left border border-[#ECC4A6]/60">
-              Our Bangalore hub manager is preparing the vehicle paperwork and will call you at <strong>+91 {phone}</strong> shortly.
+              Our Kundapura hub manager is preparing the vehicle paperwork and will call you at <strong>+91 {phone}</strong> shortly.
             </div>
 
             <button

@@ -25,22 +25,23 @@ export const TestDriveModal: React.FC<TestDriveModalProps> = ({ car, onClose }) 
   const [deliveryType, setDeliveryType] = useState<'hub' | 'home'>('hub');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [area, setArea] = useState('Koramangala');
+  const [area, setArea] = useState('Shastri Circle');
   const [date, setDate] = useState('Tomorrow');
   const [timeSlot, setTimeSlot] = useState('11:00 AM - 01:00 PM');
   const [isBooked, setIsBooked] = useState(false);
 
-  const bangaloreAreas = [
-    'Koramangala',
-    'Indiranagar',
-    'HSR Layout',
-    'Whitefield',
-    'Electronic City',
-    'Jayanagar / JP Nagar',
-    'Hebbal / Sahakar Nagar',
-    'Bellandur / Sarjapur Road',
-    'Malleshwaram / Rajajinagar',
-    'Yelahanka / Devanahalli'
+  const kundapuraAreas = [
+    'Shastri Circle',
+    'Parijatha Circle',
+    'Koteshwara Junction',
+    'Kodi Beach Road',
+    'Thekkatte',
+    'Tallur',
+    'Byndoor',
+    'Saligrama',
+    'Kota',
+    'Brahmavara',
+    'Udupi City'
   ];
 
   const timeSlots = [
@@ -80,7 +81,7 @@ export const TestDriveModal: React.FC<TestDriveModalProps> = ({ car, onClose }) 
                 Book Free Test Drive
               </h3>
               <p className="text-[11px] text-[#8B785F]">
-                100% Free • No Obligation • Bangalore Service
+                100% Free • No Obligation • Kundapura Service
               </p>
             </div>
           </div>
@@ -133,7 +134,7 @@ export const TestDriveModal: React.FC<TestDriveModalProps> = ({ car, onClose }) 
                   }`}
                 >
                   <Building2 className="w-4 h-4" />
-                  <span>At Bangalore Hub</span>
+                  <span>At Kundapura Hub</span>
                   <span className="text-[10px] opacity-80 font-normal">VIP Test Drive Lounge</span>
                 </button>
 
@@ -148,7 +149,7 @@ export const TestDriveModal: React.FC<TestDriveModalProps> = ({ car, onClose }) 
                 >
                   <Home className="w-4 h-4" />
                   <span>Doorstep Delivery</span>
-                  <span className="text-[10px] font-bold">Free in Bengaluru</span>
+                  <span className="text-[10px] font-bold">Free in Kundapura</span>
                 </button>
               </div>
             </div>
@@ -167,14 +168,14 @@ export const TestDriveModal: React.FC<TestDriveModalProps> = ({ car, onClose }) 
             ) : (
               <div>
                 <label className="text-xs font-bold text-[#2E271F] block mb-1">
-                  Select Bengaluru Area / Landmark
+                  Select Kundapura Area / Landmark
                 </label>
                 <select
                   value={area}
                   onChange={(e) => setArea(e.target.value)}
                   className="w-full p-2.5 bg-white text-xs font-semibold text-[#2E271F] rounded-xl border border-[#ECC4A6] focus:border-[#D27848] outline-none"
                 >
-                  {bangaloreAreas.map((a) => (
+                  {kundapuraAreas.map((a) => (
                     <option key={a} value={a}>{a}</option>
                   ))}
                 </select>
@@ -265,7 +266,7 @@ export const TestDriveModal: React.FC<TestDriveModalProps> = ({ car, onClose }) 
 
             <div className="flex items-center justify-center gap-1.5 text-[10px] text-[#8B785F]">
               <ShieldCheck className="w-3.5 h-3.5 text-[#D27848]" />
-              <span>Zero spam guarantee • Bangalore Customer Desk</span>
+              <span>Zero spam guarantee • Kundapura Customer Desk</span>
             </div>
 
           </form>
@@ -297,7 +298,7 @@ export const TestDriveModal: React.FC<TestDriveModalProps> = ({ car, onClose }) 
               <div className="flex justify-between">
                 <span className="text-[#8B785F] font-medium">Location:</span>
                 <span className="text-[#2E271F] font-bold">
-                  {deliveryType === 'hub' ? car.hubLocation : `Doorstep (${area}, Bangalore)`}
+                  {deliveryType === 'hub' ? car.hubLocation : `Doorstep (${area}, Kundapura)`}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -308,7 +309,7 @@ export const TestDriveModal: React.FC<TestDriveModalProps> = ({ car, onClose }) 
 
             <div className="flex items-center justify-center gap-2 p-3 bg-[#FDF8F4] rounded-2xl text-xs text-[#6D5D49] border border-[#ECC4A6]/60">
               <Phone className="w-4 h-4 text-[#D27848]" />
-              <span>Hub Helpline: <strong>+91 80 4725 9900</strong></span>
+              <span>Hub Helpline: <strong>+91 8254 233 440</strong></span>
             </div>
 
             <button

@@ -83,5 +83,5 @@ export interface TestDriveBooking {
   preferredDate: string;
   preferredTimeSlot: string;
   deliveryType: 'hub' | 'home';
-  bangaloreArea: string;
+  kundapuraArea: string;
 }

@@ -65,7 +65,7 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
           <div className="flex items-center gap-1.5 text-xs text-[#8B785F] font-medium truncate min-w-0">
             <span className="hover:text-[#D27848] cursor-pointer hidden sm:inline">Home</span>
             <span className="hidden sm:inline">/</span>
-            <span className="hover:text-[#D27848] cursor-pointer hidden md:inline">Used Cars in Bangalore</span>
+            <span className="hover:text-[#D27848] cursor-pointer hidden md:inline">Used Cars in Kundapura</span>
             <span className="hidden md:inline">/</span>
             <span className="hover:text-[#D27848] cursor-pointer shrink-0">{car.brand}</span>
             <span>/</span>
@@ -210,7 +210,7 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
                     <FileCheck className="w-4 h-4 text-[#D27848] shrink-0" />
                     <span>Free RC Transfer</span>
                   </div>
-                  <div className="text-[11px] text-[#8B785F]">Bangalore RTO</div>
+                  <div className="text-[11px] text-[#8B785F]">Kundapura RTO</div>
                 </div>
               </div>
 
