@@ -28,42 +28,42 @@ export const InspectionReport: React.FC<InspectionReportProps> = ({ car }) => {
   const currentCategory = categories.find((c) => c.id === activeTab) || categories[0];
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-xs">
+    <div className="bg-white rounded-3xl border border-[#ECC4A6] p-5 sm:p-6 shadow-subtle">
       
       {/* Header with 200-Point Pass Badge */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-5 border-b border-slate-100">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-5 border-b border-[#ECC4A6]/60">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <span className="w-8 h-8 rounded-xl bg-[#241A15] text-[#D27848] flex items-center justify-center border border-[#451E10]">
               <ShieldCheck className="w-5 h-5" />
             </span>
-            <h4 className="text-lg font-black text-slate-900">
+            <h4 className="text-lg font-black text-[#2E271F]">
               200-Point Kundapura Assured Inspection
             </h4>
           </div>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-[#8B785F]">
             Conducted by certified Bangalore Master Automotive Engineers. 0 Major Accidental History Guaranteed.
           </p>
         </div>
 
-        <div className="flex items-center gap-3 bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-200 shrink-0">
+        <div className="flex items-center gap-3 bg-[#FDF3EA] px-4 py-2 rounded-2xl border border-[#ECC4A6] shrink-0">
           <div>
-            <div className="text-[10px] uppercase font-bold text-emerald-700 tracking-wider">
+            <div className="text-[10px] uppercase font-bold text-[#74351B] tracking-wider">
               Overall Score
             </div>
-            <div className="text-xl font-black text-emerald-900">
+            <div className="text-xl font-black text-[#D27848]">
               {car.inspectionScore} / 10.0
             </div>
           </div>
-          <div className="h-8 w-px bg-emerald-200" />
-          <div className="text-xs font-bold text-emerald-800">
+          <div className="h-8 w-px bg-[#ECC4A6]" />
+          <div className="text-xs font-bold text-[#74351B]">
             200 / 200<br />Checks Passed
           </div>
         </div>
       </div>
 
       {/* Category Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-4 border-b border-slate-100">
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-4 border-b border-[#ECC4A6]/60">
         {categories.map((cat) => {
           const Icon = cat.icon;
           const isActive = activeTab === cat.id;
@@ -73,14 +73,14 @@ export const InspectionReport: React.FC<InspectionReportProps> = ({ car }) => {
               onClick={() => setActiveTab(cat.id as any)}
               className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all border ${
                 isActive
-                  ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                  : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+                  ? 'bg-[#D27848] text-white border-[#B95C2E] shadow-xs'
+                  : 'bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] border-[#ECC4A6]'
               }`}
             >
-              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-brand-300' : 'text-slate-500'}`} />
+              <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-[#D27848]'}`} />
               <span>{cat.label}</span>
-              <span className={`text-[10px] px-1.5 py-0.2 rounded-md ${
-                isActive ? 'bg-slate-800 text-slate-200' : 'bg-slate-200 text-slate-700'
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-md font-extrabold ${
+                isActive ? 'bg-[#241A15] text-[#FDF8F4]' : 'bg-[#ECC4A6]/60 text-[#74351B]'
               }`}>
                 {cat.data.checksPassed}/{cat.data.checksTotal}
               </span>
@@ -93,16 +93,16 @@ export const InspectionReport: React.FC<InspectionReportProps> = ({ car }) => {
       <div className="pt-5">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h5 className="font-bold text-slate-900 text-sm">
+            <h5 className="font-bold text-[#2E271F] text-sm">
               {currentCategory.data.title}
             </h5>
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-[#8B785F]">
               All {currentCategory.data.checksTotal} critical checkpoints verified with zero defects
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-100/80 text-emerald-800 text-xs font-bold">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#FDF3EA] text-[#74351B] text-xs font-bold border border-[#ECC4A6]">
+            <CheckCircle2 className="w-3.5 h-3.5 text-[#D27848]" />
             <span>Passed ({currentCategory.data.score})</span>
           </div>
         </div>
@@ -112,20 +112,20 @@ export const InspectionReport: React.FC<InspectionReportProps> = ({ car }) => {
           {currentCategory.data.highlights.map((item, idx) => (
             <div
               key={idx}
-              className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700"
+              className="flex items-start gap-2.5 p-3 rounded-2xl bg-[#FDF8F4] border border-[#ECC4A6]/60 text-xs text-[#2E271F]"
             >
-              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+              <CheckCircle2 className="w-4 h-4 text-[#D27848] shrink-0 mt-0.5" />
               <span className="font-semibold">{item}</span>
             </div>
           ))}
         </div>
 
         {/* Diagnostic Confirmation Box */}
-        <div className="p-3.5 rounded-xl bg-brand-50/60 border border-brand-100 flex items-center justify-between text-xs">
-          <div className="text-slate-700">
-            <strong className="text-brand-900 font-bold">Bangalore OBD Diagnostics:</strong> ECU scan verified zero trouble codes (DTCs), odometer tampering check passed, and chassis laser alignment verified.
+        <div className="p-3.5 rounded-2xl bg-[#241A15] text-[#FDF8F4] border border-[#451E10] flex items-center justify-between text-xs">
+          <div className="text-[#DFCFBA]">
+            <strong className="text-[#FDF8F4] font-bold">Bangalore OBD Diagnostics:</strong> ECU scan verified zero trouble codes (DTCs), odometer tampering check passed, and chassis laser alignment verified.
           </div>
-          <span className="text-[10px] font-extrabold uppercase px-2 py-1 rounded bg-brand-600 text-white shrink-0 ml-3">
+          <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-lg bg-[#D27848] text-white shrink-0 ml-3">
             Verified
           </span>
         </div>
@@ -134,3 +134,4 @@ export const InspectionReport: React.FC<InspectionReportProps> = ({ car }) => {
     </div>
   );
 };
+

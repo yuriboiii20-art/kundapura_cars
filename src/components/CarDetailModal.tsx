@@ -6,21 +6,19 @@ import {
   Heart, 
   Share2, 
   RotateCw, 
-  Gauge, 
-  Fuel, 
-  Settings2, 
-  Calendar, 
-  Layers, 
   CheckCircle2, 
   Sparkles, 
   Award, 
   RotateCcw, 
   MessageSquare,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Phone,
+  FileCheck,
+  Zap
 } from 'lucide-react';
 import { Car } from '../types/car';
-import { formatPrice, formatKm, formatIndianCurrency } from '../utils/formatters';
+import { formatPrice, formatKm, formatShortKm, formatShortRto } from '../utils/formatters';
 import { InspectionReport } from './InspectionReport';
 import { EmiCalculator } from './EmiCalculator';
 
@@ -31,8 +29,8 @@ interface CarDetailModalProps {
   onToggleWishlist: (carId: string) => void;
   onBookTestDrive: (car: Car) => void;
   onReserveCar: (car: Car) => void;
-  isCompared: boolean;
-  onToggleCompare: (car: Car) => void;
+  isCompared?: boolean;
+  onToggleCompare?: (car: Car) => void;
 }
 
 export const CarDetailModal: React.FC<CarDetailModalProps> = ({
@@ -41,9 +39,7 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
   isWishlisted,
   onToggleWishlist,
   onBookTestDrive,
-  onReserveCar,
-  isCompared,
-  onToggleCompare
+  onReserveCar
 }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [view360Mode, setView360Mode] = useState(false);
@@ -57,44 +53,34 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/70 backdrop-blur-sm flex justify-center p-2 sm:p-4 md:p-6 animate-fade-in">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#17100D]/80 backdrop-blur-sm flex justify-center p-2 sm:p-4 md:p-6 animate-fade-in">
       
       {/* Modal Container */}
-      <div className="bg-[#f8fafc] w-full max-w-5xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col my-auto relative max-h-[92vh]">
+      <div className="bg-[#FAF7F2] w-full max-w-6xl rounded-3xl shadow-2xl border border-[#ECC4A6] overflow-hidden flex flex-col my-auto relative max-h-[94vh]">
         
-        {/* Sticky Top Bar */}
-        <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md px-5 py-3.5 border-b border-slate-200 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="badge-pill bg-emerald-50 text-emerald-800 border border-emerald-200">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Kundapura Assured • {car.rto.split('(')[0]}</span>
-            </span>
-            <span className="hidden sm:inline-flex text-xs font-semibold text-slate-500">
-              📍 {car.hubLocation}
-            </span>
+        {/* Sticky Top Bar & Breadcrumbs */}
+        <div className="sticky top-0 z-30 bg-[#FDF8F4]/95 backdrop-blur-md px-4 sm:px-6 py-3 border-b border-[#ECC4A6]/60 flex items-center justify-between gap-2">
+          
+          {/* Breadcrumbs */}
+          <div className="flex items-center gap-1.5 text-xs text-[#8B785F] font-medium truncate">
+            <span className="hover:text-[#D27848] cursor-pointer hidden sm:inline">Home</span>
+            <span className="hidden sm:inline">/</span>
+            <span className="hover:text-[#D27848] cursor-pointer hidden md:inline">Used Cars in Bangalore</span>
+            <span className="hidden md:inline">/</span>
+            <span className="hover:text-[#D27848] cursor-pointer">{car.brand}</span>
+            <span>/</span>
+            <span className="text-[#2E271F] font-bold truncate">{car.year} {car.title}</span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => onToggleCompare(car)}
-              className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-1.5 ${
-                isCompared
-                  ? 'bg-brand-600 text-white border-brand-600'
-                  : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
-              }`}
-            >
-              <Layers className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{isCompared ? 'Compared' : 'Compare'}</span>
-            </button>
-
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={handleShare}
-              className="p-2 text-slate-600 hover:text-slate-900 bg-white hover:bg-slate-100 rounded-xl border border-slate-200 transition-colors relative"
+              className="p-2 text-[#74351B] hover:text-[#D27848] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors relative"
               title="Share Car"
             >
               <Share2 className="w-4 h-4" />
               {copiedLink && (
-                <span className="absolute -bottom-7 right-0 text-[10px] bg-slate-900 text-white px-2 py-0.5 rounded shadow">
+                <span className="absolute -bottom-7 right-0 text-[10px] bg-[#241A15] text-[#FDF8F4] px-2 py-0.5 rounded shadow">
                   Copied!
                 </span>
               )}
@@ -102,15 +88,15 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
 
             <button
               onClick={() => onToggleWishlist(car.id)}
-              className="p-2 text-slate-600 hover:text-rose-500 bg-white hover:bg-rose-50 rounded-xl border border-slate-200 transition-colors"
+              className="p-2 text-[#74351B] hover:text-[#D27848] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors"
               title="Save to Wishlist"
             >
-              <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-rose-500 text-rose-500' : ''}`} />
+              <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-[#D27848] text-[#D27848]' : ''}`} />
             </button>
 
             <button
               onClick={onClose}
-              className="p-2 text-slate-500 hover:text-slate-900 bg-white hover:bg-slate-100 rounded-xl border border-slate-200 transition-colors ml-1"
+              className="p-2 text-[#8B785F] hover:text-[#2E271F] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors ml-1"
             >
               <X className="w-5 h-5" />
             </button>
@@ -123,9 +109,10 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
           {/* Main Gallery & Top Summary Section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             
-            {/* Left: Interactive Image Gallery / 360 Simulator */}
-            <div className="lg:col-span-7 space-y-3">
-              <div className="relative aspect-[16/10] bg-slate-900 rounded-2xl overflow-hidden shadow-md group">
+            {/* Left Column: Interactive Image Gallery & 360 Spinny Tour */}
+            <div className="lg:col-span-7 space-y-4">
+              
+              <div className="relative aspect-[16/10] bg-gradient-to-b from-[#FBF0E6] via-[#FDF8F4] to-[#FAF7F2] rounded-2xl overflow-hidden border border-[#ECC4A6] shadow-subtle group">
                 <img
                   src={car.images[activeImageIndex]}
                   alt={car.title}
@@ -134,43 +121,48 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
                   }`}
                 />
 
-                {/* 360 Mode Overlay Banner */}
+                {/* 360 Simulator Overlay Tag */}
                 {view360Mode && (
-                  <div className="absolute top-3 left-3 bg-brand-600/90 text-white text-xs font-extrabold px-3 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-sm shadow-md animate-pulse">
-                    <RotateCw className="w-3.5 h-3.5 animate-spin" />
-                    <span>360° Studio View Simulator (Click thumbnails to rotate)</span>
+                  <div className="absolute top-3 left-3 bg-[#241A15]/90 text-[#FDF8F4] text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-sm shadow-md border border-[#ECC4A6]/30">
+                    <RotateCw className="w-3.5 h-3.5 animate-spin text-[#D27848]" />
+                    <span>360° Interactive Studio Tour (Click thumbnails to rotate angle)</span>
                   </div>
                 )}
+
+                {/* Photo Counter */}
+                <div className="absolute top-3 right-3 bg-[#241A15]/80 text-[#FDF8F4] text-xs font-bold px-2.5 py-1 rounded-lg backdrop-blur-xs border border-[#ECC4A6]/30">
+                  {activeImageIndex + 1} / {car.images.length} Photos
+                </div>
 
                 {/* 360 Toggle Button */}
                 <button
                   onClick={() => setView360Mode(!view360Mode)}
-                  className={`absolute bottom-3 right-3 px-3 py-1.5 rounded-full text-xs font-bold transition-all shadow-md flex items-center gap-1.5 z-10 ${
+                  className={`absolute bottom-3 right-3 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all shadow-md flex items-center gap-1.5 z-10 ${
                     view360Mode
-                      ? 'bg-brand-600 text-white'
-                      : 'bg-white/90 text-slate-800 hover:bg-white'
+                      ? 'bg-[#D27848] text-white'
+                      : 'bg-white text-[#2E271F] hover:bg-[#FBF0E6] border border-[#ECC4A6]'
                   }`}
                 >
-                  <RotateCw className="w-3.5 h-3.5 text-brand-600" />
-                  <span>{view360Mode ? 'Exit 360° View' : '360° Interactive View'}</span>
+                  <RotateCw className="w-3.5 h-3.5 text-[#D27848]" />
+                  <span>{view360Mode ? 'Exit 360° View' : '360° Spinny Tour'}</span>
                 </button>
 
                 {/* Gallery Prev / Next Controls */}
                 <button
                   onClick={() => setActiveImageIndex((prev) => (prev - 1 + car.images.length) % car.images.length)}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center transition-colors"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-[#2E271F] flex items-center justify-center transition-colors shadow-sm"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => setActiveImageIndex((prev) => (prev + 1) % car.images.length)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center transition-colors"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-[#2E271F] flex items-center justify-center transition-colors shadow-sm"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Thumbnails */}
+              {/* Thumbnails Carousel */}
               <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
                 {car.images.map((img, idx) => (
                   <button
@@ -178,126 +170,179 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
                     onClick={() => setActiveImageIndex(idx)}
                     className={`relative w-20 h-14 rounded-xl overflow-hidden shrink-0 border-2 transition-all ${
                       idx === activeImageIndex
-                        ? 'border-brand-600 ring-2 ring-brand-500/20 scale-95'
-                        : 'border-transparent opacity-70 hover:opacity-100'
+                        ? 'border-[#D27848] ring-2 ring-[#D27848]/30 scale-95'
+                        : 'border-transparent opacity-75 hover:opacity-100'
                     }`}
                   >
                     <img src={img} alt="thumb" className="w-full h-full object-cover" />
                   </button>
                 ))}
               </div>
+
+              {/* Assured 4 Pillars Banner */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
+                <div className="bg-white p-3 rounded-xl border border-[#ECC4A6]/70 shadow-2xs flex flex-col justify-center">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-[#2E271F] mb-0.5">
+                    <ShieldCheck className="w-4 h-4 text-[#D27848] shrink-0" />
+                    <span>200 Points</span>
+                  </div>
+                  <div className="text-[11px] text-[#8B785F]">Inspection Passed</div>
+                </div>
+
+                <div className="bg-white p-3 rounded-xl border border-[#ECC4A6]/70 shadow-2xs flex flex-col justify-center">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-[#2E271F] mb-0.5">
+                    <Award className="w-4 h-4 text-[#D27848] shrink-0" />
+                    <span>1-Yr Warranty</span>
+                  </div>
+                  <div className="text-[11px] text-[#8B785F]">Engine &amp; Gearbox</div>
+                </div>
+
+                <div className="bg-white p-3 rounded-xl border border-[#ECC4A6]/70 shadow-2xs flex flex-col justify-center">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-[#2E271F] mb-0.5">
+                    <RotateCcw className="w-4 h-4 text-[#D27848] shrink-0" />
+                    <span>5-Day Refund</span>
+                  </div>
+                  <div className="text-[11px] text-[#8B785F]">100% Money Back</div>
+                </div>
+
+                <div className="bg-white p-3 rounded-xl border border-[#ECC4A6]/70 shadow-2xs flex flex-col justify-center">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-[#2E271F] mb-0.5">
+                    <FileCheck className="w-4 h-4 text-[#D27848] shrink-0" />
+                    <span>Free RC Transfer</span>
+                  </div>
+                  <div className="text-[11px] text-[#8B785F]">Bangalore RTO</div>
+                </div>
+              </div>
+
             </div>
 
-            {/* Right: Pricing, Summary & Key Assured Points */}
-            <div className="lg:col-span-5 bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-5">
+            {/* Right Column: Sticky Pricing & Booking Card */}
+            <div className="lg:col-span-5 bg-white p-5 sm:p-6 rounded-3xl border border-[#ECC4A6] shadow-subtle flex flex-col justify-between space-y-5">
               
               <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs font-bold text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">
-                    {car.year} Model
+                {/* Assured Badge & Year */}
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="inline-flex items-center gap-1 text-xs font-extrabold text-[#D27848] bg-[#FDF3EA] px-2.5 py-1 rounded-full border border-[#ECC4A6]">
+                    <svg className="w-3.5 h-3.5 text-[#D27848]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+                    </svg>
+                    <span>Assured {car.inspectionScore}/10</span>
                   </span>
-                  <span className="text-xs font-semibold text-slate-500">
-                    {car.color}
+
+                  <span className="text-xs font-bold text-[#74351B] bg-[#FBF0E6] px-2 py-0.5 rounded border border-[#ECC4A6]/50">
+                    {car.year} Model
                   </span>
                 </div>
 
-                <h1 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug mb-1">
-                  {car.title}
+                {/* Car Title & Variant */}
+                <h1 className="text-xl sm:text-2xl font-black text-[#2E271F] leading-snug mb-1">
+                  {car.year} {car.brand} {car.model}
                 </h1>
-                <p className="text-xs text-slate-500 font-medium mb-4">
+                <p className="text-xs text-[#8B785F] font-medium mb-3">
                   {car.variant}
                 </p>
 
-                {/* Price Display */}
-                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 mb-4">
+                {/* Specifications Pills */}
+                <div className="flex items-center gap-1.5 flex-wrap mb-4">
+                  <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-xs font-semibold rounded-full border border-[#ECC4A6]/60">
+                    {formatShortKm(car.kilometers)}
+                  </span>
+                  <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-xs font-semibold rounded-full border border-[#ECC4A6]/60">
+                    {car.fuelType}
+                  </span>
+                  <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-xs font-semibold rounded-full border border-[#ECC4A6]/60">
+                    {car.transmission}
+                  </span>
+                  <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-xs font-semibold rounded-full border border-[#ECC4A6]/60">
+                    {formatShortRto(car.rto)}
+                  </span>
+                </div>
+
+                {/* Hub Location Box */}
+                <div className="p-3 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6] flex items-start gap-2.5 text-xs text-[#6D5D49] mb-4">
+                  <MapPin className="w-4 h-4 text-[#D27848] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-[#2E271F] font-bold">Parked at:</strong> {car.hubLocation}
+                    <div className="text-[11px] text-[#8B785F] mt-0.5">
+                      Available for immediate test drive at Hub or Doorstep
+                    </div>
+                  </div>
+                </div>
+
+                {/* Price & EMI Box (Warm Dark Espresso with Warm Apricot highlights) */}
+                <div className="p-4 bg-[#241A15] text-[#FDF8F4] rounded-2xl mb-4 shadow-subtle border border-[#451E10]">
                   <div className="flex items-baseline justify-between">
                     <div>
-                      <div className="text-xs font-semibold text-slate-500">Fixed Transparent Price</div>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-2xl sm:text-3xl font-black text-slate-900">
-                          {formatPrice(car.price)}
-                        </span>
-                        {car.originalPrice && (
-                          <span className="text-sm text-slate-400 line-through">
-                            {formatPrice(car.originalPrice)}
-                          </span>
-                        )}
+                      <div className="text-[11px] font-bold text-[#ECC4A6] uppercase tracking-wider">Fixed Transparent Price</div>
+                      <div className="text-2xl sm:text-3xl font-black text-[#FDF8F4]">
+                        {formatPrice(car.price)}
                       </div>
                     </div>
 
                     <div className="text-right">
-                      <div className="text-[10px] uppercase font-bold text-slate-400">Monthly EMI</div>
-                      <div className="text-base font-black text-brand-600">
-                        {formatIndianCurrency(car.emiStarting)}/mo
+                      <div className="text-[10px] uppercase font-bold text-[#ECC4A6]">EMI Starting</div>
+                      <div className="text-sm sm:text-base font-black text-[#D27848]">
+                        ₹ {car.emiStarting.toLocaleString('en-IN')}/m*
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-2 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-600">
-                    <span className="text-emerald-700 font-bold">✓ Free Bangalore RTO Transfer</span>
-                    <span>Zero Hidden Processing Fees</span>
+                  <div className="mt-3 pt-2.5 border-t border-[#451E10] flex items-center justify-between text-[11px] text-[#DFCFBA]">
+                    <span>✓ Zero hidden fees</span>
+                    <span>✓ Instant loan approval</span>
                   </div>
                 </div>
 
-                {/* Quick specs grid */}
-                <div className="grid grid-cols-2 gap-2.5 text-xs text-slate-700 mb-4 font-semibold">
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-xl">
-                    <Gauge className="w-4 h-4 text-brand-600" />
-                    <span>{formatKm(car.kilometers)}</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-xl">
-                    <Fuel className="w-4 h-4 text-brand-600" />
-                    <span>{car.fuelType}</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-xl">
-                    <Settings2 className="w-4 h-4 text-brand-600" />
-                    <span>{car.transmission}</span>
-                  </div>
-                  <div className="flex items-center gap-2 p-2 bg-slate-50 rounded-xl">
-                    <Calendar className="w-4 h-4 text-brand-600" />
-                    <span>{car.owner}</span>
-                  </div>
-                </div>
-
-                {/* Bangalore Hub Location */}
-                <div className="p-3 bg-brand-50/50 rounded-xl border border-brand-100 flex items-start gap-2.5 text-xs text-slate-700">
-                  <MapPin className="w-4 h-4 text-brand-600 shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="text-slate-900 font-bold">Bangalore Hub:</strong> {car.hubLocation}
-                    <div className="text-[11px] text-slate-500 mt-0.5">
-                      Available for immediate viewing &amp; test drive
-                    </div>
-                  </div>
+                {/* Reserve Banner Callout */}
+                <div className="p-3 bg-[#FDF3EA] rounded-2xl border border-[#ECC4A6] text-xs text-[#74351B] flex items-center gap-2 mb-4">
+                  <Zap className="w-4 h-4 text-[#D27848] shrink-0" />
+                  <span><strong>Reserve for ₹999</strong>: 100% Refundable deposit holds this car for you for 48 hours.</span>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="space-y-2 pt-2">
+              {/* Primary CTA Buttons */}
+              <div className="space-y-2.5 pt-1">
                 <button
                   onClick={() => onBookTestDrive(car)}
-                  className="w-full py-3 px-4 bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-sm rounded-xl shadow-md shadow-brand-500/25 transition-all flex items-center justify-center gap-2"
+                  className="w-full py-3.5 px-4 bg-[#D27848] hover:bg-[#B95C2E] text-white font-extrabold text-sm rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
                 >
                   <Sparkles className="w-4 h-4" />
-                  <span>Book Free Test Drive (Hub or Doorstep)</span>
+                  <span>Book Free Test Drive</span>
                 </button>
 
                 <button
                   onClick={() => onReserveCar(car)}
-                  className="w-full py-2.5 px-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-xs rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5"
+                  className="w-full py-3 px-4 bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] font-extrabold text-xs rounded-2xl border border-[#ECC4A6] transition-all shadow-2xs flex items-center justify-center gap-1.5"
                 >
-                  <span>Reserve This Car for ₹999 (100% Refundable)</span>
+                  <span>Reserve This Car Online (₹999)</span>
                 </button>
+
+                <div className="pt-2 flex items-center justify-between text-xs text-[#8B785F] font-medium">
+                  <span className="flex items-center gap-1">
+                    <Phone className="w-3.5 h-3.5 text-[#D27848]" />
+                    <span>+91 80 4725 9900</span>
+                  </span>
+                  <a
+                    href={`https://wa.me/918047259900?text=Hi%20Kundapura%20Cars,%20I%20am%20interested%20in%20${encodeURIComponent(car.title)}%20at%20${encodeURIComponent(car.hubLocation)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#D27848] font-bold hover:underline flex items-center gap-1"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span>WhatsApp Hub</span>
+                  </a>
+                </div>
               </div>
 
             </div>
 
           </div>
 
-          {/* Navigation Tabs for Deep Details */}
-          <div className="border-b border-slate-200">
-            <div className="flex gap-4 overflow-x-auto no-scrollbar">
+          {/* Deep Details Navigation Tabs */}
+          <div className="border-b border-[#ECC4A6]/60 pt-4">
+            <div className="flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar">
               {[
-                { id: 'overview', label: 'Overview & Highlights' },
+                { id: 'overview', label: 'Car Overview & Highlights' },
                 { id: 'inspection', label: '200-Point Inspection Report' },
                 { id: 'specs', label: 'Specifications & Features' },
                 { id: 'emi', label: 'EMI & Loan Calculator' }
@@ -307,8 +352,8 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`pb-3 text-sm font-extrabold transition-all border-b-2 whitespace-nowrap ${
                     activeTab === tab.id
-                      ? 'text-brand-600 border-brand-600'
-                      : 'text-slate-500 border-transparent hover:text-slate-900'
+                      ? 'text-[#D27848] border-[#D27848]'
+                      : 'text-[#8B785F] border-transparent hover:text-[#2E271F]'
                   }`}
                 >
                   {tab.label}
@@ -321,98 +366,114 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
           {activeTab === 'overview' && (
             <div className="space-y-6 animate-fade-in">
               
-              {/* Kundapura Assured 4 Pillars Banner */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
-                    <ShieldCheck className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-slate-900">200-Point Inspected</div>
-                    <div className="text-[11px] text-slate-500">Score: {car.inspectionScore}/10</div>
-                  </div>
-                </div>
+              {/* Spinny Style Car Overview Grid */}
+              <div className="bg-white p-5 sm:p-6 rounded-3xl border border-[#ECC4A6] shadow-subtle">
+                <h4 className="text-base font-black text-[#2E271F] mb-4">
+                  Car Overview
+                </h4>
 
-                <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
-                    <Award className="w-5 h-5" />
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 text-xs">
+                  <div className="p-3 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50">
+                    <div className="text-[10px] font-bold text-[#AA957A] uppercase">Make Year</div>
+                    <div className="text-sm font-black text-[#2E271F] mt-0.5">{car.year}</div>
                   </div>
-                  <div>
-                    <div className="text-xs font-bold text-slate-900">1-Year Warranty</div>
-                    <div className="text-[11px] text-slate-500">Engine &amp; Gearbox</div>
-                  </div>
-                </div>
 
-                <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
-                    <RotateCcw className="w-5 h-5" />
+                  <div className="p-3 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50">
+                    <div className="text-[10px] font-bold text-[#AA957A] uppercase">Reg. Date</div>
+                    <div className="text-sm font-black text-[#2E271F] mt-0.5">Nov {car.year}</div>
                   </div>
-                  <div>
-                    <div className="text-xs font-bold text-slate-900">5-Day Money Back</div>
-                    <div className="text-[11px] text-slate-500">100% Full Refund</div>
-                  </div>
-                </div>
 
-                <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-xs flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-                    <CheckCircle2 className="w-5 h-5" />
+                  <div className="p-3 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50">
+                    <div className="text-[10px] font-bold text-[#AA957A] uppercase">Fuel Type</div>
+                    <div className="text-sm font-black text-[#2E271F] mt-0.5">{car.fuelType}</div>
                   </div>
-                  <div>
-                    <div className="text-xs font-bold text-slate-900">Free Bangalore RC</div>
-                    <div className="text-[11px] text-slate-500">Doorstep Delivery</div>
+
+                  <div className="p-3 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50">
+                    <div className="text-[10px] font-bold text-[#AA957A] uppercase">KM Driven</div>
+                    <div className="text-sm font-black text-[#2E271F] mt-0.5">{formatKm(car.kilometers)}</div>
+                  </div>
+
+                  <div className="p-3 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50">
+                    <div className="text-[10px] font-bold text-[#AA957A] uppercase">Transmission</div>
+                    <div className="text-sm font-black text-[#2E271F] mt-0.5">{car.transmission}</div>
+                  </div>
+
+                  <div className="p-3 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50">
+                    <div className="text-[10px] font-bold text-[#AA957A] uppercase">No. of Owners</div>
+                    <div className="text-sm font-black text-[#2E271F] mt-0.5">{car.owner}</div>
+                  </div>
+
+                  <div className="p-3 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50">
+                    <div className="text-[10px] font-bold text-[#AA957A] uppercase">Insurance</div>
+                    <div className="text-sm font-black text-[#2E271F] mt-0.5">{car.specs.insuranceValidity}</div>
+                  </div>
+
+                  <div className="p-3 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50">
+                    <div className="text-[10px] font-bold text-[#AA957A] uppercase">Insurance Type</div>
+                    <div className="text-sm font-black text-[#2E271F] mt-0.5">Comprehensive</div>
+                  </div>
+
+                  <div className="p-3 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50">
+                    <div className="text-[10px] font-bold text-[#AA957A] uppercase">RTO Location</div>
+                    <div className="text-sm font-black text-[#2E271F] mt-0.5">{car.rto}</div>
+                  </div>
+
+                  <div className="p-3 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50">
+                    <div className="text-[10px] font-bold text-[#AA957A] uppercase">Car Location</div>
+                    <div className="text-sm font-black text-[#2E271F] mt-0.5 truncate">{car.hubLocation}</div>
                   </div>
                 </div>
               </div>
 
-              {/* Highlights & Tags */}
-              <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-xs">
-                <h4 className="text-base font-extrabold text-slate-900 mb-3">
-                  Key Vehicle Highlights
+              {/* Highlights & Verified Condition */}
+              <div className="bg-white p-5 sm:p-6 rounded-3xl border border-[#ECC4A6] shadow-subtle">
+                <h4 className="text-base font-black text-[#2E271F] mb-3">
+                  Vehicle Highlights &amp; Condition Summary
                 </h4>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {car.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1.5 bg-brand-50 text-brand-800 text-xs font-bold rounded-xl border border-brand-200 flex items-center gap-1.5"
+                      className="px-3 py-1.5 bg-[#FDF3EA] text-[#74351B] text-xs font-bold rounded-xl border border-[#ECC4A6] flex items-center gap-1.5"
                     >
-                      <Sparkles className="w-3.5 h-3.5 text-brand-600" />
+                      <Sparkles className="w-3.5 h-3.5 text-[#D27848]" />
                       <span>{tag}</span>
                     </span>
                   ))}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-700">
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center gap-2 font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Original Karnataka RTO: {car.rto}</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-[#6D5D49]">
+                  <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 flex items-center gap-2 font-medium">
+                    <CheckCircle2 className="w-4 h-4 text-[#D27848] shrink-0" />
+                    <span>Zero major accidental or frame repair history</span>
                   </div>
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center gap-2 font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Insurance: {car.specs.insuranceValidity}</span>
+                  <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 flex items-center gap-2 font-medium">
+                    <CheckCircle2 className="w-4 h-4 text-[#D27848] shrink-0" />
+                    <span>OBD Diagnostic Scan: 0 error codes detected</span>
                   </div>
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center gap-2 font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>ARAI Mileage: {car.specs.mileageARAI}</span>
+                  <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 flex items-center gap-2 font-medium">
+                    <CheckCircle2 className="w-4 h-4 text-[#D27848] shrink-0" />
+                    <span>ARAI Certified Fuel Efficiency: {car.specs.mileageARAI}</span>
                   </div>
-                  <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-center gap-2 font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Safety: {car.specs.airbags} Airbags equipped</span>
+                  <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 flex items-center gap-2 font-medium">
+                    <CheckCircle2 className="w-4 h-4 text-[#D27848] shrink-0" />
+                    <span>Tyres and brakes in top condition with &gt;75% life</span>
                   </div>
                 </div>
               </div>
 
               {/* Key Features list */}
-              <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-xs">
-                <h4 className="text-base font-extrabold text-slate-900 mb-3">
-                  Top Features &amp; Equipment
+              <div className="bg-white p-5 sm:p-6 rounded-3xl border border-[#ECC4A6] shadow-subtle">
+                <h4 className="text-base font-black text-[#2E271F] mb-3">
+                  Key Features &amp; Equipment
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {car.features.map((feat, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center gap-2 text-xs font-semibold text-slate-800 p-2.5 bg-slate-50 rounded-xl border border-slate-100"
+                      className="flex items-center gap-2 text-xs font-semibold text-[#2E271F] p-2.5 bg-[#FDF8F4] rounded-xl border border-[#ECC4A6]/50"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-brand-600 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-[#D27848] shrink-0" />
                       <span>{feat}</span>
                     </div>
                   ))}
@@ -431,47 +492,47 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
 
           {/* Tab Content 3: Specifications */}
           {activeTab === 'specs' && (
-            <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-xs animate-fade-in space-y-6">
-              <h4 className="text-base font-extrabold text-slate-900">
+            <div className="bg-white p-5 sm:p-6 rounded-3xl border border-[#ECC4A6] shadow-subtle animate-fade-in space-y-6">
+              <h4 className="text-base font-black text-[#2E271F]">
                 Detailed Technical Specifications
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
-                <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
-                  <div className="text-slate-400 font-bold uppercase text-[10px]">Engine Capacity</div>
-                  <div className="text-slate-900 font-extrabold text-sm">{car.specs.engineCapacity}</div>
+                <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 space-y-1">
+                  <div className="text-[#AA957A] font-bold uppercase text-[10px]">Engine Capacity</div>
+                  <div className="text-[#2E271F] font-extrabold text-sm">{car.specs.engineCapacity}</div>
                 </div>
-                <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
-                  <div className="text-slate-400 font-bold uppercase text-[10px]">Max Power Output</div>
-                  <div className="text-slate-900 font-extrabold text-sm">{car.specs.maxPower}</div>
+                <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 space-y-1">
+                  <div className="text-[#AA957A] font-bold uppercase text-[10px]">Max Power Output</div>
+                  <div className="text-[#2E271F] font-extrabold text-sm">{car.specs.maxPower}</div>
                 </div>
-                <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
-                  <div className="text-slate-400 font-bold uppercase text-[10px]">Fuel Mileage (ARAI)</div>
-                  <div className="text-slate-900 font-extrabold text-sm">{car.specs.mileageARAI}</div>
+                <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 space-y-1">
+                  <div className="text-[#AA957A] font-bold uppercase text-[10px]">Fuel Mileage (ARAI)</div>
+                  <div className="text-[#2E271F] font-extrabold text-sm">{car.specs.mileageARAI}</div>
                 </div>
-                <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
-                  <div className="text-slate-400 font-bold uppercase text-[10px]">Seating Capacity</div>
-                  <div className="text-slate-900 font-extrabold text-sm">{car.specs.seatingCapacity} Seater</div>
+                <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 space-y-1">
+                  <div className="text-[#AA957A] font-bold uppercase text-[10px]">Seating Capacity</div>
+                  <div className="text-[#2E271F] font-extrabold text-sm">{car.specs.seatingCapacity} Seater</div>
                 </div>
-                <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
-                  <div className="text-slate-400 font-bold uppercase text-[10px]">Boot Space</div>
-                  <div className="text-slate-900 font-extrabold text-sm">{car.specs.bootSpace}</div>
+                <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 space-y-1">
+                  <div className="text-[#AA957A] font-bold uppercase text-[10px]">Boot Space</div>
+                  <div className="text-[#2E271F] font-extrabold text-sm">{car.specs.bootSpace}</div>
                 </div>
-                <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
-                  <div className="text-slate-400 font-bold uppercase text-[10px]">Ground Clearance</div>
-                  <div className="text-slate-900 font-extrabold text-sm">{car.specs.groundClearance}</div>
+                <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 space-y-1">
+                  <div className="text-[#AA957A] font-bold uppercase text-[10px]">Ground Clearance</div>
+                  <div className="text-[#2E271F] font-extrabold text-sm">{car.specs.groundClearance}</div>
                 </div>
-                <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
-                  <div className="text-slate-400 font-bold uppercase text-[10px]">Airbags &amp; Safety</div>
-                  <div className="text-slate-900 font-extrabold text-sm">{car.specs.airbags} Airbags Standard</div>
+                <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 space-y-1">
+                  <div className="text-[#AA957A] font-bold uppercase text-[10px]">Airbags &amp; Safety</div>
+                  <div className="text-[#2E271F] font-extrabold text-sm">{car.specs.airbags} Airbags Standard</div>
                 </div>
-                <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
-                  <div className="text-slate-400 font-bold uppercase text-[10px]">Sunroof Type</div>
-                  <div className="text-slate-900 font-extrabold text-sm">{car.specs.sunroof}</div>
+                <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 space-y-1">
+                  <div className="text-[#AA957A] font-bold uppercase text-[10px]">Sunroof Type</div>
+                  <div className="text-[#2E271F] font-extrabold text-sm">{car.specs.sunroof}</div>
                 </div>
-                <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
-                  <div className="text-slate-400 font-bold uppercase text-[10px]">Fuel Tank / Battery</div>
-                  <div className="text-slate-900 font-extrabold text-sm">{car.specs.fuelTank}</div>
+                <div className="p-3.5 bg-[#FDF8F4] rounded-2xl border border-[#ECC4A6]/50 space-y-1">
+                  <div className="text-[#AA957A] font-bold uppercase text-[10px]">Fuel Tank / Battery</div>
+                  <div className="text-[#2E271F] font-extrabold text-sm">{car.specs.fuelTank}</div>
                 </div>
               </div>
             </div>
@@ -486,11 +547,11 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
 
         </div>
 
-        {/* Sticky Floating Bottom Bar */}
-        <div className="sticky bottom-0 z-30 bg-white border-t border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-3 shadow-lg">
+        {/* Sticky Floating Bottom Bar for Quick Action */}
+        <div className="sticky bottom-0 z-30 bg-[#FDF8F4] border-t border-[#ECC4A6] px-4 sm:px-6 py-3 flex items-center justify-between gap-3 shadow-lg">
           <div>
-            <div className="text-[11px] text-slate-500 font-semibold">Total Price (No extra fees)</div>
-            <div className="text-lg sm:text-xl font-black text-slate-900">
+            <div className="text-[11px] text-[#8B785F] font-semibold">Total Price (No hidden fees)</div>
+            <div className="text-lg sm:text-xl font-black text-[#2E271F]">
               {formatPrice(car.price)}
             </div>
           </div>
@@ -500,23 +561,23 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
               href={`https://wa.me/918047259900?text=Hi%20Kundapura%20Cars,%20I%20am%20interested%20in%20${encodeURIComponent(car.title)}%20parked%20at%20${encodeURIComponent(car.hubLocation)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-xl border border-emerald-200 transition-colors flex items-center gap-1.5 text-xs font-bold"
+              className="p-2.5 text-[#74351B] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors flex items-center gap-1.5 text-xs font-bold"
               title="Chat on WhatsApp"
             >
-              <MessageSquare className="w-4 h-4 text-emerald-600" />
+              <MessageSquare className="w-4 h-4 text-[#D27848]" />
               <span className="hidden sm:inline">WhatsApp</span>
             </a>
 
             <button
               onClick={() => onReserveCar(car)}
-              className="px-3.5 py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-extrabold rounded-xl transition-all shadow-xs"
+              className="px-3.5 py-2.5 bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] text-xs font-extrabold rounded-xl border border-[#ECC4A6] transition-all shadow-2xs"
             >
               Reserve (₹999)
             </button>
 
             <button
               onClick={() => onBookTestDrive(car)}
-              className="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-extrabold rounded-xl shadow-md shadow-brand-500/25 transition-all flex items-center gap-1.5"
+              className="px-4 py-2.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-xs font-extrabold rounded-xl shadow-md transition-all flex items-center gap-1.5"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>Book Free Test Drive</span>
@@ -529,3 +590,4 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
     </div>
   );
 };
+

@@ -34,7 +34,7 @@ export function NavBar({ items, className, activeItem, onSelect }: NavBarProps) 
         className,
       )}
     >
-      <div className="flex items-center gap-1.5 sm:gap-2 bg-slate-100/90 border border-slate-200 backdrop-blur-lg p-1 rounded-full shadow-xs">
+      <div className="flex items-center gap-1.5 sm:gap-2 bg-[#FBF0E6] border border-[#ECC4A6] backdrop-blur-lg p-1 rounded-full shadow-subtle">
         {items.map((item) => {
           const Icon = item.icon
           const isActive = activeTab === item.name
@@ -46,28 +46,30 @@ export function NavBar({ items, className, activeItem, onSelect }: NavBarProps) 
               onClick={(e) => {
                 if (item.onClick) {
                   e.preventDefault()
-                  item.onClick()
                 }
                 setActiveTab(item.name)
                 if (onSelect) onSelect(item.name)
               }}
               className={cn(
                 "relative cursor-pointer text-xs sm:text-sm font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full transition-colors flex items-center gap-2",
-                "text-slate-700 hover:text-brand-600",
-                isActive && "bg-white text-brand-600 shadow-xs",
+                "text-[#74351B] hover:text-[#2E271F]",
+                isActive && "bg-[#D27848] text-white shadow-xs",
               )}
             >
-              <Icon size={16} strokeWidth={2.2} className={isActive ? "text-brand-600" : "text-slate-500"} />
+              <Icon size={16} strokeWidth={2.2} className={isActive ? "text-white" : "text-[#D27848]"} />
               <span>{item.name}</span>
               {item.badge !== undefined && item.badge > 0 && (
-                <span className="w-4 h-4 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center">
+                <span className={cn(
+                  "w-4 h-4 rounded-full text-[9px] font-bold flex items-center justify-center",
+                  isActive ? "bg-white text-[#D27848]" : "bg-[#D27848] text-white"
+                )}>
                   {item.badge}
                 </span>
               )}
               {isActive && (
                 <motion.div
                   layoutId="lamp"
-                  className="absolute inset-0 w-full bg-brand-500/5 rounded-full -z-10"
+                  className="absolute inset-0 w-full bg-[#D27848]/10 rounded-full -z-10"
                   initial={false}
                   transition={{
                     type: "spring",
@@ -75,10 +77,9 @@ export function NavBar({ items, className, activeItem, onSelect }: NavBarProps) 
                     damping: 30,
                   }}
                 >
-                  <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-8 h-1 bg-brand-600 rounded-t-full">
-                    <div className="absolute w-10 h-4 bg-brand-500/25 rounded-full blur-md -top-2 -left-1" />
-                    <div className="absolute w-6 h-4 bg-brand-500/30 rounded-full blur-sm -top-1" />
-                    <div className="absolute w-3 h-3 bg-brand-500/40 rounded-full blur-xs top-0 left-2" />
+                  <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-8 h-1 bg-[#D27848] rounded-t-full">
+                    <div className="absolute w-10 h-4 bg-[#D27848]/30 rounded-full blur-md -top-2 -left-1" />
+                    <div className="absolute w-6 h-4 bg-[#D27848]/40 rounded-full blur-sm -top-1" />
                   </div>
                 </motion.div>
               )}
@@ -89,3 +90,4 @@ export function NavBar({ items, className, activeItem, onSelect }: NavBarProps) 
     </div>
   )
 }
+

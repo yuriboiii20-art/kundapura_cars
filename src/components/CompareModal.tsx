@@ -26,21 +26,21 @@ export const CompareModal: React.FC<CompareModalProps> = ({
   if (cars.length === 0) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/75 backdrop-blur-sm flex justify-center p-3 sm:p-6 animate-fade-in">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#17100D]/75 backdrop-blur-sm flex justify-center p-3 sm:p-6 animate-fade-in">
       
-      <div className="bg-white w-full max-w-6xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-auto flex flex-col max-h-[92vh]">
+      <div className="bg-[#FAF7F2] w-full max-w-6xl rounded-3xl shadow-2xl border border-[#ECC4A6] overflow-hidden my-auto flex flex-col max-h-[92vh]">
         
         {/* Modal Header */}
-        <div className="p-4 sm:p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center">
+        <div className="p-4 sm:p-5 border-b border-[#ECC4A6]/60 flex items-center justify-between bg-[#FDF8F4]">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-[#241A15] text-[#D27848] flex items-center justify-center border border-[#451E10]">
               <Layers className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-extrabold text-slate-900 text-sm sm:text-base">
+              <h3 className="font-extrabold text-[#2E271F] text-sm sm:text-base">
                 Side-by-Side Car Comparison ({cars.length} Cars)
               </h3>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-[#8B785F]">
                 Compare specs, inspection ratings and Bangalore pricing
               </p>
             </div>
@@ -48,7 +48,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-slate-800 rounded-full bg-white border border-slate-200 transition-colors"
+            className="p-1.5 text-[#8B785F] hover:text-[#2E271F] rounded-full bg-white border border-[#ECC4A6] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -58,14 +58,14 @@ export const CompareModal: React.FC<CompareModalProps> = ({
         <div className="flex-1 overflow-x-auto overflow-y-auto p-4 sm:p-6">
           <table className="w-full text-left border-collapse min-w-[650px]">
             <thead>
-              <tr className="border-b border-slate-200">
-                <th className="p-3 text-xs font-bold text-slate-400 uppercase w-48">Vehicle</th>
+              <tr className="border-b border-[#ECC4A6]/60">
+                <th className="p-3 text-xs font-bold text-[#AA957A] uppercase w-48">Vehicle</th>
                 {cars.map((car) => (
                   <th key={car.id} className="p-3 w-72 align-top">
-                    <div className="relative group bg-slate-50 p-3 rounded-2xl border border-slate-200 space-y-2">
+                    <div className="relative group bg-white p-3 rounded-2xl border border-[#ECC4A6]/70 space-y-2 shadow-2xs">
                       <button
                         onClick={() => onRemoveCar(car.id)}
-                        className="absolute top-2 right-2 p-1.5 bg-white hover:bg-rose-50 text-slate-400 hover:text-rose-600 rounded-full shadow-xs border border-slate-200"
+                        className="absolute top-2 right-2 p-1.5 bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#AA957A] hover:text-[#D27848] rounded-full shadow-xs border border-[#ECC4A6] transition-colors"
                         title="Remove from comparison"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -75,9 +75,9 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                         alt={car.title}
                         className="w-full h-32 object-cover rounded-xl"
                       />
-                      <div className="text-xs font-black text-slate-900 line-clamp-1">{car.title}</div>
-                      <div className="text-[11px] text-slate-500 font-medium line-clamp-1">{car.variant}</div>
-                      <div className="text-base font-black text-slate-900">{formatPrice(car.price)}</div>
+                      <div className="text-xs font-black text-[#2E271F] line-clamp-1">{car.title}</div>
+                      <div className="text-[11px] text-[#8B785F] font-medium line-clamp-1">{car.variant}</div>
+                      <div className="text-base font-black text-[#2E271F]">{formatPrice(car.price)}</div>
                       
                       <div className="pt-2 flex gap-1.5">
                         <button
@@ -85,7 +85,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                             onClose();
                             onSelectCar(car);
                           }}
-                          className="flex-1 py-1.5 bg-white hover:bg-slate-100 text-slate-800 text-[11px] font-bold rounded-lg border border-slate-200"
+                          className="flex-1 py-1.5 bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] text-[11px] font-bold rounded-lg border border-[#ECC4A6] transition-colors"
                         >
                           View Details
                         </button>
@@ -94,7 +94,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                             onClose();
                             onBookTestDrive(car);
                           }}
-                          className="py-1.5 px-2.5 bg-brand-600 hover:bg-brand-700 text-white text-[11px] font-extrabold rounded-lg"
+                          className="py-1.5 px-2.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-[11px] font-extrabold rounded-lg transition-colors shadow-2xs"
                         >
                           Test Drive
                         </button>
@@ -105,15 +105,15 @@ export const CompareModal: React.FC<CompareModalProps> = ({
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
+            <tbody className="divide-y divide-[#ECC4A6]/40 text-xs text-[#6D5D49]">
               
               {/* Inspection Rating */}
-              <tr className="hover:bg-slate-50/60">
-                <td className="p-3 font-bold text-slate-900 bg-slate-50/50">Inspection Score</td>
+              <tr className="hover:bg-[#FDF8F4]">
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">Inspection Score</td>
                 {cars.map((car) => (
                   <td key={car.id} className="p-3">
-                    <span className="badge-pill bg-emerald-50 text-emerald-800 border border-emerald-200">
-                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                    <span className="badge-pill bg-[#FDF3EA] text-[#74351B] border border-[#ECC4A6] font-bold">
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#D27848]" />
                       {car.inspectionScore}/10 (200 Pts)
                     </span>
                   </td>
@@ -121,86 +121,86 @@ export const CompareModal: React.FC<CompareModalProps> = ({
               </tr>
 
               {/* Monthly EMI */}
-              <tr className="hover:bg-slate-50/60">
-                <td className="p-3 font-bold text-slate-900 bg-slate-50/50">EMI From</td>
+              <tr className="hover:bg-[#FDF8F4]">
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">EMI From</td>
                 {cars.map((car) => (
-                  <td key={car.id} className="p-3 font-extrabold text-brand-600">
+                  <td key={car.id} className="p-3 font-extrabold text-[#D27848]">
                     {formatIndianCurrency(car.emiStarting)} / mo
                   </td>
                 ))}
               </tr>
 
               {/* Kilometers Driven */}
-              <tr className="hover:bg-slate-50/60">
-                <td className="p-3 font-bold text-slate-900 bg-slate-50/50">KM Driven</td>
+              <tr className="hover:bg-[#FDF8F4]">
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">KM Driven</td>
                 {cars.map((car) => (
-                  <td key={car.id} className="p-3 font-semibold">{formatKm(car.kilometers)}</td>
+                  <td key={car.id} className="p-3 font-semibold text-[#2E271F]">{formatKm(car.kilometers)}</td>
                 ))}
               </tr>
 
               {/* Fuel & Transmission */}
-              <tr className="hover:bg-slate-50/60">
-                <td className="p-3 font-bold text-slate-900 bg-slate-50/50">Fuel &amp; Transmission</td>
+              <tr className="hover:bg-[#FDF8F4]">
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">Fuel &amp; Transmission</td>
                 {cars.map((car) => (
-                  <td key={car.id} className="p-3 font-semibold">
+                  <td key={car.id} className="p-3 font-semibold text-[#2E271F]">
                     {car.fuelType} • {car.transmission}
                   </td>
                 ))}
               </tr>
 
               {/* Mileage */}
-              <tr className="hover:bg-slate-50/60">
-                <td className="p-3 font-bold text-slate-900 bg-slate-50/50">ARAI Mileage</td>
+              <tr className="hover:bg-[#FDF8F4]">
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">ARAI Mileage</td>
                 {cars.map((car) => (
-                  <td key={car.id} className="p-3 font-semibold">{car.specs.mileageARAI}</td>
+                  <td key={car.id} className="p-3 font-semibold text-[#2E271F]">{car.specs.mileageARAI}</td>
                 ))}
               </tr>
 
               {/* Engine */}
-              <tr className="hover:bg-slate-50/60">
-                <td className="p-3 font-bold text-slate-900 bg-slate-50/50">Engine / Power</td>
+              <tr className="hover:bg-[#FDF8F4]">
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">Engine / Power</td>
                 {cars.map((car) => (
-                  <td key={car.id} className="p-3">{car.specs.maxPower} ({car.specs.engineCapacity})</td>
+                  <td key={car.id} className="p-3 text-[#2E271F]">{car.specs.maxPower} ({car.specs.engineCapacity})</td>
                 ))}
               </tr>
 
               {/* Safety */}
-              <tr className="hover:bg-slate-50/60">
-                <td className="p-3 font-bold text-slate-900 bg-slate-50/50">Airbags</td>
+              <tr className="hover:bg-[#FDF8F4]">
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">Airbags</td>
                 {cars.map((car) => (
-                  <td key={car.id} className="p-3 font-bold text-slate-900">{car.specs.airbags} Airbags</td>
+                  <td key={car.id} className="p-3 font-bold text-[#2E271F]">{car.specs.airbags} Airbags</td>
                 ))}
               </tr>
 
               {/* Sunroof */}
-              <tr className="hover:bg-slate-50/60">
-                <td className="p-3 font-bold text-slate-900 bg-slate-50/50">Sunroof</td>
+              <tr className="hover:bg-[#FDF8F4]">
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">Sunroof</td>
                 {cars.map((car) => (
-                  <td key={car.id} className="p-3">{car.specs.sunroof}</td>
+                  <td key={car.id} className="p-3 text-[#2E271F]">{car.specs.sunroof}</td>
                 ))}
               </tr>
 
               {/* Boot Space */}
-              <tr className="hover:bg-slate-50/60">
-                <td className="p-3 font-bold text-slate-900 bg-slate-50/50">Boot Capacity</td>
+              <tr className="hover:bg-[#FDF8F4]">
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">Boot Capacity</td>
                 {cars.map((car) => (
-                  <td key={car.id} className="p-3">{car.specs.bootSpace}</td>
+                  <td key={car.id} className="p-3 text-[#2E271F]">{car.specs.bootSpace}</td>
                 ))}
               </tr>
 
               {/* RTO / Registration */}
-              <tr className="hover:bg-slate-50/60">
-                <td className="p-3 font-bold text-slate-900 bg-slate-50/50">RTO Location</td>
+              <tr className="hover:bg-[#FDF8F4]">
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">RTO Location</td>
                 {cars.map((car) => (
-                  <td key={car.id} className="p-3 font-semibold">{car.rto}</td>
+                  <td key={car.id} className="p-3 font-semibold text-[#2E271F]">{car.rto}</td>
                 ))}
               </tr>
 
               {/* Hub */}
-              <tr className="hover:bg-slate-50/60">
-                <td className="p-3 font-bold text-slate-900 bg-slate-50/50">Bangalore Hub</td>
+              <tr className="hover:bg-[#FDF8F4]">
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">Bangalore Hub</td>
                 {cars.map((car) => (
-                  <td key={car.id} className="p-3 font-medium text-brand-700">{car.hubLocation}</td>
+                  <td key={car.id} className="p-3 font-medium text-[#2E271F]">{car.hubLocation}</td>
                 ))}
               </tr>
 
@@ -213,3 +213,4 @@ export const CompareModal: React.FC<CompareModalProps> = ({
     </div>
   );
 };
+

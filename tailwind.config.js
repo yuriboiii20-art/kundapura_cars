@@ -7,58 +7,74 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
-          950: '#2e1065',
+        peach: {
+          50: '#FDF8F4',
+          100: '#FBF0E6',
+          200: '#F7DEC9',
+          300: '#ECC4A6',
+          400: '#DF9F76',
+          500: '#D27848',
+          600: '#B95C2E',
+          700: '#964521',
+          800: '#74351B',
+          900: '#451E10',
+          950: '#271007',
         },
-        spinny: {
-          purple: '#5d3be7',
-          deep: '#1e1b4b',
-          teal: '#0d9488',
-          emerald: '#10b981',
-          amber: '#f59e0b',
-          rose: '#f43f5e',
-          surface: '#f8fafc',
+        apricot: {
+          50: '#FFF7F2',
+          100: '#FDEEE4',
+          200: '#FBDAC8',
+          300: '#F6BEA0',
+          400: '#ED976C',
+          500: '#E0713B',
+          600: '#C75323',
+          700: '#A43D17',
+          800: '#843114',
+          900: '#521D0A',
+          950: '#2E0E04',
+        },
+        beige: {
+          50: '#FAF7F2',
+          100: '#F5EFE6',
+          200: '#ECE2D2',
+          300: '#DFCFBA',
+          400: '#C8B49B',
+          500: '#AA957A',
+          600: '#8B785F',
+          700: '#6D5D49',
+          800: '#4F4335',
+          900: '#2E271F',
+          950: '#1A1612',
+        },
+        brand: {
+          50: '#FDF8F4',
+          100: '#FBF0E6',
+          200: '#F7DEC9',
+          300: '#ECC4A6',
+          400: '#DF9F76',
+          500: '#D27848',
+          600: '#B95C2E',
+          700: '#964521',
+          800: '#74351B',
+          900: '#451E10',
+          950: '#271007',
+        },
+        dark: {
+          900: '#241A15',
+          950: '#17100D',
         }
       },
       fontFamily: {
         sans: ['Plus Jakarta Sans', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        'subtle': '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03)',
-        'card': '0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.02)',
-        'hover': '0 20px 30px -10px rgba(93, 59, 231, 0.12), 0 8px 12px -4px rgba(0, 0, 0, 0.04)',
-        'float': '0 25px 50px -12px rgba(0, 0, 0, 0.15)',
-      },
-      animation: {
-        'fade-in': 'fadeIn 0.25s ease-out',
-        'slide-up': 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-        'pulse-subtle': 'pulseSubtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(16px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        pulseSubtle: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.85' },
-        }
+        'subtle': '0 1px 3px 0 rgba(116, 53, 27, 0.05), 0 1px 2px 0 rgba(116, 53, 27, 0.03)',
+        'card': '0 4px 20px -2px rgba(116, 53, 27, 0.06), 0 2px 6px -1px rgba(116, 53, 27, 0.03)',
+        'hover': '0 20px 30px -10px rgba(116, 53, 27, 0.12), 0 8px 12px -4px rgba(116, 53, 27, 0.04)',
+        'glow': '0 0 25px -3px rgba(210, 120, 72, 0.25)',
       }
     },
   },
   plugins: [],
 }
+

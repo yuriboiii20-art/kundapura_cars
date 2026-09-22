@@ -198,7 +198,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f8fafc] text-slate-800">
+    <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#2E271F]">
       
       {/* 1. Header / Navbar */}
       <Navbar
@@ -214,137 +214,137 @@ export const App: React.FC = () => {
         activeFilterCount={activeFilterCount}
       />
 
-      {/* 2. Hero Banner */}
-      <HeroBanner />
+      {/* Desktop Full-Height Fixed Filter Sidebar */}
+      <div className="hidden md:block">
+        <FilterSidebar
+          filters={filters}
+          onFilterChange={setFilters}
+          onResetFilters={handleResetFilters}
+          availableBrands={availableBrands}
+          totalResults={filteredCars.length}
+        />
+      </div>
 
-      {/* 3. Main Catalog Section */}
-      <main id="car-catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 w-full flex-1">
+      {/* Main Right Scrollable Content Area */}
+      <div className="md:pl-72 lg:pl-80 flex-1 flex flex-col min-w-0">
         
-        {/* Catalog Control Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-200">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-2">
-              <span>Bangalore Certified Cars</span>
-              <span className="text-xs font-extrabold px-2.5 py-1 rounded-full bg-brand-50 text-brand-700 border border-brand-200">
-                {filteredCars.length} Available
-              </span>
-            </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Every car is 200-point inspected, available at Bangalore Hubs or for doorstep test drive.
-            </p>
-          </div>
+        {/* 2. Hero Banner */}
+        <HeroBanner />
 
-          {/* Sort Selector & Mobile Filter Trigger */}
-          <div className="flex items-center gap-2.5 self-end sm:self-auto">
-            
-            {/* Mobile Filter Button */}
-            <button
-              onClick={() => setMobileFilterOpen(true)}
-              className="md:hidden flex items-center gap-1.5 px-3 py-2 bg-white text-slate-800 text-xs font-bold rounded-xl border border-slate-200 shadow-xs"
-            >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-brand-600" />
-              <span>Filters</span>
-              {activeFilterCount > 0 && (
-                <span className="w-4 h-4 bg-brand-600 text-white rounded-full text-[9px] flex items-center justify-center font-bold">
-                  {activeFilterCount}
+        {/* 3. Main Catalog Section */}
+        <main id="car-catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 w-full flex-1">
+          
+          {/* Catalog Control Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#ECC4A6]/60">
+            <div>
+              <h2 className="text-xl sm:text-2xl font-black text-[#2E271F] tracking-tight flex items-center gap-2">
+                <span>Bangalore Certified Cars</span>
+                <span className="text-xs font-black px-3 py-1 rounded-full bg-[#241A15] text-[#FDF8F4] border border-[#451E10] shadow-2xs">
+                  {filteredCars.length} Available
                 </span>
-              )}
-            </button>
+              </h2>
+              <p className="text-xs text-[#8B785F] mt-0.5">
+                Every car is 200-point inspected, available at Bangalore Hubs or for doorstep test drive.
+              </p>
+            </div>
 
-            {/* Sort Dropdown */}
-            <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-slate-200 text-xs shadow-xs">
-              <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
-              <span className="text-slate-500 font-medium hidden sm:inline">Sort by:</span>
-              <select
-                value={filters.sortBy}
-                onChange={(e) => setFilters((prev) => ({ ...prev, sortBy: e.target.value as any }))}
-                className="bg-transparent font-bold text-slate-800 outline-none cursor-pointer"
+            {/* Sort Selector & Mobile Filter Trigger */}
+            <div className="flex items-center gap-2.5 self-end sm:self-auto">
+              
+              {/* Mobile Filter Button */}
+              <button
+                onClick={() => setMobileFilterOpen(true)}
+                className="md:hidden flex items-center gap-1.5 px-3 py-2 bg-[#D27848] text-white text-xs font-bold rounded-xl border border-[#B95C2E] shadow-xs"
               >
-                <option value="recommended">Featured &amp; Recommended</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="km-asc">Lowest Kilometers</option>
-                <option value="year-desc">Newest Model Year</option>
-              </select>
+                <SlidersHorizontal className="w-3.5 h-3.5 text-white" />
+                <span>Filters</span>
+                {activeFilterCount > 0 && (
+                  <span className="w-4 h-4 bg-white text-[#D27848] rounded-full text-[9px] flex items-center justify-center font-bold">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </button>
+
+              {/* Sort Dropdown */}
+              <div className="flex items-center gap-2 bg-[#FDF8F4] px-3 py-2 rounded-xl border border-[#ECC4A6] text-xs shadow-subtle">
+                <ArrowUpDown className="w-3.5 h-3.5 text-[#AA957A]" />
+                <span className="text-[#8B785F] font-medium hidden sm:inline">Sort by:</span>
+                <select
+                  value={filters.sortBy}
+                  onChange={(e) => setFilters((prev) => ({ ...prev, sortBy: e.target.value as any }))}
+                  className="bg-transparent font-bold text-[#2E271F] outline-none cursor-pointer"
+                >
+                  <option value="recommended">Featured &amp; Recommended</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="km-asc">Lowest Kilometers</option>
+                  <option value="year-desc">Newest Model Year</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Active Filter Chips bar (if any) */}
-        {activeFilterCount > 0 && (
-          <div className="flex flex-wrap items-center gap-2 mb-6">
-            <span className="text-xs font-bold text-slate-400">Active:</span>
+          {/* Active Filter Chips bar (if any) */}
+          {activeFilterCount > 0 && (
+            <div className="flex flex-wrap items-center gap-2 mb-6">
+              <span className="text-xs font-bold text-[#AA957A]">Active:</span>
 
-            {filters.searchQuery && (
-              <span className="badge-pill bg-white text-slate-800 border border-slate-200 shadow-2xs">
-                <span>"{filters.searchQuery}"</span>
-                <button onClick={() => setFilters((prev) => ({ ...prev, searchQuery: '' }))}>
-                  <X className="w-3 h-3 text-slate-400 hover:text-slate-600" />
-                </button>
-              </span>
-            )}
+              {filters.searchQuery && (
+                <span className="badge-pill bg-[#FDF8F4] text-[#74351B] border border-[#ECC4A6] shadow-2xs">
+                  <span>"{filters.searchQuery}"</span>
+                  <button onClick={() => setFilters((prev) => ({ ...prev, searchQuery: '' }))}>
+                    <X className="w-3 h-3 text-[#AA957A] hover:text-[#74351B]" />
+                  </button>
+                </span>
+              )}
 
-            {filters.bodyTypes.map((t) => (
-              <span key={t} className="badge-pill bg-brand-50 text-brand-800 border border-brand-200">
-                <span>{t}</span>
-                <button onClick={() => setFilters((prev) => ({ ...prev, bodyTypes: prev.bodyTypes.filter((x) => x !== t) }))}>
-                  <X className="w-3 h-3 text-brand-500 hover:text-brand-700" />
-                </button>
-              </span>
-            ))}
+              {filters.bodyTypes.map((t) => (
+                <span key={t} className="badge-pill bg-[#FDF3EA] text-[#74351B] border border-[#ECC4A6] shadow-2xs">
+                  <span>{t}</span>
+                  <button onClick={() => setFilters((prev) => ({ ...prev, bodyTypes: prev.bodyTypes.filter((x) => x !== t) }))}>
+                    <X className="w-3 h-3 text-[#AA957A] hover:text-[#74351B]" />
+                  </button>
+                </span>
+              ))}
 
-            {filters.brands.map((b) => (
-              <span key={b} className="badge-pill bg-brand-50 text-brand-800 border border-brand-200">
-                <span>{b}</span>
-                <button onClick={() => setFilters((prev) => ({ ...prev, brands: prev.brands.filter((x) => x !== b) }))}>
-                  <X className="w-3 h-3 text-brand-500 hover:text-brand-700" />
-                </button>
-              </span>
-            ))}
+              {filters.brands.map((b) => (
+                <span key={b} className="badge-pill bg-[#FDF3EA] text-[#74351B] border border-[#ECC4A6] shadow-2xs">
+                  <span>{b}</span>
+                  <button onClick={() => setFilters((prev) => ({ ...prev, brands: prev.brands.filter((x) => x !== b) }))}>
+                    <X className="w-3 h-3 text-[#AA957A] hover:text-[#74351B]" />
+                  </button>
+                </span>
+              ))}
 
-            {filters.fuelTypes.map((f) => (
-              <span key={f} className="badge-pill bg-brand-50 text-brand-800 border border-brand-200">
-                <span>{f}</span>
-                <button onClick={() => setFilters((prev) => ({ ...prev, fuelTypes: prev.fuelTypes.filter((x) => x !== f) }))}>
-                  <X className="w-3 h-3 text-brand-500 hover:text-brand-700" />
-                </button>
-              </span>
-            ))}
+              {filters.fuelTypes.map((f) => (
+                <span key={f} className="badge-pill bg-[#FDF3EA] text-[#74351B] border border-[#ECC4A6] shadow-2xs">
+                  <span>{f}</span>
+                  <button onClick={() => setFilters((prev) => ({ ...prev, fuelTypes: prev.fuelTypes.filter((x) => x !== f) }))}>
+                    <X className="w-3 h-3 text-[#AA957A] hover:text-[#74351B]" />
+                  </button>
+                </span>
+              ))}
 
-            {filters.transmissions.map((tr) => (
-              <span key={tr} className="badge-pill bg-brand-50 text-brand-800 border border-brand-200">
-                <span>{tr}</span>
-                <button onClick={() => setFilters((prev) => ({ ...prev, transmissions: prev.transmissions.filter((x) => x !== tr) }))}>
-                  <X className="w-3 h-3 text-brand-500 hover:text-brand-700" />
-                </button>
-              </span>
-            ))}
+              {filters.transmissions.map((tr) => (
+                <span key={tr} className="badge-pill bg-[#FDF3EA] text-[#74351B] border border-[#ECC4A6] shadow-2xs">
+                  <span>{tr}</span>
+                  <button onClick={() => setFilters((prev) => ({ ...prev, transmissions: prev.transmissions.filter((x) => x !== tr) }))}>
+                    <X className="w-3 h-3 text-[#AA957A] hover:text-[#74351B]" />
+                  </button>
+                </span>
+              ))}
 
-            <button
-              onClick={handleResetFilters}
-              className="text-xs font-bold text-rose-600 hover:text-rose-700 hover:underline ml-2"
-            >
-              Clear All Filters
-            </button>
-          </div>
-        )}
-
-        {/* Content Layout: Sidebar + Car Grid */}
-        <div className="flex gap-8 items-start">
-          
-          {/* Desktop Filter Sidebar */}
-          <div className="hidden md:block">
-            <FilterSidebar
-              filters={filters}
-              onFilterChange={setFilters}
-              onResetFilters={handleResetFilters}
-              availableBrands={availableBrands}
-              totalResults={filteredCars.length}
-            />
-          </div>
+              <button
+                onClick={handleResetFilters}
+                className="text-xs font-bold text-[#D27848] hover:text-[#B95C2E] hover:underline ml-2"
+              >
+                Clear All Filters
+              </button>
+            </div>
+          )}
 
           {/* Car Cards Grid */}
-          <div className="flex-1 min-w-0">
+          <div className="w-full">
             {filteredCars.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredCars.map((car) => (
@@ -362,19 +362,19 @@ export const App: React.FC = () => {
               </div>
             ) : (
               /* Empty State */
-              <div className="bg-white rounded-3xl p-10 sm:p-16 border border-slate-200 text-center shadow-xs">
-                <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto text-slate-400 mb-4">
-                  <CarIcon className="w-8 h-8 text-slate-400" />
+              <div className="bg-[#FDF8F4] rounded-3xl p-10 sm:p-16 border border-[#ECC4A6] text-center shadow-subtle">
+                <div className="w-16 h-16 rounded-2xl bg-[#FBF0E6] flex items-center justify-center mx-auto text-[#D27848] mb-4 border border-[#ECC4A6]">
+                  <CarIcon className="w-8 h-8 text-[#D27848]" />
                 </div>
-                <h3 className="text-lg font-black text-slate-900 mb-1">
+                <h3 className="text-lg font-black text-[#2E271F] mb-1">
                   No Certified Cars Match Your Filters
                 </h3>
-                <p className="text-xs text-slate-500 max-w-md mx-auto mb-6">
+                <p className="text-xs text-[#8B785F] max-w-md mx-auto mb-6">
                   Try adjusting your budget slider, fuel type, or body style to view more cars available in Bangalore.
                 </p>
                 <button
                   onClick={handleResetFilters}
-                  className="px-5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-extrabold text-xs rounded-xl shadow-md transition-all"
+                  className="px-5 py-2.5 bg-[#D27848] hover:bg-[#B95C2E] text-white font-extrabold text-xs rounded-xl shadow-md transition-all"
                 >
                   Reset All Filters
                 </button>
@@ -382,27 +382,27 @@ export const App: React.FC = () => {
             )}
           </div>
 
-        </div>
+        </main>
 
-      </main>
+        {/* 4. The Kundapura Cars Assured 4 Pillars */}
+        <TrustBadges />
 
-      {/* 4. The Kundapura Cars Assured 4 Pillars */}
-      <TrustBadges />
+        {/* 5. Bangalore Experience Hubs Showcase */}
+        <BangaloreHubs />
 
-      {/* 5. Bangalore Experience Hubs Showcase */}
-      <BangaloreHubs />
+        {/* 6. FAQ Section */}
+        <FaqSection />
 
-      {/* 6. FAQ Section */}
-      <FaqSection />
+        {/* 7. Footer */}
+        <Footer onOpenHubs={scrollToHubs} onOpenAssurance={scrollToAssurance} />
 
-      {/* 7. Footer */}
-      <Footer onOpenHubs={scrollToHubs} onOpenAssurance={scrollToAssurance} />
+      </div>
 
       {/* Floating Compare Bar (when 1+ cars selected) */}
       {compareList.length > 0 && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-slate-900/95 backdrop-blur-md text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-4 animate-slide-up max-w-lg w-[92%] sm:w-auto">
-          <div className="flex items-center gap-2 text-xs font-bold">
-            <Layers className="w-4 h-4 text-brand-400" />
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-[#241A15]/95 backdrop-blur-md text-[#FDF8F4] px-5 py-3 rounded-2xl shadow-2xl border border-[#451E10] flex items-center gap-4 animate-slide-up max-w-lg w-[92%] sm:w-auto">
+          <div className="flex items-center gap-2 text-xs font-bold text-[#FDF8F4]">
+            <Layers className="w-4 h-4 text-[#D27848]" />
             <span>{compareList.length} Selected for Compare</span>
           </div>
 
@@ -412,7 +412,7 @@ export const App: React.FC = () => {
                 key={c.id}
                 src={c.images[0]}
                 alt={c.title}
-                className="inline-block h-7 w-7 rounded-full ring-2 ring-slate-900 object-cover"
+                className="inline-block h-7 w-7 rounded-full ring-2 ring-[#241A15] object-cover"
               />
             ))}
           </div>
@@ -420,13 +420,13 @@ export const App: React.FC = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setCompareModalOpen(true)}
-              className="px-3.5 py-1.5 bg-brand-600 hover:bg-brand-500 text-white text-xs font-extrabold rounded-xl transition-all shadow-xs"
+              className="px-3.5 py-1.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-xs font-extrabold rounded-xl transition-all shadow-xs"
             >
               Compare Now
             </button>
             <button
               onClick={() => setCompareList([])}
-              className="p-1 text-slate-400 hover:text-white"
+              className="p-1 text-[#AA957A] hover:text-[#FDF8F4]"
               title="Clear"
             >
               <X className="w-4 h-4" />
@@ -440,10 +440,10 @@ export const App: React.FC = () => {
         href="https://wa.me/918047259900?text=Hi%20Kundapura%20Cars%20Bangalore,%20I%20would%20like%20to%20inquire%20about%20certified%20used%20cars."
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-5 right-5 z-30 w-12 h-12 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+        className="fixed bottom-5 right-5 z-30 w-12 h-12 rounded-full bg-[#241A15] hover:bg-[#451E10] text-[#FDF8F4] shadow-hover flex items-center justify-center transition-all hover:scale-110 active:scale-95 border border-[#ECC4A6]/70"
         title="Chat with Bangalore Hub on WhatsApp"
       >
-        <MessageSquare className="w-6 h-6" />
+        <MessageSquare className="w-6 h-6 text-[#D27848]" />
       </a>
 
       {/* Modals */}
