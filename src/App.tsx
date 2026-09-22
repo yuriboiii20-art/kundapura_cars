@@ -8,7 +8,7 @@ import {
   X
 } from 'lucide-react';
 import { CARS_DATA } from './data/carsData';
-import { Car, FilterState, BodyType } from './types/car';
+import { Car, FilterState } from './types/car';
 import { Navbar } from './components/Navbar';
 import { HeroBanner } from './components/HeroBanner';
 import { FilterSidebar } from './components/FilterSidebar';
@@ -39,7 +39,6 @@ const INITIAL_FILTERS: FilterState = {
 
 export const App: React.FC = () => {
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
-  const [selectedBudgetLabel, setSelectedBudgetLabel] = useState('All Budgets');
   
   // Wishlist state with localStorage persistence
   const [wishlistIds, setWishlistIds] = useState<string[]>(() => {
@@ -177,30 +176,8 @@ export const App: React.FC = () => {
     return CARS_DATA.filter((car) => wishlistIds.includes(car.id));
   }, [wishlistIds]);
 
-  // Budget preset selection
-  const handleSelectBudgetPreset = (min: number, max: number) => {
-    setFilters((prev) => ({
-      ...prev,
-      minPrice: min,
-      maxPrice: max
-    }));
-    if (min === 0 && max >= 10000000) setSelectedBudgetLabel('All Budgets');
-    else if (max <= 700000) setSelectedBudgetLabel('Under ₹7 Lakh');
-    else if (min === 700000 && max <= 1200000) setSelectedBudgetLabel('₹7L - ₹12 Lakh');
-    else if (min === 1200000 && max <= 1800000) setSelectedBudgetLabel('₹12L - ₹18 Lakh');
-    else setSelectedBudgetLabel('Above ₹18 Lakh');
-  };
-
-  const handleSelectBodyType = (type: BodyType | undefined) => {
-    setFilters((prev) => ({
-      ...prev,
-      bodyTypes: type ? [type] : []
-    }));
-  };
-
   const handleResetFilters = () => {
     setFilters(INITIAL_FILTERS);
-    setSelectedBudgetLabel('All Budgets');
   };
 
   const activeFilterCount =
@@ -237,14 +214,8 @@ export const App: React.FC = () => {
         activeFilterCount={activeFilterCount}
       />
 
-      {/* 2. Hero Banner with Bangalore lock & 21st.dev quick pills */}
-      <HeroBanner
-        selectedBodyType={filters.bodyTypes.length === 1 ? filters.bodyTypes[0] : undefined}
-        onSelectBodyType={handleSelectBodyType}
-        onSelectBudgetPreset={handleSelectBudgetPreset}
-        selectedBudgetLabel={selectedBudgetLabel}
-        totalCarsCount={filteredCars.length}
-      />
+      {/* 2. Hero Banner */}
+      <HeroBanner />
 
       {/* 3. Main Catalog Section */}
       <main id="car-catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 w-full flex-1">
