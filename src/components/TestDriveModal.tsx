@@ -65,14 +65,14 @@ export const TestDriveModal: React.FC<TestDriveModalProps> = ({ car, onClose }) 
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#17100D]/75 backdrop-blur-sm flex justify-center p-3 sm:p-6 animate-fade-in">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#17100D]/80 backdrop-blur-sm flex justify-center p-0 sm:p-4 md:p-6 animate-fade-in">
       
-      <div className="bg-[#FAF7F2] w-full max-w-lg rounded-3xl shadow-2xl border border-[#ECC4A6] overflow-hidden my-auto relative animate-slide-up">
+      <div className="bg-[#FAF7F2] w-full max-w-lg h-full sm:h-auto rounded-none sm:rounded-3xl shadow-2xl border-0 sm:border border-[#ECC4A6] overflow-y-auto my-0 sm:my-auto relative animate-slide-up flex flex-col justify-between sm:justify-start max-h-none sm:max-h-[90vh]">
         
         {/* Header */}
-        <div className="p-4 sm:p-5 border-b border-[#ECC4A6]/60 flex items-center justify-between bg-[#FDF8F4]">
+        <div className="p-3.5 sm:p-5 border-b border-[#ECC4A6]/60 flex items-center justify-between bg-[#FDF8F4] shrink-0">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-[#241A15] text-[#D27848] flex items-center justify-center border border-[#451E10]">
+            <div className="w-8 h-8 rounded-xl bg-[#241A15] text-[#D27848] flex items-center justify-center border border-[#451E10] shrink-0">
               <CarIcon className="w-4 h-4" />
             </div>
             <div>
@@ -95,7 +95,7 @@ export const TestDriveModal: React.FC<TestDriveModalProps> = ({ car, onClose }) 
 
         {/* Modal Content */}
         {!isBooked ? (
-          <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4">
+          <form onSubmit={handleSubmit} className="p-4 sm:p-6 space-y-4 flex-1">
             
             {/* Selected Car Card Preview */}
             <div className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#ECC4A6]/70 shadow-2xs">

@@ -26,19 +26,19 @@ export const CompareModal: React.FC<CompareModalProps> = ({
   if (cars.length === 0) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#17100D]/75 backdrop-blur-sm flex justify-center p-3 sm:p-6 animate-fade-in">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#17100D]/80 backdrop-blur-sm flex justify-center p-0 sm:p-4 md:p-6 animate-fade-in">
       
-      <div className="bg-[#FAF7F2] w-full max-w-6xl rounded-3xl shadow-2xl border border-[#ECC4A6] overflow-hidden my-auto flex flex-col max-h-[92vh]">
+      <div className="bg-[#FAF7F2] w-full max-w-6xl h-full sm:h-auto rounded-none sm:rounded-3xl shadow-2xl border-0 sm:border border-[#ECC4A6] overflow-hidden my-0 sm:my-auto flex flex-col max-h-none sm:max-h-[92vh]">
         
         {/* Modal Header */}
-        <div className="p-4 sm:p-5 border-b border-[#ECC4A6]/60 flex items-center justify-between bg-[#FDF8F4]">
+        <div className="p-3.5 sm:p-5 border-b border-[#ECC4A6]/60 flex items-center justify-between bg-[#FDF8F4] shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#241A15] text-[#D27848] flex items-center justify-center border border-[#451E10]">
+            <div className="w-8 h-8 rounded-xl bg-[#241A15] text-[#D27848] flex items-center justify-center border border-[#451E10] shrink-0">
               <Layers className="w-4 h-4" />
             </div>
             <div>
               <h3 className="font-extrabold text-[#2E271F] text-sm sm:text-base">
-                Side-by-Side Car Comparison ({cars.length} Cars)
+                Side-by-Side Comparison ({cars.length} Cars)
               </h3>
               <p className="text-[11px] text-[#8B785F]">
                 Compare specs, inspection ratings and Bangalore pricing
@@ -54,8 +54,13 @@ export const CompareModal: React.FC<CompareModalProps> = ({
           </button>
         </div>
 
+        {/* Mobile Swipe Hint Banner */}
+        <div className="sm:hidden px-3.5 py-1.5 bg-[#FDF3EA] border-b border-[#ECC4A6]/60 text-center text-[11px] font-bold text-[#74351B] flex items-center justify-center gap-1.5 shrink-0">
+          <span>👈 Swipe horizontally to compare vehicles 👉</span>
+        </div>
+
         {/* Scrollable Table View */}
-        <div className="flex-1 overflow-x-auto overflow-y-auto p-4 sm:p-6">
+        <div className="flex-1 overflow-x-auto overflow-y-auto p-3 sm:p-6">
           <table className="w-full text-left border-collapse min-w-[650px]">
             <thead>
               <tr className="border-b border-[#ECC4A6]/60">
