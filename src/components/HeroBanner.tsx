@@ -22,7 +22,7 @@ const SLIDES = [
     id: 3,
     title: '5-Day 100% Money-Back Guarantee',
     subtitle: 'Test your car in real life. If you do not love it within 5 days, get a full refund.',
-    buttonText: 'Browse Bangalore Inventory',
+    buttonText: 'Browse Kundapura Inventory',
   },
 ];
 
@@ -57,7 +57,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onBuyCarClick }) => {
         <div className="absolute inset-0 z-0">
           <img
             src="/images/mobile-hero-bg.jpg"
-            alt="Kundapura Cars Bangalore Intro"
+            alt="Kundapura Cars Intro"
             className="w-full h-full object-cover object-center scale-105 animate-pulse-slow transform transition-transform duration-1000 ease-out"
           />
           
@@ -120,12 +120,12 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onBuyCarClick }) => {
             <h1 className="text-3xl lg:text-5xl font-black text-[#2E271F] tracking-tight leading-[1.2]">
               Buy Certified Used Cars in{' '}
               <span className="text-[#D27848] underline decoration-[#ECC4A6] decoration-4 underline-offset-8">
-                Bangalore
+                Kundapura
               </span>
             </h1>
             <p className="mt-3 text-[#6D5D49] text-sm sm:text-base leading-relaxed">
               No middlemen, no lemon cars. Every car is handpicked, 200-point engineer inspected, backed by a 
-              <strong className="text-[#2E271F] font-extrabold"> 1-Year Warranty</strong> &amp; <strong className="text-[#2E271F] font-extrabold"> 5-Day 100% Money-Back Guarantee</strong> with free Bangalore RTO transfer.
+              <strong className="text-[#2E271F] font-extrabold"> 1-Year Warranty</strong> &amp; <strong className="text-[#2E271F] font-extrabold"> 5-Day 100% Money-Back Guarantee</strong> with free Kundapura &amp; Karnataka RTO transfer.
             </p>
 
             {/* Quick Assurance Badges */}

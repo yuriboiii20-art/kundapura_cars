@@ -41,7 +41,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                 Side-by-Side Comparison ({cars.length} Cars)
               </h3>
               <p className="text-[11px] text-[#8B785F]">
-                Compare specs, inspection ratings and Bangalore pricing
+                Compare specs, inspection ratings and Kundapura pricing
               </p>
             </div>
           </div>
@@ -203,7 +203,7 @@ export const CompareModal: React.FC<CompareModalProps> = ({
 
               {/* Hub */}
               <tr className="hover:bg-[#FDF8F4]">
-                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">Bangalore Hub</td>
+                <td className="p-3 font-bold text-[#2E271F] bg-[#FDF8F4]/70">Kundapura Hub</td>
                 {cars.map((car) => (
                   <td key={car.id} className="p-3 font-medium text-[#2E271F]">{car.hubLocation}</td>
                 ))}

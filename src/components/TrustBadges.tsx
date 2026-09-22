@@ -32,7 +32,7 @@ export const TrustBadges: React.FC = () => {
     {
       icon: FileCheck2,
       title: 'Free RTO Transfer',
-      description: 'In-house RTO ownership transfer across all Bangalore RTOs (KA-01 to KA-51) at zero extra fee.',
+      description: 'In-house RTO ownership transfer across Kundapura (KA-20) & all Karnataka RTOs at zero extra fee.',
       badge: 'Free RC Transfer'
     }
   ];
@@ -48,7 +48,7 @@ export const TrustBadges: React.FC = () => {
             <span>The Kundapura Assurance</span>
           </div>
           <h2 className="text-base sm:text-xl lg:text-2xl font-black text-[#2E271F] tracking-tight">
-            Why Bangalore Trusts Kundapura Cars
+            Why Kundapura Trusts Kundapura Cars
           </h2>
           <p className="mt-0.5 text-[10px] sm:text-xs text-[#8B785F]">
             Highest certification standards • 100% Verified Quality • Zero Guesswork

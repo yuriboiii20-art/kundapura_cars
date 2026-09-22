@@ -45,7 +45,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* ROW 1: Header Brand & Actions */}
         <div className="flex items-center justify-between h-14 sm:h-20 gap-2 sm:gap-6">
           
-          {/* Left: Hamburger (Mobile) + Brand Name & Bangalore Selector */}
+          {/* Left: Hamburger (Mobile) + Brand Name & Kundapura Selector */}
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             
             {/* Mobile Hamburger Menu Icon (≡) */}
@@ -65,15 +65,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
             </a>
 
-            {/* Bangalore City Pill (Desktop) */}
+            {/* Kundapura City Pill (Desktop) */}
             <div className="relative hidden md:block">
               <button
                 onClick={() => setCityTooltipOpen(!cityTooltipOpen)}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] text-xs font-bold border border-[#ECC4A6] shadow-2xs transition-all"
-                title="Service location: Bangalore"
+                title="Service location: Kundapura"
               >
                 <MapPin className="w-3.5 h-3.5 text-[#D27848] shrink-0" />
-                <span>Bangalore</span>
+                <span>Kundapura</span>
                 <ChevronDown className="w-3.5 h-3.5 text-[#964521]" />
               </button>
 
@@ -81,17 +81,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="absolute top-full left-0 mt-2 w-72 bg-[#241A15] text-[#FDF8F4] rounded-2xl shadow-2xl border border-[#451E10] p-4 z-50 text-xs animate-slide-up">
                   <div className="font-bold text-[#FDF8F4] mb-1 flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-[#D27848]"></span>
-                    <span>Bangalore Exclusive Marketplace</span>
+                    <span>Kundapura Exclusive Marketplace</span>
                   </div>
                   <p className="text-[#DFCFBA] text-[11px] leading-relaxed mb-3">
-                    Every car is physically available at our Bangalore Hubs with free home test drives.
+                    Every car is physically available at our Kundapura Hubs with free home test drives.
                   </p>
                   <div className="bg-[#17100D] p-2.5 rounded-xl text-[11px] font-semibold text-[#F7DEC9] space-y-1 border border-[#451E10]">
-                    <div>📍 Koramangala 80ft Hub</div>
-                    <div>📍 Indiranagar 100ft Hub</div>
-                    <div>📍 Mantri Mall, Malleshwaram Hub</div>
-                    <div>📍 Whitefield Tech Park Hub</div>
-                    <div>📍 Hebbal Ring Road Hub</div>
+                    <div>📍 Kundapura NH 66 Hub</div>
+                    <div>📍 Koteshwara Highway Yard</div>
+                    <div>📍 Kundapura Beach Road Hub</div>
+                    <div>📍 Udupi Expressway Hub</div>
+                    <div>📍 Byndoor Coastal Hub</div>
                   </div>
                 </div>
               )}
@@ -150,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }}
                     className="w-full text-left px-3 py-2 rounded-xl text-[#2E271F] font-bold hover:bg-[#D27848] hover:text-white transition-colors"
                   >
-                    Visit Bangalore Hubs
+                    Visit Kundapura Hubs
                   </button>
                 </div>
               )}
@@ -191,7 +191,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* CALL US (Desktop) */}
             <a
-              href="tel:+918047259900"
+              href="tel:+918254233440"
               className="hidden md:flex flex-col text-right leading-tight hover:opacity-85 transition-opacity pl-2 border-l border-[#ECC4A6]/60"
             >
               <span className="text-[10px] font-semibold text-[#8B785F] flex items-center justify-end gap-1">
@@ -199,7 +199,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 Call us at
               </span>
               <span className="text-xs sm:text-sm font-black text-[#2E271F] tracking-tight">
-                +91 80 4725 9900
+                +91 8254 233 440
               </span>
             </a>
 
@@ -207,27 +207,27 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         </div>
 
-        {/* ROW 2: Mobile Location Dropdown + Search Row (Matches Screenshot 1) */}
+        {/* ROW 2: Mobile Location Dropdown + Search Row */}
         <div className="pb-2.5 pt-0.5 md:hidden flex items-center gap-2">
           
-          {/* Bangalore Dropdown Pill */}
+          {/* Kundapura Dropdown Pill */}
           <div className="relative shrink-0">
             <button
               onClick={() => setCityTooltipOpen(!cityTooltipOpen)}
               className="flex items-center gap-1 px-3 py-2 rounded-xl bg-white hover:bg-[#FBF0E6] text-[#2E271F] text-xs font-black border border-gray-200 shadow-2xs transition-all"
             >
-              <span>Bangalore</span>
+              <span>Kundapura</span>
               <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
             </button>
 
             {cityTooltipOpen && (
               <div className="absolute top-full left-0 mt-1.5 w-64 bg-[#241A15] text-[#FDF8F4] rounded-2xl shadow-2xl border border-[#451E10] p-3 z-50 text-xs animate-slide-up">
-                <div className="font-bold text-[#FDF8F4] mb-1">Bangalore Hubs</div>
+                <div className="font-bold text-[#FDF8F4] mb-1">Kundapura Hubs</div>
                 <div className="text-[11px] text-[#DFCFBA] space-y-1">
-                  <div>📍 Koramangala Hub</div>
-                  <div>📍 Indiranagar Hub</div>
-                  <div>📍 Malleshwaram Hub</div>
-                  <div>📍 Whitefield Hub</div>
+                  <div>📍 Kundapura NH 66 Hub</div>
+                  <div>📍 Koteshwara Highway Yard</div>
+                  <div>📍 Beach Road Hub</div>
+                  <div>📍 Udupi Expressway Hub</div>
                 </div>
               </div>
             )}

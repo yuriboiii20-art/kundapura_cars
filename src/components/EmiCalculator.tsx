@@ -37,7 +37,7 @@ export const EmiCalculator: React.FC<EmiCalculatorProps> = ({ carPrice }) => {
               Customized EMI &amp; Loan Planner
             </h4>
             <p className="text-xs text-[#8B785F]">
-              Partnered with HDFC, ICICI, SBI, Axis &amp; Kotak for instant Bangalore approvals
+              Partnered with top banks &amp; financiers for instant Kundapura approvals
             </p>
           </div>
         </div>
@@ -178,7 +178,7 @@ export const EmiCalculator: React.FC<EmiCalculatorProps> = ({ carPrice }) => {
 
           <div className="flex items-center gap-2 text-[11px] text-[#DFCFBA] bg-[#17100D] border border-[#451E10] p-2.5 rounded-2xl">
             <CheckCircle className="w-4 h-4 text-[#D27848] shrink-0" />
-            <span>Instant approval with KYC in 30 minutes in Bangalore</span>
+            <span>Instant approval with KYC in 30 minutes in Kundapura</span>
           </div>
         </div>
 

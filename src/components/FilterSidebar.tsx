@@ -287,9 +287,9 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
         </div>
       </div>
 
-      {/* Bangalore Notice Note */}
+      {/* Kundapura Notice Note */}
       <div className="p-3 bg-[#241A15] text-[#DFCFBA] rounded-xl text-[11px] border border-[#451E10] leading-relaxed">
-        <strong className="text-[#FDF8F4]">Bangalore Certified:</strong> All cars are physically parked at Bangalore hubs with active Karnataka RTO clearance.
+        <strong className="text-[#FDF8F4]">Kundapura Certified:</strong> All cars are physically parked at Kundapura hubs with active Karnataka RTO clearance.
       </div>
     </div>
   );

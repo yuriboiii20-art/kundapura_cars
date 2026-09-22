@@ -23,7 +23,7 @@ export const FaqSection: React.FC = () => {
             Frequently Asked Questions
           </h2>
           <p className="mt-1 text-xs sm:text-sm text-[#8B785F]">
-            Everything you need to know about buying a certified car in Bangalore
+            Everything you need to know about buying a certified car in Kundapura
           </p>
         </div>
 

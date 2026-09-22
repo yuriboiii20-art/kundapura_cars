@@ -16,13 +16,13 @@ export const CARS_DATA: Car[] = [
     transmission: 'Manual',
     bodyType: 'Hatchback',
     owner: '1st Owner',
-    rto: 'KA-19 (Mantri Mall, Malleshwaram)',
-    hubLocation: 'Mantri Mall, Malleshwaram',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Kundapura NH 66 Highway Hub',
     color: 'Maharaja Red',
     isAssured: true,
     featured: true,
     trending: true,
-    tags: ['High quality, less driven', 'Single Owner', 'KA19 RTO', 'Fuel Efficient', 'Under Warranty'],
+    tags: ['High quality, less driven', 'Single Owner', 'KA20 RTO', 'Fuel Efficient', 'Under Warranty'],
     inspectionScore: 9.4,
     inspectionSummary: {
       engineTransmission: {
@@ -111,13 +111,13 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'SUV',
     owner: '1st Owner',
-    rto: 'KA-01 (Koramangala, Bangalore)',
-    hubLocation: 'Koramangala 80ft Road Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Kundapura NH 66 Highway Hub',
     color: 'Phantom Black',
     isAssured: true,
     featured: true,
     trending: true,
-    tags: ['Single Owner', 'Panoramic Sunroof', 'Ventilated Seats', 'Bangalore RTO', 'Under Warranty'],
+    tags: ['Single Owner', 'Panoramic Sunroof', 'Ventilated Seats', 'Kundapura RTO', 'Under Warranty'],
     inspectionScore: 9.9,
     inspectionSummary: {
       engineTransmission: {
@@ -206,8 +206,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'SUV',
     owner: '1st Owner',
-    rto: 'KA-03 (Indiranagar, Bangalore)',
-    hubLocation: 'Indiranagar 100ft Road Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Kundapura Beach Road Hub',
     color: 'Rocky Beige / Deep Forest',
     isAssured: true,
     featured: true,
@@ -300,8 +300,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'EV',
     owner: '1st Owner',
-    rto: 'KA-51 (Electronic City, Bangalore)',
-    hubLocation: 'Whitefield Tech Park Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Koteshwara Highway Yard',
     color: 'Intensi-Teal / Pristine White',
     isAssured: true,
     featured: true,
@@ -354,7 +354,7 @@ export const CARS_DATA: Car[] = [
       '40.5 kWh High Energy Density Lithium-ion Battery',
       '437 km Certified ARAI Range on Single Charge',
       'Multi-mode Regenerative Braking with Paddle Shifters',
-      'Front Ventilated Seats for Bangalore Summers',
+      'Front Ventilated Seats for Coastal Summers',
       'Electric Sunroof with Tilt Function',
       'Wireless Smartphone Fast Charger',
       'Air Purifier with AQI Real-time Display',
@@ -393,8 +393,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'Sedan',
     owner: '1st Owner',
-    rto: 'KA-04 (Yeshwanthpur, Bangalore)',
-    hubLocation: 'Hebbal Ring Road Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Udupi - Kundapura Expressway Hub',
     color: 'Radiant Red Metallic',
     isAssured: true,
     featured: true,
@@ -486,8 +486,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Manual',
     bodyType: 'Hatchback',
     owner: '1st Owner',
-    rto: 'KA-05 (Jayanagar, Bangalore)',
-    hubLocation: 'Koramangala 80ft Road Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Kundapura NH 66 Highway Hub',
     color: 'Nexa Blue',
     isAssured: true,
     featured: false,
@@ -538,7 +538,7 @@ export const CARS_DATA: Car[] = [
     },
     features: [
       'SmartPlay Studio Touchscreen with Voice Commands',
-      'UV Cut Solar Glass to reduce Bangalore heat',
+      'UV Cut Solar Glass to reduce Coastal heat',
       'LED Projector Headlamps with DRLs',
       'Automatic Climate Control',
       'Push Button Engine Start/Stop',
@@ -579,8 +579,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'SUV',
     owner: '1st Owner',
-    rto: 'KA-01 (Koramangala, Bangalore)',
-    hubLocation: 'Whitefield Tech Park Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Koteshwara Highway Yard',
     color: 'Midnight Black (Deep Blue Hue)',
     isAssured: true,
     featured: true,
@@ -602,7 +602,7 @@ export const CARS_DATA: Car[] = [
         checksTotal: 42,
         checksPassed: 42,
         status: 'passed',
-        highlights: ['FSD dampers absorb Bangalore potholes seamlessly', 'Electronic park brake tested', 'Brakes at 84%']
+        highlights: ['FSD dampers absorb road potholes seamlessly', 'Electronic park brake tested', 'Brakes at 84%']
       },
       bodyPaint: {
         title: 'Body, Flush Door Handles & Skyroof',
@@ -672,8 +672,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'Sedan',
     owner: '1st Owner',
-    rto: 'KA-03 (Indiranagar, Bangalore)',
-    hubLocation: 'Indiranagar 100ft Road Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Kundapura Beach Road Hub',
     color: 'Wild Cherry Red',
     isAssured: true,
     featured: true,
@@ -765,8 +765,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'MUV',
     owner: '1st Owner',
-    rto: 'KA-04 (Yeshwanthpur, Bangalore)',
-    hubLocation: 'Hebbal Ring Road Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Udupi - Kundapura Expressway Hub',
     color: 'Super White',
     isAssured: true,
     featured: false,
@@ -858,8 +858,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'Luxury',
     owner: '1st Owner',
-    rto: 'KA-01 (Koramangala, Bangalore)',
-    hubLocation: 'Koramangala 80ft Road Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Kundapura NH 66 Highway Hub',
     color: 'Portimao Blue Metallic',
     isAssured: true,
     featured: true,
@@ -951,8 +951,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'EV',
     owner: '1st Owner',
-    rto: 'KA-20 (Kundapura / Udupi Transfer to Bangalore)',
-    hubLocation: 'Kundapura & Koramangala Hub',
+    rto: 'KA-20 (Kundapura / Udupi RTO)',
+    hubLocation: 'Kundapura NH 66 Highway Hub',
     color: 'Teal Blue Metallic',
     isAssured: true,
     featured: false,
@@ -966,7 +966,7 @@ export const CARS_DATA: Car[] = [
         checksTotal: 48,
         checksPassed: 48,
         status: 'passed',
-        highlights: ['Battery SOH 99.2%', 'Fast DC charging tested on Bangalore Bescom network', 'Silent zippy commute']
+        highlights: ['Battery SOH 99.2%', 'Fast DC charging tested on Karnataka EV network', 'Silent zippy commute']
       },
       steeringSuspension: {
         title: 'City Agility Steering & Suspension',
@@ -974,7 +974,7 @@ export const CARS_DATA: Car[] = [
         checksTotal: 42,
         checksPassed: 42,
         status: 'passed',
-        highlights: ['Super light steering for Bangalore traffic', 'Brakes at 92% life', 'Low center of gravity']
+        highlights: ['Super light steering for city traffic', 'Brakes at 92% life', 'Low center of gravity']
       },
       bodyPaint: {
         title: 'Structure & Paint',
@@ -1044,8 +1044,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'SUV',
     owner: '1st Owner',
-    rto: 'KA-01 (Koramangala, Bangalore)',
-    hubLocation: 'Koramangala 80ft Road Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Kundapura NH 66 Highway Hub',
     color: 'Gravity Grey Metallic',
     isAssured: true,
     featured: false,
@@ -1137,8 +1137,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'SUV',
     owner: '1st Owner',
-    rto: 'KA-04 (Yeshwanthpur, Bangalore)',
-    hubLocation: 'Hebbal Ring Road Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Udupi - Kundapura Expressway Hub',
     color: 'Cafe White & Midnight Black Dual Tone',
     isAssured: true,
     featured: false,
@@ -1152,7 +1152,7 @@ export const CARS_DATA: Car[] = [
         checksTotal: 48,
         checksPassed: 48,
         status: 'passed',
-        highlights: ['Switches seamlessly between pure EV and petrol engine', 'Delivers unmatched 25+ kmpl in Bangalore bumper-to-bumper traffic', 'Zero starter sound']
+        highlights: ['Switches seamlessly between pure EV and petrol engine', 'Delivers unmatched 25+ kmpl in Kundapura & city traffic', 'Zero starter sound']
       },
       steeringSuspension: {
         title: 'Suspension & Regenerative Braking',
@@ -1188,7 +1188,7 @@ export const CARS_DATA: Car[] = [
       }
     },
     features: [
-      'Self-Charging Strong Hybrid Engine (Runs 50% of Bangalore City Drive in Pure EV Mode)',
+      'Self-Charging Strong Hybrid Engine (Runs 50% of City Drive in Pure EV Mode)',
       'Unbelievable ARAI Mileage of 27.97 kmpl',
       'Panoramic Sunroof with Double Sliding Glass',
       'Head-Up Display (HUD) with Hybrid Power Meter',
@@ -1230,8 +1230,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Manual',
     bodyType: 'Hatchback',
     owner: '1st Owner',
-    rto: 'KA-20 (Kundapura / Transfer to Bangalore Included)',
-    hubLocation: 'Kundapura & Koramangala Hub',
+    rto: 'KA-20 (Kundapura / Udupi RTO)',
+    hubLocation: 'Kundapura NH 66 Highway Hub',
     color: 'Solid Fire Red with Midnight Black Roof',
     isAssured: true,
     featured: false,
@@ -1323,8 +1323,8 @@ export const CARS_DATA: Car[] = [
     transmission: 'Automatic',
     bodyType: 'Sedan',
     owner: '1st Owner',
-    rto: 'KA-05 (Jayanagar, Bangalore)',
-    hubLocation: 'Indiranagar 100ft Road Hub',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Kundapura Beach Road Hub',
     color: 'Crystal Blue Metallic',
     isAssured: true,
     featured: false,
@@ -1403,72 +1403,74 @@ export const CARS_DATA: Car[] = [
   }
 ];
 
-export const BANGALORE_HUBS = [
+export const KUNDAPURA_HUBS = [
   {
-    id: 'hub-koramangala',
-    name: 'Koramangala 80ft Road Hub',
-    address: '80 Feet Road, 4th Block, Koramangala, Bengaluru, Karnataka 560034',
-    landmark: 'Near Sony World Signal & Forum Mall',
-    timing: '9:30 AM - 8:30 PM (Open 7 Days)',
-    phone: '+91 80 4725 9900',
+    id: 'hub-kundapura-main',
+    name: 'Kundapura NH 66 Highway Hub',
+    address: 'Main NH 66 Highway Junction, Near Shastri Circle, Kundapura, Karnataka 576201',
+    landmark: 'Near Shastri Circle & Kundapura KSRTC Bus Stand',
+    timing: '9:00 AM - 8:30 PM (Open 7 Days)',
+    phone: '+91 8254 233 440',
     carCount: '85+ Certified Cars in Stock',
     amenities: ['Test Drive Lounge', 'Instant RTO Desk', 'EV Fast Charging Station', 'Free Valet Parking'],
     image: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'hub-indiranagar',
-    name: 'Indiranagar 100ft Road Hub',
-    address: '100 Feet Road, HAL 2nd Stage, Indiranagar, Bengaluru, Karnataka 560038',
-    landmark: 'Opposite Toit & CMH Metro Station (500m)',
-    timing: '9:30 AM - 8:30 PM (Open 7 Days)',
-    phone: '+91 80 4725 9901',
+    id: 'hub-koteshwara',
+    name: 'Koteshwara Highway Yard',
+    address: 'NH 66 Bypass, Near Kotilingeshwara Temple Road, Koteshwara, Kundapura 576222',
+    landmark: 'Opposite NH 66 Toll Plaza Junction',
+    timing: '9:00 AM - 8:30 PM (Open 7 Days)',
+    phone: '+91 8254 233 441',
     carCount: '65+ Certified Cars in Stock',
     amenities: ['VIP Consultation Suites', 'Coffee Bar', '360° Vehicle Inspection Bay', 'Finance Desks'],
     image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'hub-whitefield',
-    name: 'Whitefield Tech Park Hub',
-    address: 'ITPL Main Road, Prestige Shantiniketan Complex, Whitefield, Bengaluru 560066',
-    landmark: 'Adjacent to Nexus Shantiniketan Mall',
-    timing: '9:30 AM - 8:30 PM (Open 7 Days)',
-    phone: '+91 80 4725 9902',
+    id: 'hub-kodi-beach',
+    name: 'Kundapura Beach Road Hub',
+    address: 'Beach Road, Near Kodi Sea Walk & Lighthouse, Kundapura 576201',
+    landmark: 'Near Kodi Beach Promenade',
+    timing: '9:00 AM - 8:30 PM (Open 7 Days)',
+    phone: '+91 8254 233 442',
     carCount: '90+ Certified Cars in Stock',
     amenities: ['Multi-Level Car Experience Yard', 'Dedicated EV Zone', 'Express Delivery Lounge'],
     image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'hub-hebbal',
-    name: 'Hebbal Ring Road Hub',
-    address: 'Outer Ring Road, Near Hebbal Flyover & Esteem Mall, Bengaluru 560024',
-    landmark: 'Direct Airport Highway Access',
-    timing: '9:30 AM - 8:30 PM (Open 7 Days)',
-    phone: '+91 80 4725 9903',
+    id: 'hub-udupi-expressway',
+    name: 'Udupi - Kundapura Expressway Hub',
+    address: 'Main Highway Road, Near Kalsanka Junction, Udupi - Kundapura Highway 576102',
+    landmark: 'Direct Highway Access & Test Track',
+    timing: '9:00 AM - 8:30 PM (Open 7 Days)',
+    phone: '+91 8254 233 443',
     carCount: '75+ Certified Cars in Stock',
     amenities: ['Highway Test Drive Track', 'Doorstep Delivery Fleet Base', 'Insurance Counter'],
     image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80'
   },
   {
-    id: 'hub-kundapura',
-    name: 'Kundapura Express Hub (Coastal Karnataka)',
-    address: 'Main NH 66 Highway Junction, Near Shastri Circle, Kundapura, Karnataka 576201',
-    landmark: 'Connecting Udupi, Mangalore & Direct Transport to Bangalore Hubs',
+    id: 'hub-byndoor',
+    name: 'Byndoor Coastal Hub',
+    address: 'NH 66 Bypass, Near Mookambika Road Junction, Byndoor, Kundapura 576214',
+    landmark: 'Connecting Kollur & Coastal Highway',
     timing: '9:00 AM - 8:00 PM (Open 7 Days)',
-    phone: '+91 8254 233 440',
+    phone: '+91 8254 233 444',
     carCount: '45+ Handpicked Coastal Cars',
-    amenities: ['Direct Bangalore Transport Desk', 'Single Owner Verified Vehicles', 'Coastal Inspection Specialization'],
+    amenities: ['Direct Coastal Transport Desk', 'Single Owner Verified Vehicles', 'Coastal Inspection Specialization'],
     image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80'
   }
 ];
 
+export const BANGALORE_HUBS = KUNDAPURA_HUBS;
+
 export const FAQ_ITEMS = [
   {
     question: 'How is Kundapura Assured different from regular used car dealers?',
-    answer: 'Every Kundapura Cars vehicle passes an uncompromising 200-point rigorous technical inspection conducted by certified automotive engineers. We inspect everything from engine compression, chassis integrity, electronics, AC performance to brake wear. We offer a 1-Year Comprehensive Warranty, 5-Day Money-Back Guarantee with 100% refund, fixed non-negotiable transparent pricing with no hidden charges, and hassle-free free RC transfer across Bangalore RTOs.'
+    answer: 'Every Kundapura Cars vehicle passes an uncompromising 200-point rigorous technical inspection conducted by certified automotive engineers. We inspect everything from engine compression, chassis integrity, electronics, AC performance to brake wear. We offer a 1-Year Comprehensive Warranty, 5-Day Money-Back Guarantee with 100% refund, fixed non-negotiable transparent pricing with no hidden charges, and hassle-free free RC transfer across Kundapura & Karnataka RTOs.'
   },
   {
-    question: 'Can I get a home test drive in Bangalore?',
-    answer: 'Yes! You can book a Free Test Drive either at any of our 5 Experience Hubs in Bangalore (Koramangala, Indiranagar, Whitefield, Hebbal) or request a Doorstep Test Drive directly to your home or office anywhere within Bengaluru BBMP limits at your chosen date and time.'
+    question: 'Can I get a home test drive in Kundapura?',
+    answer: 'Yes! You can book a Free Test Drive either at any of our Experience Hubs in Kundapura or request a Doorstep Test Drive directly to your home or office anywhere across Kundapura & Udupi region at your chosen date and time.'
   },
   {
     question: 'How does the 5-Day Money Back Guarantee work?',
@@ -1479,7 +1481,8 @@ export const FAQ_ITEMS = [
     answer: 'When you find your dream car, click "Reserve for ₹999". This instantly locks the car exclusively for you for 48 hours so nobody else can buy it while you test drive and finalize financing. The ₹999 token is 100% refundable if you decide not to proceed.'
   },
   {
-    question: 'Do you help with car loan financing and RC transfer in Bangalore?',
-    answer: 'Absolutely. We have partnered with top banks (HDFC, ICICI, SBI, Axis, Kotak) to offer instant loan approvals up to 90% financing at attractive interest rates starting from 8.5%. Our dedicated operations team manages the entire Karnataka RTO name transfer process and delivers the updated RC smartcard directly to your doorstep.'
+    question: 'Do you help with car loan financing and RC transfer in Kundapura?',
+    answer: 'Absolutely. We have partnered with top banks (HDFC, ICICI, SBI, Axis, Canara Bank, Karnataka Bank) to offer instant loan approvals up to 90% financing at attractive interest rates starting from 8.5%. Our dedicated operations team manages the entire Karnataka RTO name transfer process and delivers the updated RC smartcard directly to your doorstep.'
   }
 ];
+

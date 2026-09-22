@@ -143,7 +143,7 @@ export const CarCard: React.FC<CarCardProps> = ({
             </span>
           </div>
 
-          {/* Row 4: Bangalore Hub Location */}
+          {/* Row 4: Kundapura Hub Location */}
           <div className="flex items-center gap-1.5 text-xs text-[#8B785F] font-medium mb-3">
             <span className="inline-flex items-center justify-center w-4 h-4 rounded-xs border border-[#ECC4A6] bg-[#FBF0E6] text-[8px] font-black text-[#74351B]">
               S

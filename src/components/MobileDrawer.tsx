@@ -279,7 +279,7 @@ export const MobileDrawer: React.FC<MobileDrawerProps> = ({
               className="w-full flex items-center gap-2.5 py-1.5 px-1 text-xs font-bold text-[#2E271F] hover:text-[#D27848] transition-colors text-left"
             >
               <MapPin className="w-4 h-4 text-[#7C3AED]" />
-              <span>Bangalore Experience Hubs</span>
+              <span>Kundapura Experience Hubs</span>
             </button>
           </div>
 
