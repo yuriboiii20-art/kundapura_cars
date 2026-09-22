@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { 
   MapPin, 
   Heart, 
-  SlidersHorizontal, 
   Phone, 
   Search, 
   Layers, 
   X,
-  ChevronDown
+  ChevronDown,
+  Menu
 } from 'lucide-react';
 import { Car } from '@/types/car';
 
@@ -22,6 +22,7 @@ interface NavbarProps {
   onOpenAssurance?: () => void;
   onOpenMobileFilters: () => void;
   activeFilterCount: number;
+  onOpenDrawer: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -32,40 +33,52 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenWishlist,
   onOpenCompare,
   onOpenHubs,
-  onOpenMobileFilters,
-  activeFilterCount
+  onOpenDrawer
 }) => {
   const [cityTooltipOpen, setCityTooltipOpen] = useState(false);
   const [buyDropdownOpen, setBuyDropdownOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#FDF8F4]/95 backdrop-blur-md border-b border-[#ECC4A6]/60 shadow-subtle transition-all">
+    <header className="sticky top-0 z-40 w-full bg-[#FDF8F4]/98 backdrop-blur-md border-b border-[#ECC4A6]/60 shadow-xs transition-all">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        
+        {/* ROW 1: Header Brand & Actions */}
         <div className="flex items-center justify-between h-14 sm:h-20 gap-2 sm:gap-6">
           
-          {/* Left: Brand Name & Bangalore Selector Pill */}
+          {/* Left: Hamburger (Mobile) + Brand Name & Bangalore Selector */}
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+            
+            {/* Mobile Hamburger Menu Icon (≡) */}
+            <button
+              onClick={onOpenDrawer}
+              className="md:hidden p-1.5 -ml-1 text-[#2E271F] hover:text-[#D27848] rounded-lg transition-colors focus:outline-none"
+              title="Open Navigation Menu"
+              aria-label="Open Navigation Menu"
+            >
+              <Menu className="w-6 h-6 text-[#2E271F]" />
+            </button>
+
+            {/* Brand Logo */}
             <a href="#" className="flex items-center group">
-              <span className="text-lg sm:text-2xl font-black tracking-tight text-[#2E271F] group-hover:opacity-85 transition-opacity">
+              <span className="text-base sm:text-2xl font-black tracking-tight text-[#2E271F] group-hover:opacity-85 transition-opacity">
                 KUNDAPURA<span className="text-[#D27848] font-extrabold ml-0.5">CARS</span>
               </span>
             </a>
 
-            {/* Bangalore City Pill */}
-            <div className="relative">
+            {/* Bangalore City Pill (Desktop) */}
+            <div className="relative hidden md:block">
               <button
                 onClick={() => setCityTooltipOpen(!cityTooltipOpen)}
-                className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-2 rounded-full bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] text-[11px] sm:text-sm font-bold border border-[#ECC4A6] shadow-2xs transition-all"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] text-xs font-bold border border-[#ECC4A6] shadow-2xs transition-all"
                 title="Service location: Bangalore"
               >
-                <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#D27848] shrink-0" />
-                <span className="hidden xs:inline">Bangalore</span>
-                <span className="xs:hidden">BLR</span>
-                <ChevronDown className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#964521]" />
+                <MapPin className="w-3.5 h-3.5 text-[#D27848] shrink-0" />
+                <span>Bangalore</span>
+                <ChevronDown className="w-3.5 h-3.5 text-[#964521]" />
               </button>
 
               {cityTooltipOpen && (
-                <div className="absolute top-full left-0 mt-2 w-72 max-w-[calc(100vw-2rem)] bg-[#241A15] text-[#FDF8F4] rounded-2xl shadow-2xl border border-[#451E10] p-4 z-50 text-xs animate-slide-up">
+                <div className="absolute top-full left-0 mt-2 w-72 bg-[#241A15] text-[#FDF8F4] rounded-2xl shadow-2xl border border-[#451E10] p-4 z-50 text-xs animate-slide-up">
                   <div className="font-bold text-[#FDF8F4] mb-1 flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-[#D27848]"></span>
                     <span>Bangalore Exclusive Marketplace</span>
@@ -83,9 +96,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </div>
               )}
             </div>
+
           </div>
 
-          {/* 1. SEARCH BAR (Center Wide Oval Input - Desktop) */}
+          {/* Center: Search Bar (Desktop) */}
           <div className="flex-1 max-w-xl hidden md:block">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#AA957A]" />
@@ -110,7 +124,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Right: Nav items */}
           <div className="flex items-center gap-2 sm:gap-5">
             
-            {/* 2. BUY CARS Dropdown (Desktop) */}
+            {/* BUY CARS Dropdown (Desktop) */}
             <div className="relative hidden lg:block">
               <button
                 onClick={() => setBuyDropdownOpen(!buyDropdownOpen)}
@@ -156,16 +170,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             )}
 
-            {/* 3. HEART / SHORTLISTED (Visible on both Mobile & Desktop) */}
+            {/* HEART / SHORTLISTED (Mobile & Desktop) */}
             <button
               onClick={onOpenWishlist}
-              className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#2E271F] hover:text-[#D27848] transition-colors p-2 sm:p-0 bg-[#FBF0E6] sm:bg-transparent rounded-xl sm:rounded-none border sm:border-0 border-[#ECC4A6] relative group"
+              className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#2E271F] hover:text-[#D27848] transition-colors p-1.5 sm:p-0 relative group"
               title="Shortlisted Cars"
             >
               <div className="relative flex items-center justify-center">
-                <Heart className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors ${wishlistCount > 0 ? 'fill-[#D27848] text-[#D27848]' : 'text-[#74351B] group-hover:text-[#D27848]'}`} />
+                <Heart className={`w-5 h-5 transition-colors ${wishlistCount > 0 ? 'fill-[#D27848] text-[#D27848]' : 'text-[#74351B] group-hover:text-[#D27848]'}`} />
                 {wishlistCount > 0 && (
-                  <span className="absolute -top-1.5 -right-2 w-4 h-4 bg-[#D27848] text-white text-[9px] font-black rounded-full flex items-center justify-center ring-2 ring-[#FDF8F4]">
+                  <span className="absolute -top-1.5 -right-2 w-4 h-4 bg-[#E12B47] text-white text-[9px] font-black rounded-full flex items-center justify-center ring-2 ring-[#FDF8F4]">
                     {wishlistCount}
                   </span>
                 )}
@@ -175,21 +189,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </span>
             </button>
 
-            {/* 4. Mobile Filter Button (Filter icon on Mobile) */}
-            <button
-              onClick={onOpenMobileFilters}
-              className="md:hidden relative p-2 bg-[#D27848] hover:bg-[#B95C2E] active:scale-95 text-white rounded-xl border border-[#B95C2E] shadow-2xs transition-transform"
-              title="Filter Certified Cars"
-            >
-              <SlidersHorizontal className="w-4 h-4" />
-              {activeFilterCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#241A15] text-[#FDF8F4] text-[9px] font-black rounded-full flex items-center justify-center border border-[#ECC4A6]">
-                  {activeFilterCount}
-                </span>
-              )}
-            </button>
-
-            {/* 5. CALL US (Desktop) */}
+            {/* CALL US (Desktop) */}
             <a
               href="tel:+918047259900"
               className="hidden md:flex flex-col text-right leading-tight hover:opacity-85 transition-opacity pl-2 border-l border-[#ECC4A6]/60"
@@ -207,30 +207,56 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         </div>
 
-        {/* Mobile Search Bar */}
-        <div className="pb-3 md:hidden">
-          <div className="relative">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#AA957A]" />
+        {/* ROW 2: Mobile Location Dropdown + Search Row (Matches Screenshot 1) */}
+        <div className="pb-2.5 pt-0.5 md:hidden flex items-center gap-2">
+          
+          {/* Bangalore Dropdown Pill */}
+          <div className="relative shrink-0">
+            <button
+              onClick={() => setCityTooltipOpen(!cityTooltipOpen)}
+              className="flex items-center gap-1 px-3 py-2 rounded-xl bg-white hover:bg-[#FBF0E6] text-[#2E271F] text-xs font-black border border-gray-200 shadow-2xs transition-all"
+            >
+              <span>Bangalore</span>
+              <ChevronDown className="w-3.5 h-3.5 text-gray-500" />
+            </button>
+
+            {cityTooltipOpen && (
+              <div className="absolute top-full left-0 mt-1.5 w-64 bg-[#241A15] text-[#FDF8F4] rounded-2xl shadow-2xl border border-[#451E10] p-3 z-50 text-xs animate-slide-up">
+                <div className="font-bold text-[#FDF8F4] mb-1">Bangalore Hubs</div>
+                <div className="text-[11px] text-[#DFCFBA] space-y-1">
+                  <div>📍 Koramangala Hub</div>
+                  <div>📍 Indiranagar Hub</div>
+                  <div>📍 Malleshwaram Hub</div>
+                  <div>📍 Whitefield Hub</div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Search by make or model input */}
+          <div className="relative flex-1">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
-              placeholder="Search by model, transmission, brand..."
-              className="w-full pl-10 pr-9 py-2 bg-[#FBF0E6] text-xs text-[#2E271F] rounded-full border border-[#ECC4A6] focus:border-[#D27848] outline-none"
+              placeholder="Search by make or model"
+              className="w-full pl-3 pr-8 py-2 bg-white text-xs text-[#2E271F] placeholder:text-gray-400 rounded-xl border border-gray-200 focus:border-[#D27848] outline-none shadow-2xs"
             />
-            {searchQuery && (
+            {searchQuery ? (
               <button
                 onClick={() => onSearchChange('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#AA957A]"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-gray-400 hover:text-black"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
+            ) : (
+              <Search className="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
             )}
           </div>
+
         </div>
 
       </div>
     </header>
   );
 };
-

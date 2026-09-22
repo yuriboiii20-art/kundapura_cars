@@ -13,81 +13,77 @@ export const TrustBadges: React.FC = () => {
   const pillars = [
     {
       icon: ShieldCheck,
-      iconBg: 'bg-[#FBF0E6] text-[#D27848]',
       title: '200-Point Inspection',
-      description: 'Every car undergoes a forensic 200-point technical evaluation covering engine, transmission, body panels, and suspension. No accidental or flooded cars.',
+      description: 'Forensic 200-point evaluation of engine, gearbox, panels & suspension. Zero accidental or flooded cars.',
       badge: 'Certified Pass'
     },
     {
       icon: Award,
-      iconBg: 'bg-[#FBF0E6] text-[#D27848]',
-      title: '1-Year Comprehensive Warranty',
-      description: 'Zero stress ownership. Complete warranty coverage on engine and gearbox with roadside assistance (RSA) anywhere in Karnataka.',
-      badge: '12 Months / 15,000 km'
+      title: '1-Year Warranty',
+      description: 'Zero stress ownership with full engine & gearbox coverage plus Karnataka roadside assistance.',
+      badge: '12 Mo / 15,000 km'
     },
     {
       icon: RotateCcw,
-      iconBg: 'bg-[#FBF0E6] text-[#D27848]',
-      title: '5-Day 100% Money-Back Guarantee',
-      description: 'Test drive in real life. If you are not 100% in love with your car within 5 days or 300 km, return it for a full refund with zero questions asked.',
+      title: '5-Day Money-Back',
+      description: 'Test drive in real life. Return within 5 days or 300 km for a 100% full refund with zero questions asked.',
       badge: '100% Refund'
     },
     {
       icon: FileCheck2,
-      iconBg: 'bg-[#FBF0E6] text-[#D27848]',
-      title: 'Hassle-Free Karnataka RTO Transfer',
-      description: 'Our in-house RTO team handles full ownership transfer across all Bangalore RTOs (KA-01, KA-03, KA-04, KA-05, KA-51) at zero extra fee.',
-      badge: 'Free Bangalore RC'
+      title: 'Free RTO Transfer',
+      description: 'In-house RTO ownership transfer across all Bangalore RTOs (KA-01 to KA-51) at zero extra fee.',
+      badge: 'Free RC Transfer'
     }
   ];
 
   return (
-    <section id="kundapura-assured" className="py-14 sm:py-18 bg-gradient-to-b from-[#FAF7F2] to-[#FDF8F4] border-b border-[#ECC4A6]/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="kundapura-assured" className="py-6 sm:py-8 bg-gradient-to-b from-[#FAF7F2] to-[#FDF8F4] border-b border-[#ECC4A6]/60">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#FDF3EA] text-[#74351B] text-xs font-bold border border-[#ECC4A6] mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-[#D27848]" />
-            <span>The Kundapura Cars Assurance</span>
+        <div className="text-center max-w-xl mx-auto mb-4 sm:mb-5">
+          <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#FDF3EA] text-[#74351B] text-[10px] sm:text-[11px] font-bold border border-[#ECC4A6] mb-1">
+            <Sparkles className="w-3 h-3 text-[#D27848]" />
+            <span>The Kundapura Assurance</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#2E271F] tracking-tight">
+          <h2 className="text-base sm:text-xl lg:text-2xl font-black text-[#2E271F] tracking-tight">
             Why Bangalore Trusts Kundapura Cars
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-[#8B785F] leading-relaxed">
-            Inspired by the highest global certification standards. We eliminated all the guesswork, unfair dealer commissions, and lemon cars.
+          <p className="mt-0.5 text-[10px] sm:text-xs text-[#8B785F]">
+            Highest certification standards • 100% Verified Quality • Zero Guesswork
           </p>
         </div>
 
-        {/* 4 Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 4 Pillars Grid (Compact 2x2 on mobile, 4-col on desktop) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3.5">
           {pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
               <div
                 key={idx}
-                className="bg-white p-6 rounded-3xl border border-[#ECC4A6]/70 shadow-subtle hover:shadow-hover hover:border-[#D27848] transition-all duration-300 flex flex-col justify-between"
+                className="bg-white p-2.5 sm:p-3.5 rounded-2xl border border-[#ECC4A6]/70 shadow-2xs hover:shadow-subtle hover:border-[#D27848] transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className={`w-12 h-12 rounded-2xl ${pillar.iconBg} flex items-center justify-center shadow-2xs border border-[#ECC4A6]/60`}>
-                      <Icon className="w-6 h-6" />
+                  <div className="flex items-center justify-between gap-1 mb-1.5 sm:mb-2">
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#FBF0E6] text-[#D27848] flex items-center justify-center border border-[#ECC4A6]/60 shrink-0">
+                      <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </div>
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-[#FDF3EA] text-[#74351B] border border-[#ECC4A6]">
+                    <span className="text-[8px] sm:text-[9px] font-black uppercase tracking-tight px-1.5 py-0.5 rounded-full bg-[#FDF3EA] text-[#74351B] border border-[#ECC4A6] truncate max-w-[95px] sm:max-w-none">
                       {pillar.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-extrabold text-[#2E271F] mb-2">
+                  <h3 className="text-xs sm:text-sm font-extrabold text-[#2E271F] leading-tight mb-1 truncate">
                     {pillar.title}
                   </h3>
-                  <p className="text-xs text-[#8B785F] leading-relaxed">
+                  <p className="text-[10px] sm:text-xs text-[#8B785F] leading-tight line-clamp-2">
                     {pillar.description}
                   </p>
                 </div>
 
-                <div className="mt-5 pt-3 border-t border-[#ECC4A6]/40 flex items-center gap-1.5 text-xs font-bold text-[#D27848]">
-                  <CheckCircle2 className="w-4 h-4 text-[#D27848]" />
+                <div className="mt-2 pt-1.5 border-t border-[#ECC4A6]/30 flex items-center gap-1 text-[9px] sm:text-[10px] font-bold text-[#D27848]">
+                  <CheckCircle2 className="w-3 h-3 text-[#D27848] shrink-0" />
                   <span>Verified Guarantee</span>
                 </div>
               </div>
@@ -95,26 +91,28 @@ export const TrustBadges: React.FC = () => {
           })}
         </div>
 
-        {/* Fixed Price & Transparent Banner (Warm Dark Espresso with Warm Apricot Button) */}
-        <div className="mt-8 bg-[#241A15] text-[#FDF8F4] rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl border border-[#451E10]">
-          <div className="space-y-1.5 text-center md:text-left">
-            <div className="inline-flex items-center gap-1 text-xs font-bold text-[#ECC4A6] uppercase tracking-wider">
-              <Banknote className="w-4 h-4 text-[#D27848]" />
-              Fixed Transparent Pricing • Zero Hidden Fees
+        {/* Fixed Price & Transparent Compact Banner */}
+        <div className="mt-3 sm:mt-4 bg-[#241A15] text-[#FDF8F4] rounded-2xl p-3 sm:p-3.5 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-4 shadow-md border border-[#451E10]">
+          <div className="flex items-center gap-2.5 min-w-0 text-center sm:text-left">
+            <div className="w-8 h-8 rounded-xl bg-[#382318] text-[#D27848] hidden sm:flex items-center justify-center shrink-0 border border-[#451E10]">
+              <Banknote className="w-4 h-4" />
             </div>
-            <h3 className="text-xl sm:text-2xl font-black text-[#FDF8F4]">
-              The price you see is the final price you pay.
-            </h3>
-            <p className="text-xs text-[#DFCFBA] max-w-xl">
-              No last minute handling charges, no dealer markups, no commission fees. Includes full mechanical service, deep interior detailing, and Karnataka RTO transfer.
-            </p>
+            <div>
+              <div className="text-[9px] sm:text-[10px] font-bold text-[#ECC4A6] uppercase tracking-wider flex items-center justify-center sm:justify-start gap-1">
+                <Banknote className="w-3 h-3 text-[#D27848] sm:hidden" />
+                <span>Fixed Transparent Pricing</span>
+              </div>
+              <p className="text-xs font-bold text-[#FDF8F4] mt-0.5">
+                The price you see is the final price. No hidden fees, markups, or commissions.
+              </p>
+            </div>
           </div>
 
           <a
             href="#car-catalog"
-            className="px-6 py-3.5 bg-[#D27848] hover:bg-[#B95C2E] text-white font-black text-xs rounded-2xl shadow-lg transition-all shrink-0"
+            className="px-3.5 py-1.5 bg-[#D27848] hover:bg-[#B95C2E] text-white font-extrabold text-[11px] rounded-xl shadow-xs transition-all shrink-0 w-full sm:w-auto text-center"
           >
-            Explore Bangalore Inventory
+            Explore Inventory
           </a>
         </div>
 
@@ -122,3 +120,4 @@ export const TrustBadges: React.FC = () => {
     </section>
   );
 };
+
