@@ -45,37 +45,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all">
-      {/* Top micro-bar with Bangalore Hub announcement & Phone */}
-      <div className="bg-slate-900 text-slate-200 text-xs py-1.5 px-4 hidden sm:block">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Bangalore's #1 Certified Used Car Destination
-            </span>
-            <span className="text-slate-500">•</span>
-            <span className="text-slate-300">Free Home Test Drives across Bengaluru (BBMP Limits)</span>
-          </div>
-          <div className="flex items-center gap-4 text-xs font-medium">
-            <button 
-              onClick={onOpenAssurance}
-              className="text-slate-300 hover:text-white transition-colors flex items-center gap-1"
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-brand-400" />
-              200-Point Kundapura Assured
-            </button>
-            <span className="text-slate-600">|</span>
-            <a 
-              href="tel:+918047259900" 
-              className="text-amber-300 hover:text-amber-200 transition-colors flex items-center gap-1"
-            >
-              <Phone className="w-3.5 h-3.5" />
-              Call Hub: +91 80 4725 9900
-            </a>
-          </div>
-        </div>
-      </div>
-
       {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-3 sm:gap-6">
