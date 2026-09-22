@@ -68,18 +68,20 @@ export const CarCard: React.FC<CarCardProps> = ({
           />
         </button>
 
-        {/* Image navigation arrows on hover */}
+        {/* Image navigation arrows */}
         {car.images.length > 1 && (
           <>
             <button
               onClick={prevImage}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[#2E271F] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 shadow-sm"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[#2E271F] opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 shadow-sm"
+              aria-label="Previous photo"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={nextImage}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[#2E271F] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 shadow-sm"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[#2E271F] opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 shadow-sm"
+              aria-label="Next photo"
             >
               <ChevronRight className="w-4 h-4" />
             </button>

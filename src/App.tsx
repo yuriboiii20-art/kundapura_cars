@@ -1,7 +1,9 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { 
   SlidersHorizontal, 
   ArrowUpDown, 
+  ChevronDown,
+  Check,
   Car as CarIcon, 
   Layers, 
   MessageSquare,
@@ -23,6 +25,14 @@ import { TrustBadges } from './components/TrustBadges';
 import { FaqSection } from './components/FaqSection';
 import { Footer } from './components/Footer';
 
+const SORT_OPTIONS: { id: FilterState['sortBy']; label: string }[] = [
+  { id: 'recommended', label: 'Featured & Recommended' },
+  { id: 'price-asc', label: 'Price: Low to High' },
+  { id: 'price-desc', label: 'Price: High to Low' },
+  { id: 'km-asc', label: 'Lowest Kilometers' },
+  { id: 'year-desc', label: 'Newest Model Year' },
+];
+
 const INITIAL_FILTERS: FilterState = {
   searchQuery: '',
   bodyTypes: [],
@@ -39,6 +49,8 @@ const INITIAL_FILTERS: FilterState = {
 
 export const App: React.FC = () => {
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
+  const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
+  const sortDropdownRef = useRef<HTMLDivElement>(null);
   
   // Wishlist state with localStorage persistence
   const [wishlistIds, setWishlistIds] = useState<string[]>(() => {
@@ -60,6 +72,17 @@ export const App: React.FC = () => {
   const [wishlistDrawerOpen, setWishlistDrawerOpen] = useState(false);
   const [compareModalOpen, setCompareModalOpen] = useState(false);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+
+  // Close sort dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortDropdownRef.current && !sortDropdownRef.current.contains(event.target as Node)) {
+        setSortDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Sync wishlist to localStorage
   useEffect(() => {
@@ -235,26 +258,13 @@ export const App: React.FC = () => {
         <main id="car-catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 w-full flex-1">
           
           {/* Catalog Control Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#ECC4A6]/60">
+          <div className="flex items-center justify-between gap-3 mb-6 pb-4 border-b border-[#ECC4A6]/60">
+            {/* Left: Mobile Filter Button */}
             <div>
-              <h2 className="text-xl sm:text-2xl font-black text-[#2E271F] tracking-tight flex items-center gap-2">
-                <span>Bangalore Certified Cars</span>
-                <span className="text-xs font-black px-3 py-1 rounded-full bg-[#241A15] text-[#FDF8F4] border border-[#451E10] shadow-2xs">
-                  {filteredCars.length} Available
-                </span>
-              </h2>
-              <p className="text-xs text-[#8B785F] mt-0.5">
-                Every car is 200-point inspected, available at Bangalore Hubs or for doorstep test drive.
-              </p>
-            </div>
-
-            {/* Sort Selector & Mobile Filter Trigger */}
-            <div className="flex items-center gap-2.5 self-end sm:self-auto">
-              
-              {/* Mobile Filter Button */}
               <button
+                type="button"
                 onClick={() => setMobileFilterOpen(true)}
-                className="md:hidden flex items-center gap-1.5 px-3 py-2 bg-[#D27848] text-white text-xs font-bold rounded-xl border border-[#B95C2E] shadow-xs"
+                className="md:hidden flex items-center gap-1.5 px-3.5 py-2 bg-[#D27848] hover:bg-[#B95C2E] text-white text-xs font-bold rounded-xl border border-[#B95C2E] shadow-xs transition-colors"
               >
                 <SlidersHorizontal className="w-3.5 h-3.5 text-white" />
                 <span>Filters</span>
@@ -264,23 +274,55 @@ export const App: React.FC = () => {
                   </span>
                 )}
               </button>
+            </div>
 
-              {/* Sort Dropdown */}
-              <div className="flex items-center gap-2 bg-[#FDF8F4] px-3 py-2 rounded-xl border border-[#ECC4A6] text-xs shadow-subtle">
-                <ArrowUpDown className="w-3.5 h-3.5 text-[#AA957A]" />
+            {/* Right: Custom Themed Sort Dropdown (Bug-free, no native blue OS popups) */}
+            <div className="relative" ref={sortDropdownRef}>
+              <button
+                type="button"
+                onClick={() => setSortDropdownOpen(!sortDropdownOpen)}
+                className="flex items-center gap-2 bg-[#FDF8F4] hover:bg-[#FBF0E6] px-3.5 py-2 rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] shadow-subtle transition-all cursor-pointer"
+                aria-expanded={sortDropdownOpen}
+                aria-haspopup="listbox"
+              >
+                <ArrowUpDown className="w-3.5 h-3.5 text-[#D27848] shrink-0" />
                 <span className="text-[#8B785F] font-medium hidden sm:inline">Sort by:</span>
-                <select
-                  value={filters.sortBy}
-                  onChange={(e) => setFilters((prev) => ({ ...prev, sortBy: e.target.value as any }))}
-                  className="bg-transparent font-bold text-[#2E271F] outline-none cursor-pointer"
-                >
-                  <option value="recommended">Featured &amp; Recommended</option>
-                  <option value="price-asc">Price: Low to High</option>
-                  <option value="price-desc">Price: High to Low</option>
-                  <option value="km-asc">Lowest Kilometers</option>
-                  <option value="year-desc">Newest Model Year</option>
-                </select>
-              </div>
+                <span className="font-extrabold text-[#2E271F]">
+                  {SORT_OPTIONS.find((opt) => opt.id === filters.sortBy)?.label || 'Featured'}
+                </span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 text-[#8B785F] transition-transform duration-200 ${
+                    sortDropdownOpen ? 'rotate-180 text-[#D27848]' : ''
+                  }`}
+                />
+              </button>
+
+              {/* Dropdown Menu Popover */}
+              {sortDropdownOpen && (
+                <div className="absolute right-0 top-full mt-1.5 z-40 w-56 bg-white rounded-2xl border border-[#ECC4A6] shadow-xl p-1.5 space-y-1 animate-slide-up">
+                  {SORT_OPTIONS.map((option) => {
+                    const isSelected = filters.sortBy === option.id;
+                    return (
+                      <button
+                        key={option.id}
+                        type="button"
+                        onClick={() => {
+                          setFilters((prev) => ({ ...prev, sortBy: option.id }));
+                          setSortDropdownOpen(false);
+                        }}
+                        className={`w-full px-3 py-2 text-left rounded-xl text-xs font-bold transition-colors flex items-center justify-between ${
+                          isSelected
+                            ? 'bg-[#FDF3EA] text-[#D27848] font-extrabold'
+                            : 'text-[#2E271F] hover:bg-[#FDF8F4] hover:text-[#D27848]'
+                        }`}
+                      >
+                        <span>{option.label}</span>
+                        {isSelected && <Check className="w-3.5 h-3.5 text-[#D27848] shrink-0" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
 
@@ -400,36 +442,36 @@ export const App: React.FC = () => {
 
       {/* Floating Compare Bar (when 1+ cars selected) */}
       {compareList.length > 0 && (
-        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-[#241A15]/95 backdrop-blur-md text-[#FDF8F4] px-5 py-3 rounded-2xl shadow-2xl border border-[#451E10] flex items-center gap-4 animate-slide-up max-w-lg w-[92%] sm:w-auto">
-          <div className="flex items-center gap-2 text-xs font-bold text-[#FDF8F4]">
-            <Layers className="w-4 h-4 text-[#D27848]" />
-            <span>{compareList.length} Selected for Compare</span>
+        <div className="fixed bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-40 bg-[#241A15]/95 backdrop-blur-md text-[#FDF8F4] px-3.5 sm:px-5 py-2 sm:py-3 rounded-2xl shadow-2xl border border-[#451E10] flex items-center justify-between gap-2.5 sm:gap-4 animate-slide-up w-[calc(100%-1.5rem)] sm:w-auto max-w-lg">
+          <div className="flex items-center gap-2 text-xs font-bold text-[#FDF8F4] min-w-0">
+            <Layers className="w-4 h-4 text-[#D27848] shrink-0" />
+            <span className="truncate">{compareList.length} to Compare</span>
           </div>
 
-          <div className="flex -space-x-2 overflow-hidden">
+          <div className="flex -space-x-2 overflow-hidden shrink-0">
             {compareList.map((c) => (
               <img
                 key={c.id}
                 src={c.images[0]}
                 alt={c.title}
-                className="inline-block h-7 w-7 rounded-full ring-2 ring-[#241A15] object-cover"
+                className="inline-block h-6 w-6 sm:h-7 sm:w-7 rounded-full ring-2 ring-[#241A15] object-cover"
               />
             ))}
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={() => setCompareModalOpen(true)}
-              className="px-3.5 py-1.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-xs font-extrabold rounded-xl transition-all shadow-xs"
+              className="px-3 sm:px-3.5 py-1.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-[11px] sm:text-xs font-extrabold rounded-xl transition-all shadow-xs"
             >
-              Compare Now
+              Compare
             </button>
             <button
               onClick={() => setCompareList([])}
               className="p-1 text-[#AA957A] hover:text-[#FDF8F4]"
               title="Clear"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
           </div>
         </div>
@@ -440,10 +482,10 @@ export const App: React.FC = () => {
         href="https://wa.me/918047259900?text=Hi%20Kundapura%20Cars%20Bangalore,%20I%20would%20like%20to%20inquire%20about%20certified%20used%20cars."
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-5 right-5 z-30 w-12 h-12 rounded-full bg-[#241A15] hover:bg-[#451E10] text-[#FDF8F4] shadow-hover flex items-center justify-center transition-all hover:scale-110 active:scale-95 border border-[#ECC4A6]/70"
+        className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#241A15] hover:bg-[#451E10] text-[#FDF8F4] shadow-hover flex items-center justify-center transition-all hover:scale-110 active:scale-95 border border-[#ECC4A6]/70"
         title="Chat with Bangalore Hub on WhatsApp"
       >
-        <MessageSquare className="w-6 h-6 text-[#D27848]" />
+        <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 text-[#D27848]" />
       </a>
 
       {/* Modals */}

@@ -53,34 +53,34 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#17100D]/80 backdrop-blur-sm flex justify-center p-2 sm:p-4 md:p-6 animate-fade-in">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#17100D]/85 backdrop-blur-sm flex justify-center p-0 sm:p-4 md:p-6 animate-fade-in">
       
       {/* Modal Container */}
-      <div className="bg-[#FAF7F2] w-full max-w-6xl rounded-3xl shadow-2xl border border-[#ECC4A6] overflow-hidden flex flex-col my-auto relative max-h-[94vh]">
+      <div className="bg-[#FAF7F2] w-full max-w-6xl h-full sm:h-auto rounded-none sm:rounded-3xl shadow-2xl border-0 sm:border border-[#ECC4A6] overflow-hidden flex flex-col my-0 sm:my-auto relative max-h-none sm:max-h-[94vh]">
         
         {/* Sticky Top Bar & Breadcrumbs */}
-        <div className="sticky top-0 z-30 bg-[#FDF8F4]/95 backdrop-blur-md px-4 sm:px-6 py-3 border-b border-[#ECC4A6]/60 flex items-center justify-between gap-2">
+        <div className="sticky top-0 z-30 bg-[#FDF8F4]/95 backdrop-blur-md px-3.5 sm:px-6 py-2.5 sm:py-3 border-b border-[#ECC4A6]/60 flex items-center justify-between gap-2 shrink-0">
           
           {/* Breadcrumbs */}
-          <div className="flex items-center gap-1.5 text-xs text-[#8B785F] font-medium truncate">
+          <div className="flex items-center gap-1.5 text-xs text-[#8B785F] font-medium truncate min-w-0">
             <span className="hover:text-[#D27848] cursor-pointer hidden sm:inline">Home</span>
             <span className="hidden sm:inline">/</span>
             <span className="hover:text-[#D27848] cursor-pointer hidden md:inline">Used Cars in Bangalore</span>
             <span className="hidden md:inline">/</span>
-            <span className="hover:text-[#D27848] cursor-pointer">{car.brand}</span>
+            <span className="hover:text-[#D27848] cursor-pointer shrink-0">{car.brand}</span>
             <span>/</span>
             <span className="text-[#2E271F] font-bold truncate">{car.year} {car.title}</span>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={handleShare}
-              className="p-2 text-[#74351B] hover:text-[#D27848] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors relative"
+              className="p-1.5 sm:p-2 text-[#74351B] hover:text-[#D27848] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors relative"
               title="Share Car"
             >
-              <Share2 className="w-4 h-4" />
+              <Share2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               {copiedLink && (
-                <span className="absolute -bottom-7 right-0 text-[10px] bg-[#241A15] text-[#FDF8F4] px-2 py-0.5 rounded shadow">
+                <span className="absolute -bottom-7 right-0 text-[10px] bg-[#241A15] text-[#FDF8F4] px-2 py-0.5 rounded shadow whitespace-nowrap">
                   Copied!
                 </span>
               )}
@@ -88,23 +88,23 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
 
             <button
               onClick={() => onToggleWishlist(car.id)}
-              className="p-2 text-[#74351B] hover:text-[#D27848] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors"
+              className="p-1.5 sm:p-2 text-[#74351B] hover:text-[#D27848] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors"
               title="Save to Wishlist"
             >
-              <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-[#D27848] text-[#D27848]' : ''}`} />
+              <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isWishlisted ? 'fill-[#D27848] text-[#D27848]' : ''}`} />
             </button>
 
             <button
               onClick={onClose}
-              className="p-2 text-[#8B785F] hover:text-[#2E271F] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors ml-1"
+              className="p-1.5 sm:p-2 text-[#8B785F] hover:text-[#2E271F] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors ml-0.5"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
         </div>
 
         {/* Scrollable Body */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
+        <div className="flex-1 overflow-y-auto p-3.5 sm:p-6 lg:p-8 space-y-5 sm:space-y-6 pb-28 sm:pb-8">
           
           {/* Main Gallery & Top Summary Section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -123,9 +123,9 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
 
                 {/* 360 Simulator Overlay Tag */}
                 {view360Mode && (
-                  <div className="absolute top-3 left-3 bg-[#241A15]/90 text-[#FDF8F4] text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-sm shadow-md border border-[#ECC4A6]/30">
+                  <div className="absolute top-3 left-3 bg-[#241A15]/90 text-[#FDF8F4] text-[11px] sm:text-xs font-bold px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-sm shadow-md border border-[#ECC4A6]/30">
                     <RotateCw className="w-3.5 h-3.5 animate-spin text-[#D27848]" />
-                    <span>360° Interactive Studio Tour (Click thumbnails to rotate angle)</span>
+                    <span>360° Studio Tour <span className="hidden sm:inline">(Click thumbnails to rotate)</span></span>
                   </div>
                 )}
 
@@ -548,39 +548,39 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
         </div>
 
         {/* Sticky Floating Bottom Bar for Quick Action */}
-        <div className="sticky bottom-0 z-30 bg-[#FDF8F4] border-t border-[#ECC4A6] px-4 sm:px-6 py-3 flex items-center justify-between gap-3 shadow-lg">
-          <div>
-            <div className="text-[11px] text-[#8B785F] font-semibold">Total Price (No hidden fees)</div>
-            <div className="text-lg sm:text-xl font-black text-[#2E271F]">
+        <div className="sticky bottom-0 z-30 bg-[#FDF8F4]/98 backdrop-blur-md border-t border-[#ECC4A6] px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-3 shadow-lg shrink-0">
+          <div className="min-w-0">
+            <div className="text-[10px] sm:text-[11px] text-[#8B785F] font-semibold truncate">Fixed Price</div>
+            <div className="text-base sm:text-xl font-black text-[#2E271F] truncate">
               {formatPrice(car.price)}
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             <a
               href={`https://wa.me/918047259900?text=Hi%20Kundapura%20Cars,%20I%20am%20interested%20in%20${encodeURIComponent(car.title)}%20parked%20at%20${encodeURIComponent(car.hubLocation)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 text-[#74351B] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors flex items-center gap-1.5 text-xs font-bold"
+              className="p-2 sm:p-2.5 text-[#74351B] bg-[#FBF0E6] hover:bg-[#F7DEC9] rounded-xl border border-[#ECC4A6] transition-colors flex items-center gap-1.5 text-xs font-bold"
               title="Chat on WhatsApp"
             >
               <MessageSquare className="w-4 h-4 text-[#D27848]" />
-              <span className="hidden sm:inline">WhatsApp</span>
+              <span className="hidden md:inline">WhatsApp</span>
             </a>
 
             <button
               onClick={() => onReserveCar(car)}
-              className="px-3.5 py-2.5 bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] text-xs font-extrabold rounded-xl border border-[#ECC4A6] transition-all shadow-2xs"
+              className="px-2.5 sm:px-3.5 py-2 sm:py-2.5 bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] text-[11px] sm:text-xs font-extrabold rounded-xl border border-[#ECC4A6] transition-all shadow-2xs whitespace-nowrap"
             >
-              Reserve (₹999)
+              Reserve <span className="hidden xs:inline">(₹999)</span>
             </button>
 
             <button
               onClick={() => onBookTestDrive(car)}
-              className="px-4 py-2.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-xs font-extrabold rounded-xl shadow-md transition-all flex items-center gap-1.5"
+              className="px-3 sm:px-4 py-2 sm:py-2.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-[11px] sm:text-xs font-extrabold rounded-xl shadow-md transition-all flex items-center gap-1 sm:gap-1.5 whitespace-nowrap"
             >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Book Free Test Drive</span>
+              <Sparkles className="w-3.5 h-3.5 shrink-0" />
+              <span>Test Drive</span>
             </button>
           </div>
         </div>
