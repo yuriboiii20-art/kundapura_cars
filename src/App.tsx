@@ -10,9 +10,10 @@ import {
   X
 } from 'lucide-react';
 import { CARS_DATA } from './data/carsData';
-import { Car, FilterState } from './types/car';
+import { Car, FilterState, BodyType } from './types/car';
 import { Navbar } from './components/Navbar';
 import { HeroBanner } from './components/HeroBanner';
+import { MobileDrawer } from './components/MobileDrawer';
 import { FilterSidebar } from './components/FilterSidebar';
 import { CarCard } from './components/CarCard';
 import { CarDetailModal } from './components/CarDetailModal';
@@ -65,13 +66,36 @@ export const App: React.FC = () => {
   // Compare state (up to 3 cars)
   const [compareList, setCompareList] = useState<Car[]>([]);
 
-  // Modals
+  // Modals & Drawers
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [testDriveCar, setTestDriveCar] = useState<Car | null>(null);
   const [reserveCar, setReserveCar] = useState<Car | null>(null);
   const [wishlistDrawerOpen, setWishlistDrawerOpen] = useState(false);
   const [compareModalOpen, setCompareModalOpen] = useState(false);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+
+  const handleSelectCategory = (category: string) => {
+    if (category === 'Luxury') {
+      setFilters(prev => ({ ...prev, minPrice: 1500000, maxPrice: 4000000 }));
+    } else if (category === 'Premium') {
+      setFilters(prev => ({ ...prev, minPrice: 800000, maxPrice: 2500000, minYear: 2020 }));
+    } else if (category === 'Assured') {
+      setFilters(INITIAL_FILTERS);
+    } else if (category === 'Budget') {
+      setFilters(prev => ({ ...prev, minPrice: 0, maxPrice: 700000 }));
+    }
+    setTimeout(() => {
+      document.getElementById('car-catalog')?.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+  };
+
+  const handleSelectBodyType = (bodyType: BodyType) => {
+    setFilters(prev => ({ ...prev, bodyTypes: [bodyType] }));
+    setTimeout(() => {
+      document.getElementById('car-catalog')?.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+  };
 
   // Close sort dropdown when clicking outside
   useEffect(() => {
@@ -235,6 +259,7 @@ export const App: React.FC = () => {
         onOpenAssurance={scrollToAssurance}
         onOpenMobileFilters={() => setMobileFilterOpen(true)}
         activeFilterCount={activeFilterCount}
+        onOpenDrawer={() => setMobileDrawerOpen(true)}
       />
 
       {/* Desktop Full-Height Fixed Filter Sidebar */}
@@ -552,6 +577,20 @@ export const App: React.FC = () => {
           onCloseMobileModal={() => setMobileFilterOpen(false)}
         />
       )}
+
+      <MobileDrawer
+        isOpen={mobileDrawerOpen}
+        onClose={() => setMobileDrawerOpen(false)}
+        onSelectCategory={handleSelectCategory}
+        onSelectBodyType={handleSelectBodyType}
+        onOpenHubs={scrollToHubs}
+        onOpenAssurance={scrollToAssurance}
+        onOpenEmiCalculator={() => {
+          if (filteredCars.length > 0) {
+            setSelectedCar(filteredCars[0]);
+          }
+        }}
+      />
 
     </div>
   );
