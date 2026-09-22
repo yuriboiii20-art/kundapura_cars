@@ -2,39 +2,26 @@ import React, { useState } from 'react';
 import { 
   Heart, 
   ChevronLeft, 
-  ChevronRight, 
-  MapPin, 
-  ShieldCheck, 
-  Sparkles, 
-  Gauge, 
-  Fuel, 
-  Settings2,
-  Calendar,
-  Layers,
-  ArrowRight,
-  Eye
+  ChevronRight
 } from 'lucide-react';
-import { Car } from '../types/car';
-import { formatPrice, formatKm, formatIndianCurrency } from '../utils/formatters';
+import { Car } from '@/types/car';
+import { formatPrice, formatShortKm, formatShortRto } from '@/utils/formatters';
 
 interface CarCardProps {
   car: Car;
   isWishlisted: boolean;
   onToggleWishlist: (carId: string) => void;
-  isCompared: boolean;
-  onToggleCompare: (car: Car) => void;
+  isCompared?: boolean;
+  onToggleCompare?: (car: Car) => void;
   onSelectCar: (car: Car) => void;
-  onBookTestDrive: (car: Car) => void;
+  onBookTestDrive?: (car: Car) => void;
 }
 
 export const CarCard: React.FC<CarCardProps> = ({
   car,
   isWishlisted,
   onToggleWishlist,
-  isCompared,
-  onToggleCompare,
-  onSelectCar,
-  onBookTestDrive
+  onSelectCar
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -48,16 +35,16 @@ export const CarCard: React.FC<CarCardProps> = ({
     setCurrentImageIndex((prev) => (prev - 1 + car.images.length) % car.images.length);
   };
 
-  const discount = car.originalPrice ? car.originalPrice - car.price : 0;
+  const qualityTag = car.tags?.[0] || 'High quality, less driven';
 
   return (
     <div 
       onClick={() => onSelectCar(car)}
-      className="group bg-white rounded-2xl border border-slate-200/90 shadow-card hover:shadow-hover hover:border-brand-300 transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative"
+      className="group bg-white rounded-3xl border border-[#ECC4A6]/70 shadow-subtle hover:shadow-hover hover:border-[#D27848] transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative"
     >
       
-      {/* Top Image Section with Carousel & Badges */}
-      <div className="relative aspect-[16/10] bg-slate-100 overflow-hidden">
+      {/* Top Image Section with soft peach / apricot-tinted backdrop & Heart Icon */}
+      <div className="relative aspect-[16/10] bg-gradient-to-b from-[#FBF0E6] via-[#FDF8F4] to-[#FAF7F2] overflow-hidden">
         <img
           src={car.images[currentImageIndex]}
           alt={car.title}
@@ -65,47 +52,34 @@ export const CarCard: React.FC<CarCardProps> = ({
           loading="lazy"
         />
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
-
-        {/* Kundapura Assured badge */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
-          <span className="badge-pill bg-white/95 backdrop-blur-md text-emerald-800 border border-emerald-200/80 shadow-xs">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-            <span>Assured {car.inspectionScore}/10</span>
-          </span>
-          {car.trending && (
-            <span className="badge-pill bg-amber-500 text-white shadow-xs">
-              <Sparkles className="w-3 h-3" />
-              <span>Trending</span>
-            </span>
-          )}
-        </div>
-
-        {/* Wishlist Button */}
+        {/* Wishlist Heart Icon Button */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             onToggleWishlist(car.id);
           }}
-          className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md hover:bg-white text-slate-700 hover:text-rose-500 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95"
+          className="absolute top-3.5 right-3.5 z-10 p-1.5 rounded-full bg-white/80 hover:bg-white backdrop-blur-xs text-[#74351B] transition-transform active:scale-90 hover:scale-110 shadow-2xs"
           title={isWishlisted ? 'Remove from Saved' : 'Save Car'}
         >
-          <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-rose-500 text-rose-500' : ''}`} />
+          <Heart 
+            className={`w-5 h-5 transition-colors ${
+              isWishlisted ? 'fill-[#D27848] text-[#D27848]' : 'text-[#74351B] stroke-[2]'
+            }`} 
+          />
         </button>
 
-        {/* Image navigation arrows */}
+        {/* Image navigation arrows on hover */}
         {car.images.length > 1 && (
           <>
             <button
               onClick={prevImage}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10"
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[#2E271F] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 shadow-sm"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={nextImage}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-black/40 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10"
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[#2E271F] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 shadow-sm"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -114,142 +88,82 @@ export const CarCard: React.FC<CarCardProps> = ({
 
         {/* Carousel Dots */}
         {car.images.length > 1 && (
-          <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1 z-10">
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1 z-10">
             {car.images.map((_, i) => (
               <span
                 key={i}
                 className={`h-1.5 rounded-full transition-all ${
-                  i === currentImageIndex ? 'w-4 bg-white' : 'w-1.5 bg-white/60'
+                  i === currentImageIndex ? 'w-3.5 bg-[#D27848]' : 'w-1.5 bg-[#D27848]/30'
                 }`}
               />
             ))}
           </div>
         )}
-
-        {/* RTO chip bottom left */}
-        <div className="absolute bottom-2.5 left-3 text-[11px] font-semibold text-white/90 drop-shadow-md flex items-center gap-1">
-          <MapPin className="w-3 h-3 text-brand-300" />
-          <span>{car.rto.split('(')[0]} Bangalore</span>
-        </div>
       </div>
 
       {/* Card Content Body */}
       <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         
         <div>
-          {/* Year & Title */}
-          <div className="flex items-start justify-between gap-2 mb-1.5">
-            <h3 className="font-extrabold text-slate-900 text-base leading-snug group-hover:text-brand-600 transition-colors line-clamp-1">
-              {car.title}
+          {/* Row 1: Year Brand Model & Price */}
+          <div className="flex items-baseline justify-between gap-2 mb-0.5">
+            <h3 className="font-extrabold text-base sm:text-[17px] text-[#2E271F] tracking-tight line-clamp-1 group-hover:text-[#D27848] transition-colors">
+              {car.year} {car.brand} {car.model}
             </h3>
-          </div>
-          
-          {/* Variant subtext */}
-          <p className="text-xs text-slate-500 font-medium mb-3 line-clamp-1">
-            {car.variant}
-          </p>
-
-          {/* Key Specs Pills Grid */}
-          <div className="grid grid-cols-2 gap-2 text-[11px] font-semibold text-slate-600 bg-slate-50 p-2.5 rounded-xl border border-slate-100 mb-3.5">
-            <div className="flex items-center gap-1.5">
-              <Gauge className="w-3.5 h-3.5 text-slate-400" />
-              <span>{formatKm(car.kilometers)}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Fuel className="w-3.5 h-3.5 text-slate-400" />
-              <span>{car.fuelType}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Settings2 className="w-3.5 h-3.5 text-slate-400" />
-              <span>{car.transmission}</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5 text-slate-400" />
-              <span>{car.owner}</span>
-            </div>
+            <span className="font-extrabold text-base sm:text-[17px] text-[#2E271F] shrink-0">
+              {formatPrice(car.price)}
+            </span>
           </div>
 
-          {/* Location / Hub info */}
-          <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-500 mb-4">
-            <MapPin className="w-3.5 h-3.5 text-brand-600 shrink-0" />
-            <span className="truncate">Parked at {car.hubLocation}</span>
+          {/* Row 2: Variant & EMI */}
+          <div className="flex items-baseline justify-between gap-2 mb-3">
+            <p className="text-xs text-[#8B785F] font-medium line-clamp-1">
+              {car.variant}
+            </p>
+            <span className="text-xs text-[#6D5D49] font-medium shrink-0">
+              EMI ₹ {car.emiStarting.toLocaleString('en-IN')}/m*
+            </span>
+          </div>
+
+          {/* Row 3: Specifications Badges Pills in Soft Peach */}
+          <div className="flex items-center gap-1.5 flex-wrap mb-3.5">
+            <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-[11px] sm:text-xs font-semibold rounded-full border border-[#F3DFC9]">
+              {formatShortKm(car.kilometers)}
+            </span>
+            <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-[11px] sm:text-xs font-semibold rounded-full border border-[#F3DFC9]">
+              {car.fuelType}
+            </span>
+            <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-[11px] sm:text-xs font-semibold rounded-full border border-[#F3DFC9]">
+              {car.transmission}
+            </span>
+            <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-[11px] sm:text-xs font-semibold rounded-full border border-[#F3DFC9]">
+              {formatShortRto(car.rto)}
+            </span>
+          </div>
+
+          {/* Row 4: Bangalore Hub Location */}
+          <div className="flex items-center gap-1.5 text-xs text-[#8B785F] font-medium mb-3">
+            <span className="inline-flex items-center justify-center w-4 h-4 rounded-xs border border-[#ECC4A6] bg-[#FBF0E6] text-[8px] font-black text-[#74351B]">
+              S
+            </span>
+            <span className="font-bold text-[#74351B]">HUB</span>
+            <span>•</span>
+            <span className="truncate">{car.hubLocation}</span>
           </div>
         </div>
 
-        {/* Pricing & Actions */}
-        <div className="pt-3 border-t border-slate-100">
-          
-          <div className="flex items-baseline justify-between mb-3">
-            <div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-xl sm:text-2xl font-black text-slate-900">
-                  {formatPrice(car.price)}
-                </span>
-                {car.originalPrice && (
-                  <span className="text-xs text-slate-400 line-through font-medium">
-                    {formatPrice(car.originalPrice)}
-                  </span>
-                )}
-              </div>
-              {discount > 0 && (
-                <div className="text-[10px] font-bold text-emerald-600">
-                  Save {formatPrice(discount)}
-                </div>
-              )}
-            </div>
+        {/* Card Bottom Bar (Separated by border) */}
+        <div className="pt-3 border-t border-[#ECC4A6]/50 flex items-center justify-between">
+          <span className="text-xs font-medium text-[#8B785F] truncate">
+            {qualityTag}
+          </span>
 
-            <div className="text-right">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
-                EMI From
-              </div>
-              <div className="text-xs sm:text-sm font-extrabold text-brand-600">
-                {formatIndianCurrency(car.emiStarting)}/mo
-              </div>
-            </div>
-          </div>
-
-          {/* Action Buttons & Compare Toggle */}
-          <div className="flex items-center gap-2">
-            
-            {/* Compare Checkbox */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onToggleCompare(car);
-              }}
-              className={`p-2 rounded-xl border text-xs font-bold transition-all flex items-center justify-center shrink-0 ${
-                isCompared
-                  ? 'bg-brand-600 text-white border-brand-600 shadow-sm'
-                  : 'bg-white hover:bg-slate-50 text-slate-600 border-slate-200'
-              }`}
-              title="Compare with other cars"
-            >
-              <Layers className="w-4 h-4" />
-            </button>
-
-            {/* View Inspection Details */}
-            <button
-              onClick={() => onSelectCar(car)}
-              className="flex-1 py-2.5 px-3 bg-slate-100 hover:bg-slate-200/80 text-slate-800 text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-1.5"
-            >
-              <Eye className="w-3.5 h-3.5 text-slate-600" />
-              <span>Inspection &amp; Specs</span>
-            </button>
-
-            {/* Book Free Test Drive */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onBookTestDrive(car);
-              }}
-              className="py-2.5 px-3.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-extrabold rounded-xl shadow-sm shadow-brand-500/20 transition-all flex items-center justify-center gap-1 shrink-0"
-            >
-              <span>Test Drive</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-
-          </div>
-
+          <span className="inline-flex items-center gap-1 text-xs font-extrabold text-[#D27848] shrink-0">
+            <svg className="w-3.5 h-3.5 text-[#D27848]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+            </svg>
+            <span>Assured</span>
+          </span>
         </div>
 
       </div>
@@ -257,3 +171,5 @@ export const CarCard: React.FC<CarCardProps> = ({
     </div>
   );
 };
+
+

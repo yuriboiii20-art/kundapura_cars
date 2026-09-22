@@ -2,6 +2,101 @@ import { Car } from '../types/car';
 
 export const CARS_DATA: Car[] = [
   {
+    id: 'kc-eon-2016',
+    title: '2016 Hyundai Eon',
+    brand: 'Hyundai',
+    model: 'Eon',
+    variant: '1.0 Kappa Magna + (O)',
+    year: 2016,
+    price: 325000,
+    originalPrice: 349000,
+    emiStarting: 5614,
+    kilometers: 52500,
+    fuelType: 'Petrol',
+    transmission: 'Manual',
+    bodyType: 'Hatchback',
+    owner: '1st Owner',
+    rto: 'KA-19 (Mantri Mall, Malleshwaram)',
+    hubLocation: 'Mantri Mall, Malleshwaram',
+    color: 'Maharaja Red',
+    isAssured: true,
+    featured: true,
+    trending: true,
+    tags: ['High quality, less driven', 'Single Owner', 'KA19 RTO', 'Fuel Efficient', 'Under Warranty'],
+    inspectionScore: 9.4,
+    inspectionSummary: {
+      engineTransmission: {
+        title: 'Engine & 5-Speed Manual Gearbox',
+        score: '9.6/10',
+        checksTotal: 48,
+        checksPassed: 48,
+        status: 'passed',
+        highlights: ['1.0L Kappa 3-cylinder engine revs cleanly', 'Smooth clutch engagement and crisp gear shifts', 'Zero oil leakage or fluid seepage']
+      },
+      steeringSuspension: {
+        title: 'Steering, Suspension & Brakes',
+        score: '9.4/10',
+        checksTotal: 42,
+        checksPassed: 42,
+        status: 'passed',
+        highlights: ['Motor driven power steering perfectly centered', 'Front disc brake pads at 80% thickness', 'Suspension noise free over speed breakers']
+      },
+      bodyPaint: {
+        title: 'Body, Frame & Paint Finish',
+        score: '9.5/10',
+        checksTotal: 45,
+        checksPassed: 45,
+        status: 'passed',
+        highlights: ['Original Maharaja Red factory coat', 'Chassis pillars laser verified without distortion', 'Zero structural frame repairs']
+      },
+      interiorElectricals: {
+        title: 'Interior, Dashboard & Electronics',
+        score: '9.5/10',
+        checksTotal: 35,
+        checksPassed: 35,
+        status: 'passed',
+        highlights: ['Factory audio system with AUX/USB functional', 'Front power window switches responsive', 'Instrument cluster warning lights all clear']
+      },
+      acTyres: {
+        title: 'AC Climate Control & Tyres',
+        score: '9.3/10',
+        checksTotal: 30,
+        checksPassed: 30,
+        status: 'passed',
+        highlights: ['AC compressor cools cabin rapidly', 'MRF tyres with 76% tread life remaining', 'Stepney tyre in good condition']
+      }
+    },
+    features: [
+      '1.0L Kappa Dual VTVT Petrol Engine',
+      'Front Power Windows',
+      'Driver Side Airbag',
+      'Central Locking with Remote Keyless Entry',
+      '2-DIN Audio System with AUX & USB',
+      'Internally Adjustable Outside Mirrors',
+      'Gear Shift Indicator Display',
+      'Front Fog Lamps & Clear Lens Headlights'
+    ],
+    specs: {
+      engineCapacity: '998 cc',
+      maxPower: '68 bhp @ 6200 rpm',
+      mileageARAI: '21.1 kmpl',
+      seatingCapacity: 5,
+      airbags: 1,
+      bootSpace: '215 Litres',
+      sunroof: 'No',
+      insuranceValidity: 'Comprehensive till Nov 2026',
+      groundClearance: '170 mm',
+      fuelTank: '32 Litres'
+    },
+    images: [
+      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
     id: 'kc-creta-2022',
     title: '2022 Hyundai Creta SX (O) Turbo DCT',
     brand: 'Hyundai',

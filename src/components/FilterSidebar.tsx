@@ -5,12 +5,14 @@ import {
   Check, 
   Fuel, 
   Settings2, 
-  Sparkles,
-  Layers,
-  X
+  Sparkles, 
+  Layers, 
+  X 
 } from 'lucide-react';
-import { FilterState, BodyType, FuelType, TransmissionType, OwnerType } from '../types/car';
-import { formatPrice } from '../utils/formatters';
+import { FilterState, BodyType, FuelType, TransmissionType, OwnerType } from '@/types/car';
+import { formatPrice } from '@/utils/formatters';
+import { Slider } from '@/components/ui/slider';
+import { Label } from '@/components/ui/label';
 
 interface FilterSidebarProps {
   filters: FilterState;
@@ -76,8 +78,10 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     onFilterChange({ ...filters, owners: updated });
   };
 
-  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onFilterChange({ ...filters, maxPrice: Number(e.target.value) });
+  const handleMaxPriceChange = (values: number[]) => {
+    if (values.length > 0) {
+      onFilterChange({ ...filters, maxPrice: values[0] });
+    }
   };
 
   const hasActiveFilters =
@@ -94,11 +98,13 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     <div className="space-y-6">
       
       {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-200">
-        <div className="flex items-center gap-2 text-slate-900 font-extrabold text-base">
-          <SlidersHorizontal className="w-4 h-4 text-brand-600" />
+      <div className="flex items-center justify-between pb-4 border-b border-[#ECC4A6]/60">
+        <div className="flex items-center gap-2 text-[#2E271F] font-black text-base tracking-tight">
+          <div className="w-7 h-7 rounded-lg bg-[#D27848] text-white flex items-center justify-center font-bold">
+            <SlidersHorizontal className="w-3.5 h-3.5" />
+          </div>
           <span>Filters</span>
-          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
+          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-[#FBF0E6] text-[#74351B] border border-[#ECC4A6]">
             {totalResults} Cars
           </span>
         </div>
@@ -106,7 +112,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
         {hasActiveFilters && (
           <button
             onClick={onResetFilters}
-            className="text-xs font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1 hover:underline"
+            className="text-xs font-bold text-[#C75323] hover:text-[#964521] flex items-center gap-1 hover:underline"
           >
             <RotateCcw className="w-3 h-3" />
             Reset All
@@ -114,37 +120,43 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
         )}
       </div>
 
-      {/* 1. Price Budget Filter */}
-      <div>
-        <div className="flex items-center justify-between mb-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-600"></span>
+      {/* 1. Price Budget Filter using Radix UI Slider with Tooltip */}
+      <div className="space-y-3 bg-[#FBF0E6]/80 p-3.5 rounded-2xl border border-[#ECC4A6]">
+        <div className="flex items-center justify-between">
+          <Label className="flex items-center gap-1.5 text-[#2E271F] font-extrabold text-xs">
+            <span className="w-2 h-2 rounded-full bg-[#D27848]"></span>
             Max Budget
-          </label>
-          <span className="text-xs font-extrabold text-brand-700 bg-brand-50 px-2 py-0.5 rounded-md border border-brand-200">
+          </Label>
+          <span className="text-xs font-black text-white bg-[#D27848] px-2.5 py-0.5 rounded-lg shadow-2xs">
             Up to {formatPrice(filters.maxPrice)}
           </span>
         </div>
-        <input
-          type="range"
-          min="500000"
-          max="4000000"
-          step="50000"
-          value={filters.maxPrice}
-          onChange={handleMaxPriceChange}
-          className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600"
-        />
-        <div className="flex justify-between text-[11px] text-slate-400 font-semibold mt-1">
-          <span>₹5 Lakh</span>
-          <span>₹20 Lakh</span>
-          <span>₹40 Lakh+</span>
+
+        {/* Radix UI Slider with Tooltip */}
+        <div className="pt-2 px-1">
+          <Slider
+            value={[filters.maxPrice]}
+            min={500000}
+            max={4000000}
+            step={50000}
+            onValueChange={handleMaxPriceChange}
+            showTooltip={true}
+            tooltipContent={(val) => `Budget: ${formatPrice(val)}`}
+            aria-label="Filter by maximum price"
+          />
+        </div>
+
+        <div className="flex justify-between text-[10px] text-[#8B785F] font-bold">
+          <span>₹ 5 Lakh</span>
+          <span>₹ 20 Lakh</span>
+          <span>₹ 40 Lakh+</span>
         </div>
       </div>
 
       {/* 2. Body Types */}
       <div>
-        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5 mb-2.5">
-          <Layers className="w-3.5 h-3.5 text-brand-600" />
+        <label className="text-xs font-extrabold uppercase tracking-wider text-[#4F4335] flex items-center gap-1.5 mb-2.5">
+          <Layers className="w-3.5 h-3.5 text-[#D27848]" />
           Body Style
         </label>
         <div className="grid grid-cols-2 gap-1.5">
@@ -156,12 +168,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 onClick={() => toggleBodyType(type)}
                 className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold border transition-all text-left ${
                   isSelected
-                    ? 'bg-brand-50 border-brand-400 text-brand-900 shadow-xs'
-                    : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
+                    ? 'bg-[#D27848] border-[#D27848] text-white shadow-xs'
+                    : 'bg-white hover:bg-[#FBF0E6] border-[#ECC4A6]/80 text-[#2E271F]'
                 }`}
               >
                 <span>{type}</span>
-                {isSelected && <Check className="w-3.5 h-3.5 text-brand-600" />}
+                {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
               </button>
             );
           })}
@@ -170,8 +182,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
       {/* 3. Fuel Type */}
       <div>
-        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5 mb-2.5">
-          <Fuel className="w-3.5 h-3.5 text-brand-600" />
+        <label className="text-xs font-extrabold uppercase tracking-wider text-[#4F4335] flex items-center gap-1.5 mb-2.5">
+          <Fuel className="w-3.5 h-3.5 text-[#D27848]" />
           Fuel Type
         </label>
         <div className="grid grid-cols-2 gap-1.5">
@@ -183,12 +195,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 onClick={() => toggleFuelType(fuel)}
                 className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
                   isSelected
-                    ? 'bg-brand-50 border-brand-400 text-brand-900 shadow-xs'
-                    : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
+                    ? 'bg-[#D27848] border-[#D27848] text-white shadow-xs'
+                    : 'bg-white hover:bg-[#FBF0E6] border-[#ECC4A6]/80 text-[#2E271F]'
                 }`}
               >
                 <span>{fuel}</span>
-                {isSelected && <Check className="w-3.5 h-3.5 text-brand-600" />}
+                {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
               </button>
             );
           })}
@@ -197,8 +209,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
       {/* 4. Transmission */}
       <div>
-        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5 mb-2.5">
-          <Settings2 className="w-3.5 h-3.5 text-brand-600" />
+        <label className="text-xs font-extrabold uppercase tracking-wider text-[#4F4335] flex items-center gap-1.5 mb-2.5">
+          <Settings2 className="w-3.5 h-3.5 text-[#D27848]" />
           Transmission
         </label>
         <div className="grid grid-cols-2 gap-1.5">
@@ -210,12 +222,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 onClick={() => toggleTransmission(trans)}
                 className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
                   isSelected
-                    ? 'bg-brand-50 border-brand-400 text-brand-900 shadow-xs'
-                    : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
+                    ? 'bg-[#D27848] border-[#D27848] text-white shadow-xs'
+                    : 'bg-white hover:bg-[#FBF0E6] border-[#ECC4A6]/80 text-[#2E271F]'
                 }`}
               >
                 <span>{trans}</span>
-                {isSelected && <Check className="w-3.5 h-3.5 text-brand-600" />}
+                {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
               </button>
             );
           })}
@@ -224,8 +236,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
       {/* 5. Brands / Make */}
       <div>
-        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5 mb-2.5">
-          <Sparkles className="w-3.5 h-3.5 text-brand-600" />
+        <label className="text-xs font-extrabold uppercase tracking-wider text-[#4F4335] flex items-center gap-1.5 mb-2.5">
+          <Sparkles className="w-3.5 h-3.5 text-[#D27848]" />
           Brand / Make
         </label>
         <div className="space-y-1 max-h-48 overflow-y-auto pr-1">
@@ -237,12 +249,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 onClick={() => toggleBrand(brand)}
                 className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
                   isSelected
-                    ? 'bg-brand-50 border-brand-400 text-brand-900 shadow-xs'
-                    : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
+                    ? 'bg-[#D27848] border-[#D27848] text-white shadow-xs'
+                    : 'bg-white hover:bg-[#FBF0E6] border-[#ECC4A6]/80 text-[#2E271F]'
                 }`}
               >
                 <span>{brand}</span>
-                {isSelected && <Check className="w-3.5 h-3.5 text-brand-600" />}
+                {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
               </button>
             );
           })}
@@ -251,7 +263,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
       {/* 6. Ownership */}
       <div>
-        <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5 mb-2.5">
+        <label className="text-xs font-extrabold uppercase tracking-wider text-[#4F4335] flex items-center gap-1.5 mb-2.5">
           Ownership
         </label>
         <div className="grid grid-cols-2 gap-1.5">
@@ -263,12 +275,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
                 onClick={() => toggleOwner(owner)}
                 className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
                   isSelected
-                    ? 'bg-brand-50 border-brand-400 text-brand-900 shadow-xs'
-                    : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
+                    ? 'bg-[#D27848] border-[#D27848] text-white shadow-xs'
+                    : 'bg-white hover:bg-[#FBF0E6] border-[#ECC4A6]/80 text-[#2E271F]'
                 }`}
               >
                 <span>{owner}</span>
-                {isSelected && <Check className="w-3.5 h-3.5 text-brand-600" />}
+                {isSelected && <Check className="w-3.5 h-3.5 text-white" />}
               </button>
             );
           })}
@@ -276,23 +288,23 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
       </div>
 
       {/* Bangalore Notice Note */}
-      <div className="p-3 bg-slate-100 rounded-xl text-[11px] text-slate-600 border border-slate-200 leading-relaxed">
-        <strong className="text-slate-800">Bangalore Inventory:</strong> All cars are physically parked at Bangalore hubs with active Karnataka RTO clearance.
+      <div className="p-3 bg-[#241A15] text-[#DFCFBA] rounded-xl text-[11px] border border-[#451E10] leading-relaxed">
+        <strong className="text-[#FDF8F4]">Bangalore Certified:</strong> All cars are physically parked at Bangalore hubs with active Karnataka RTO clearance.
       </div>
     </div>
   );
 
   if (isMobileModal) {
     return (
-      <div className="fixed inset-0 z-50 flex flex-col bg-white overflow-hidden animate-slide-up">
-        <div className="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
-          <div className="font-extrabold text-slate-900 text-base flex items-center gap-2">
-            <SlidersHorizontal className="w-4 h-4 text-brand-600" />
+      <div className="fixed inset-0 z-50 flex flex-col bg-[#FAF7F2] overflow-hidden animate-slide-up">
+        <div className="p-4 border-b border-[#ECC4A6]/60 flex items-center justify-between bg-[#241A15] text-white">
+          <div className="font-extrabold text-[#FDF8F4] text-base flex items-center gap-2">
+            <SlidersHorizontal className="w-4 h-4 text-[#D27848]" />
             <span>Filter Cars</span>
           </div>
           <button
             onClick={onCloseMobileModal}
-            className="p-1.5 text-slate-500 hover:text-slate-800 rounded-full bg-white border border-slate-200"
+            className="p-1.5 text-[#DFCFBA] hover:text-white rounded-full bg-[#17100D] border border-[#451E10]"
           >
             <X className="w-5 h-5" />
           </button>
@@ -302,18 +314,18 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           {content}
         </div>
 
-        <div className="p-4 border-t border-slate-200 bg-white flex gap-3">
+        <div className="p-4 border-t border-[#ECC4A6]/60 bg-[#FAF7F2] flex gap-3">
           {hasActiveFilters && (
             <button
               onClick={onResetFilters}
-              className="px-4 py-3 border border-slate-200 text-slate-700 text-xs font-bold rounded-xl"
+              className="px-4 py-3 border border-[#ECC4A6] text-[#74351B] text-xs font-bold rounded-xl hover:bg-[#FBF0E6]"
             >
               Reset
             </button>
           )}
           <button
             onClick={onCloseMobileModal}
-            className="flex-1 py-3 bg-brand-600 text-white text-xs font-extrabold rounded-xl shadow-md shadow-brand-500/25"
+            className="flex-1 py-3 bg-[#D27848] text-white hover:bg-[#B95C2E] text-xs font-black rounded-xl shadow-md"
           >
             Show {totalResults} Certified Cars
           </button>
@@ -323,8 +335,9 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   }
 
   return (
-    <aside className="w-72 shrink-0 bg-white p-5 rounded-2xl border border-slate-200 shadow-sm sticky top-28 self-start max-h-[calc(100vh-140px)] overflow-y-auto">
+    <aside className="fixed left-0 top-16 sm:top-20 bottom-0 w-72 lg:w-80 bg-[#FDF8F4] p-5 border-r border-[#ECC4A6]/60 overflow-y-auto overscroll-contain z-30 shadow-subtle">
       {content}
     </aside>
   );
 };
+
