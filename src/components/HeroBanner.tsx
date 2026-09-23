@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShieldCheck, Award, RotateCcw, FileCheck2, Car as CarIcon } from 'lucide-react';
+import { ShieldCheck, Award, RotateCcw, FileCheck2 } from 'lucide-react';
 
 interface HeroBannerProps {
   onBuyCarClick?: () => void;
@@ -12,7 +12,6 @@ const CAR_SLIDES = [
     badge: 'KA-35 Registered • Verified',
     title: 'Absolute Trust & Simplicity',
     subtitle: 'Experience the hassle-free way of buying & selling used cars from the comfort of your home.',
-    buttonText: 'Browse Kundapura Inventory',
   },
   {
     id: 2,
@@ -20,7 +19,6 @@ const CAR_SLIDES = [
     badge: 'KA-05 Verified • 1st Owner',
     title: '200-Point Quality Inspection',
     subtitle: 'Every vehicle undergoes strict mechanical, electrical, and structural evaluation with 1-Year Warranty.',
-    buttonText: 'Explore Certified Cars',
   },
   {
     id: 3,
@@ -28,7 +26,6 @@ const CAR_SLIDES = [
     badge: '100% Verified History',
     title: '5-Day Money-Back Guarantee',
     subtitle: 'Test your car in real life. If you do not love it within 5 days, get a full refund.',
-    buttonText: 'Browse Kundapura Inventory',
   },
   {
     id: 4,
@@ -36,7 +33,6 @@ const CAR_SLIDES = [
     badge: '1-Year Comprehensive Warranty',
     title: 'Engine & Gearbox Protection',
     subtitle: 'Drive with total peace of mind with 24x7 roadside assistance across Karnataka.',
-    buttonText: 'View Inspected Cars',
   },
   {
     id: 5,
@@ -44,7 +40,6 @@ const CAR_SLIDES = [
     badge: 'Zero Hidden Charges',
     title: 'Fixed & Transparent Pricing',
     subtitle: 'Direct pricing with free RC transfer and complete paperwork handled at our Kundapura hubs.',
-    buttonText: 'Explore Available Cars',
   },
   {
     id: 6,
@@ -52,7 +47,6 @@ const CAR_SLIDES = [
     badge: 'Free Vehicle Delivery',
     title: 'Doorstep Vehicle Delivery',
     subtitle: 'We deliver your certified car right to your home or office anywhere across Kundapura & Udupi.',
-    buttonText: 'Explore Available Cars',
   },
   {
     id: 7,
@@ -60,7 +54,6 @@ const CAR_SLIDES = [
     badge: 'Instant Loan Approvals',
     title: 'Easy EMI Financing from 8.5%',
     subtitle: 'Flexible tenures up to 7 years with instant approvals and minimal documentation.',
-    buttonText: 'Check EMI & Financing',
   },
   {
     id: 8,
@@ -68,7 +61,6 @@ const CAR_SLIDES = [
     badge: 'Non-Accidental Certified',
     title: 'Non-Flooded & Clean History',
     subtitle: 'Every chassis, frame, and panel rigorously tested by certified automobile engineers.',
-    buttonText: 'View Certified Cars',
   },
   {
     id: 9,
@@ -76,7 +68,6 @@ const CAR_SLIDES = [
     badge: '5 Physical Yards in Kundapura',
     title: 'Kundapura Experience Hubs',
     subtitle: 'Visit our NH 66, Koteshwara, and Beach Road locations for same-day delivery.',
-    buttonText: 'Visit Our Hubs',
   },
   {
     id: 10,
@@ -84,7 +75,6 @@ const CAR_SLIDES = [
     badge: 'Best Price Guaranteed',
     title: 'Top Value for Your Trade-In',
     subtitle: 'Sell or exchange your old car in 30 minutes with instant bank transfer.',
-    buttonText: 'Browse Kundapura Inventory',
   },
 ];
 
@@ -172,7 +162,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onBuyCarClick }) => {
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="relative w-full h-full object-contain object-[center_36%] filter brightness-[0.96] contrast-[1.06] saturate-[1.12] transition-transform duration-700"
+                  className="relative w-full h-full object-contain object-[center_32%] filter brightness-[0.96] contrast-[1.06] saturate-[1.12] transition-transform duration-700"
                   loading={idx === 0 ? 'eager' : 'lazy'}
                 />
 
@@ -183,8 +173,8 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onBuyCarClick }) => {
           })}
         </div>
 
-        {/* Bottom Content Overlay (Moved upside with generous bottom spacing away from the bottom edge) */}
-        <div className="relative z-20 px-5 pb-8 sm:pb-10 pt-2 text-center flex flex-col items-center mb-1">
+        {/* Bottom Content Overlay (Pulled up with generous bottom spacing away from screen edge) */}
+        <div className="relative z-20 px-5 pb-14 sm:pb-16 pt-2 text-center flex flex-col items-center mb-2">
           
           {/* Slide Title */}
           <h2 className="text-xl xs:text-2xl font-black text-white tracking-tight leading-tight mb-1.5 drop-shadow-md">
@@ -212,13 +202,12 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onBuyCarClick }) => {
             ))}
           </div>
 
-          {/* Full-width Peachy CTA Button */}
+          {/* Full-width Peachy CTA Button (Fixed text, no leading icon) */}
           <button
             onClick={handleScrollToCatalog}
-            className="w-full py-3.5 px-6 rounded-xl bg-[#D27848] hover:bg-[#B95C2E] active:scale-[0.98] text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#D27848]/35 transition-all cursor-pointer"
+            className="w-full py-3.5 px-6 rounded-xl bg-[#D27848] hover:bg-[#B95C2E] active:scale-[0.98] text-white font-black text-sm sm:text-base flex items-center justify-center shadow-lg shadow-[#D27848]/35 transition-all cursor-pointer"
           >
-            <CarIcon className="w-4 h-4 text-white" />
-            <span>{CAR_SLIDES[activeSlide].buttonText}</span>
+            <span>Explore Available Cars</span>
           </button>
 
         </div>
