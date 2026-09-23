@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ShieldCheck, Award, RotateCcw, FileCheck2 } from 'lucide-react';
+import { MiniMovingCar } from './MiniMovingCar';
 
 interface HeroBannerProps {
   onBuyCarClick?: () => void;
@@ -132,12 +133,14 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onBuyCarClick }) => {
 
   return (
     <>
-      {/* 1. MOBILE HERO VIEW (Covers 100% of the screen height below navbar) */}
+      {/* 1. MOBILE HERO VIEW (Fits 100% of visible mobile screen below navbar without clipping) */}
       <div 
-        className="md:hidden relative w-full h-[calc(100dvh-96px)] min-h-[calc(100vh-96px)] overflow-hidden bg-[#0A0A0A] flex flex-col justify-end select-none"
+        className="md:hidden relative w-full h-[calc(100svh-115px)] min-h-[440px] max-h-[calc(100vh-115px)] overflow-hidden bg-[#0A0A0A] flex flex-col justify-end select-none"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
+        {/* Animated Small White Car Cruising Along Top Slider Margin */}
+        <MiniMovingCar />
         
         {/* Background Images Slider (Zoomed out so the entire car is seen clearly with side mirrors) */}
         <div className="absolute inset-0 z-0 overflow-hidden">
@@ -162,32 +165,32 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onBuyCarClick }) => {
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="relative w-full h-full object-contain object-[center_32%] filter brightness-[0.96] contrast-[1.06] saturate-[1.12] transition-transform duration-700"
+                  className="relative w-full h-full object-contain object-[center_30%] filter brightness-[0.96] contrast-[1.06] saturate-[1.12] transition-transform duration-700"
                   loading={idx === 0 ? 'eager' : 'lazy'}
                 />
 
                 {/* Bottom Gradient for High-Contrast Typography & Button Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 via-30% to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 via-35% to-transparent pointer-events-none" />
               </div>
             );
           })}
         </div>
 
-        {/* Bottom Content Overlay (Pulled up with generous bottom spacing away from screen edge) */}
-        <div className="relative z-20 px-5 pb-14 sm:pb-16 pt-2 text-center flex flex-col items-center mb-2">
+        {/* Bottom Content Overlay (Elevated cleanly with generous safe margin above screen bottom) */}
+        <div className="relative z-20 px-4 pb-4 sm:pb-6 pt-1 text-center flex flex-col items-center mb-1">
           
           {/* Slide Title */}
-          <h2 className="text-xl xs:text-2xl font-black text-white tracking-tight leading-tight mb-1.5 drop-shadow-md">
+          <h2 className="text-lg xs:text-xl font-black text-white tracking-tight leading-tight mb-1 drop-shadow-md">
             {CAR_SLIDES[activeSlide].title}
           </h2>
 
           {/* Subtitle */}
-          <p className="text-xs xs:text-sm text-gray-200 leading-snug max-w-xs mb-3.5 font-normal drop-shadow">
+          <p className="text-xs text-gray-200 leading-snug max-w-xs mb-2.5 font-normal drop-shadow line-clamp-2">
             {CAR_SLIDES[activeSlide].subtitle}
           </p>
 
           {/* Capsule & Dot Slider Indicators (Peachy Active Pill + Inactive Dots) */}
-          <div className="flex items-center justify-center gap-1.5 mb-4">
+          <div className="flex items-center justify-center gap-1.5 mb-3">
             {CAR_SLIDES.map((slide, idx) => (
               <button
                 key={slide.id}
@@ -202,10 +205,10 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onBuyCarClick }) => {
             ))}
           </div>
 
-          {/* Full-width Peachy CTA Button (Fixed text, no leading icon) */}
+          {/* Full-width Peachy CTA Button (Fixed text, no leading icon, fully visible) */}
           <button
             onClick={handleScrollToCatalog}
-            className="w-full py-3.5 px-6 rounded-xl bg-[#D27848] hover:bg-[#B95C2E] active:scale-[0.98] text-white font-black text-sm sm:text-base flex items-center justify-center shadow-lg shadow-[#D27848]/35 transition-all cursor-pointer"
+            className="w-full py-3 px-5 rounded-xl bg-[#D27848] hover:bg-[#B95C2E] active:scale-[0.98] text-white font-black text-sm flex items-center justify-center shadow-lg shadow-[#D27848]/35 transition-all cursor-pointer"
           >
             <span>Explore Available Cars</span>
           </button>
