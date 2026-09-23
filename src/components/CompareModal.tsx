@@ -13,15 +13,13 @@ interface CompareModalProps {
   onClose: () => void;
   onRemoveCar: (carId: string) => void;
   onSelectCar: (car: Car) => void;
-  onBookTestDrive: (car: Car) => void;
 }
 
 export const CompareModal: React.FC<CompareModalProps> = ({
   cars,
   onClose,
   onRemoveCar,
-  onSelectCar,
-  onBookTestDrive
+  onSelectCar
 }) => {
   if (cars.length === 0) return null;
 
@@ -84,24 +82,15 @@ export const CompareModal: React.FC<CompareModalProps> = ({
                       <div className="text-[11px] text-[#8B785F] font-medium line-clamp-1">{car.variant}</div>
                       <div className="text-base font-black text-[#2E271F]">{formatPrice(car.price)}</div>
                       
-                      <div className="pt-2 flex gap-1.5">
+                      <div className="pt-2">
                         <button
                           onClick={() => {
                             onClose();
                             onSelectCar(car);
                           }}
-                          className="flex-1 py-1.5 bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] text-[11px] font-bold rounded-lg border border-[#ECC4A6] transition-colors"
+                          className="w-full py-2 bg-[#D27848] hover:bg-[#B95C2E] text-white text-xs font-bold rounded-xl transition-colors shadow-2xs"
                         >
-                          View Details
-                        </button>
-                        <button
-                          onClick={() => {
-                            onClose();
-                            onBookTestDrive(car);
-                          }}
-                          className="py-1.5 px-2.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-[11px] font-extrabold rounded-lg transition-colors shadow-2xs"
-                        >
-                          Test Drive
+                          View Full Details
                         </button>
                       </div>
                     </div>

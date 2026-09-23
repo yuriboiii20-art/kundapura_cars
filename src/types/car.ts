@@ -73,15 +73,3 @@ export interface FilterState {
   maxKm: number;
   sortBy: 'recommended' | 'price-asc' | 'price-desc' | 'km-asc' | 'year-desc';
 }
-
-export interface TestDriveBooking {
-  carId: string;
-  carTitle: string;
-  customerName: string;
-  phone: string;
-  email: string;
-  preferredDate: string;
-  preferredTimeSlot: string;
-  deliveryType: 'hub' | 'home';
-  kundapuraArea: string;
-}

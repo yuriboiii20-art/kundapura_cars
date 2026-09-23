@@ -31,7 +31,7 @@ export const KundapuraHubs: React.FC<KundapuraHubsProps> = () => {
             Visit Our Kundapura & Coastal Hubs
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-[#8B785F] leading-relaxed">
-            Walk into any of our certified experience yards across Kundapura and Coastal Karnataka. Inspect vehicles, take extended test drives, and complete paperwork in 45 minutes.
+            Walk into any of our certified experience yards across Kundapura and Coastal Karnataka. Inspect vehicles in person, verify documents, and complete paperwork in 45 minutes.
           </p>
         </div>
 

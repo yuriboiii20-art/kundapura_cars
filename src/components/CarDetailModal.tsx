@@ -27,7 +27,6 @@ interface CarDetailModalProps {
   onClose: () => void;
   isWishlisted: boolean;
   onToggleWishlist: (carId: string) => void;
-  onBookTestDrive: (car: Car) => void;
   onReserveCar: (car: Car) => void;
   isCompared?: boolean;
   onToggleCompare?: (car: Car) => void;
@@ -38,7 +37,6 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
   onClose,
   isWishlisted,
   onToggleWishlist,
-  onBookTestDrive,
   onReserveCar
 }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -264,7 +262,7 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
                   <div>
                     <strong className="text-[#2E271F] font-bold">Parked at:</strong> {car.hubLocation}
                     <div className="text-[11px] text-[#8B785F] mt-0.5">
-                      Available for immediate test drive at Hub or Doorstep
+                      Available for immediate inspection &amp; delivery at Hub
                     </div>
                   </div>
                 </div>
@@ -303,17 +301,10 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
               {/* Primary CTA Buttons */}
               <div className="space-y-2.5 pt-1">
                 <button
-                  onClick={() => onBookTestDrive(car)}
+                  onClick={() => onReserveCar(car)}
                   className="w-full py-3.5 px-4 bg-[#D27848] hover:bg-[#B95C2E] text-white font-extrabold text-sm rounded-2xl shadow-md transition-all flex items-center justify-center gap-2"
                 >
-                  <Sparkles className="w-4 h-4" />
-                  <span>Book Free Test Drive</span>
-                </button>
-
-                <button
-                  onClick={() => onReserveCar(car)}
-                  className="w-full py-3 px-4 bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] font-extrabold text-xs rounded-2xl border border-[#ECC4A6] transition-all shadow-2xs flex items-center justify-center gap-1.5"
-                >
+                  <Zap className="w-4 h-4" />
                   <span>Reserve This Car Online (₹999)</span>
                 </button>
 
@@ -570,17 +561,10 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
 
             <button
               onClick={() => onReserveCar(car)}
-              className="px-2.5 sm:px-3.5 py-2 sm:py-2.5 bg-[#FBF0E6] hover:bg-[#F7DEC9] text-[#74351B] text-[11px] sm:text-xs font-extrabold rounded-xl border border-[#ECC4A6] transition-all shadow-2xs whitespace-nowrap"
+              className="px-4 sm:px-6 py-2 sm:py-2.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-[11px] sm:text-xs font-extrabold rounded-xl shadow-md transition-all flex items-center gap-1.5 whitespace-nowrap"
             >
-              Reserve <span className="hidden xs:inline">(₹999)</span>
-            </button>
-
-            <button
-              onClick={() => onBookTestDrive(car)}
-              className="px-3 sm:px-4 py-2 sm:py-2.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-[11px] sm:text-xs font-extrabold rounded-xl shadow-md transition-all flex items-center gap-1 sm:gap-1.5 whitespace-nowrap"
-            >
-              <Sparkles className="w-3.5 h-3.5 shrink-0" />
-              <span>Test Drive</span>
+              <Zap className="w-3.5 h-3.5" />
+              <span>Reserve (₹999)</span>
             </button>
           </div>
         </div>

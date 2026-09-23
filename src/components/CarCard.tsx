@@ -14,7 +14,6 @@ interface CarCardProps {
   isCompared?: boolean;
   onToggleCompare?: (car: Car) => void;
   onSelectCar: (car: Car) => void;
-  onBookTestDrive?: (car: Car) => void;
 }
 
 export const CarCard: React.FC<CarCardProps> = ({

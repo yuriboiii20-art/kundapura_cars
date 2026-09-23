@@ -1,39 +1,110 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ShieldCheck, Award, RotateCcw, FileCheck2, Car as CarIcon } from 'lucide-react';
 
 interface HeroBannerProps {
   onBuyCarClick?: () => void;
 }
 
-const SLIDES = [
+const CAR_SLIDES = [
   {
     id: 1,
+    image: '/images/c1.png',
+    badge: 'KA-35 Registered • Verified',
     title: 'Absolute Trust & Simplicity',
     subtitle: 'Experience the hassle-free way of buying & selling used cars from the comfort of your home.',
-    buttonText: 'Buy car',
+    buttonText: 'Browse Kundapura Inventory',
   },
   {
     id: 2,
+    image: '/images/c2.png',
+    badge: 'KA-05 Verified • 1st Owner',
     title: '200-Point Quality Inspection',
     subtitle: 'Every vehicle undergoes strict mechanical, electrical, and structural evaluation with 1-Year Warranty.',
     buttonText: 'Explore Certified Cars',
   },
   {
     id: 3,
-    title: '5-Day 100% Money-Back Guarantee',
+    image: '/images/c3.png',
+    badge: '100% Verified History',
+    title: '5-Day Money-Back Guarantee',
     subtitle: 'Test your car in real life. If you do not love it within 5 days, get a full refund.',
+    buttonText: 'Browse Kundapura Inventory',
+  },
+  {
+    id: 4,
+    image: '/images/c4.png',
+    badge: '1-Year Comprehensive Warranty',
+    title: 'Engine & Gearbox Protection',
+    subtitle: 'Drive with total peace of mind with 24x7 roadside assistance across Karnataka.',
+    buttonText: 'View Inspected Cars',
+  },
+  {
+    id: 5,
+    image: '/images/c5.png',
+    badge: 'Zero Hidden Charges',
+    title: 'Fixed & Transparent Pricing',
+    subtitle: 'Direct pricing with free RC transfer and complete paperwork handled at our Kundapura hubs.',
+    buttonText: 'Explore Available Cars',
+  },
+  {
+    id: 6,
+    image: '/images/c6.png',
+    badge: 'Free Vehicle Delivery',
+    title: 'Doorstep Vehicle Delivery',
+    subtitle: 'We deliver your certified car right to your home or office anywhere across Kundapura & Udupi.',
+    buttonText: 'Explore Available Cars',
+  },
+  {
+    id: 7,
+    image: '/images/c7.png',
+    badge: 'Instant Loan Approvals',
+    title: 'Easy EMI Financing from 8.5%',
+    subtitle: 'Flexible tenures up to 7 years with instant approvals and minimal documentation.',
+    buttonText: 'Check EMI & Financing',
+  },
+  {
+    id: 8,
+    image: '/images/c8.png',
+    badge: 'Non-Accidental Certified',
+    title: 'Non-Flooded & Clean History',
+    subtitle: 'Every chassis, frame, and panel rigorously tested by certified automobile engineers.',
+    buttonText: 'View Certified Cars',
+  },
+  {
+    id: 9,
+    image: '/images/c9.png',
+    badge: '5 Physical Yards in Kundapura',
+    title: 'Kundapura Experience Hubs',
+    subtitle: 'Visit our NH 66, Koteshwara, and Beach Road locations for same-day delivery.',
+    buttonText: 'Visit Our Hubs',
+  },
+  {
+    id: 10,
+    image: '/images/c10.png',
+    badge: 'Best Price Guaranteed',
+    title: 'Top Value for Your Trade-In',
+    subtitle: 'Sell or exchange your old car in 30 minutes with instant bank transfer.',
     buttonText: 'Browse Kundapura Inventory',
   },
 ];
 
 export const HeroBanner: React.FC<HeroBannerProps> = ({ onBuyCarClick }) => {
   const [activeSlide, setActiveSlide] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
-  // Auto rotate slides every 5 seconds
+  // Preload all 10 slider images for instant, flicker-free transitions
+  useEffect(() => {
+    CAR_SLIDES.forEach((slide) => {
+      const img = new Image();
+      img.src = slide.image;
+    });
+  }, []);
+
+  // Auto rotate slides every 2 seconds (2000ms)
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % SLIDES.length);
-    }, 5000);
+      setActiveSlide((prev) => (prev + 1) % CAR_SLIDES.length);
+    }, 2000);
     return () => clearInterval(timer);
   }, []);
 
@@ -48,60 +119,106 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onBuyCarClick }) => {
     }
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        // Swiped left -> next slide
+        setActiveSlide((prev) => (prev + 1) % CAR_SLIDES.length);
+      } else {
+        // Swiped right -> prev slide
+        setActiveSlide((prev) => (prev - 1 + CAR_SLIDES.length) % CAR_SLIDES.length);
+      }
+    }
+    touchStartX.current = null;
+  };
+
   return (
     <>
-      {/* 1. MOBILE HERO VIEW (Matches Screenshot 1 Exactly) */}
-      <div className="md:hidden relative w-full h-[72vh] min-h-[500px] max-h-[620px] overflow-hidden bg-black flex flex-col justify-end">
+      {/* 1. MOBILE HERO VIEW (Covers 100% of the screen height below navbar) */}
+      <div 
+        className="md:hidden relative w-full h-[calc(100dvh-96px)] min-h-[calc(100vh-96px)] overflow-hidden bg-[#0A0A0A] flex flex-col justify-end select-none"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         
-        {/* Background Intro Image / Cinematic Video Simulation with slow pan & zoom */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/mobile-hero-bg.jpg"
-            alt="Kundapura Cars Intro"
-            className="w-full h-full object-cover object-center scale-105 animate-pulse-slow transform transition-transform duration-1000 ease-out"
-          />
-          
-          {/* Subtle Ambient Video Overlay (Soft warm sun rays & atmosphere) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-          <div className="absolute inset-0 bg-radial-at-t from-transparent via-transparent to-black/30" />
+        {/* Background Images Slider (Zoomed out so the entire car is seen clearly with side mirrors) */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {CAR_SLIDES.map((slide, idx) => {
+            const isActive = idx === activeSlide;
+            return (
+              <div
+                key={slide.id}
+                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                  isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+                }`}
+              >
+                {/* Ambient Blurred Background to Fill Edge-to-Edge */}
+                <img
+                  src={slide.image}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover filter blur-2xl opacity-35 scale-110 pointer-events-none"
+                />
+
+                {/* Main Car Photo: Cleanly Zoomed Out with 100% Full Car Visibility */}
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className="relative w-full h-full object-contain object-[center_36%] filter brightness-[0.96] contrast-[1.06] saturate-[1.12] transition-transform duration-700"
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                />
+
+                {/* Bottom Gradient for High-Contrast Typography & Button Readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 via-30% to-transparent pointer-events-none" />
+              </div>
+            );
+          })}
         </div>
 
-        {/* Content Overlay pinned to bottom */}
-        <div className="relative z-10 p-5 text-center flex flex-col items-center">
+        {/* Bottom Content Overlay (Moved upside with generous bottom spacing away from the bottom edge) */}
+        <div className="relative z-20 px-5 pb-8 sm:pb-10 pt-2 text-center flex flex-col items-center mb-1">
           
           {/* Slide Title */}
-          <h2 className="text-xl xs:text-2xl font-black text-white tracking-tight leading-tight mb-2 drop-shadow-md">
-            {SLIDES[activeSlide].title}
+          <h2 className="text-xl xs:text-2xl font-black text-white tracking-tight leading-tight mb-1.5 drop-shadow-md">
+            {CAR_SLIDES[activeSlide].title}
           </h2>
 
           {/* Subtitle */}
-          <p className="text-xs xs:text-sm text-gray-200 leading-relaxed max-w-sm mb-4 font-normal drop-shadow">
-            {SLIDES[activeSlide].subtitle}
+          <p className="text-xs xs:text-sm text-gray-200 leading-snug max-w-xs mb-3.5 font-normal drop-shadow">
+            {CAR_SLIDES[activeSlide].subtitle}
           </p>
 
-          {/* Carousel Indicator Dots (Pill for active, circles for inactive) */}
-          <div className="flex items-center justify-center gap-1.5 mb-5">
-            {SLIDES.map((slide, idx) => (
+          {/* Capsule & Dot Slider Indicators (Peachy Active Pill + Inactive Dots) */}
+          <div className="flex items-center justify-center gap-1.5 mb-4">
+            {CAR_SLIDES.map((slide, idx) => (
               <button
                 key={slide.id}
                 onClick={() => setActiveSlide(idx)}
                 className={`transition-all duration-300 rounded-full ${
                   idx === activeSlide
-                    ? 'w-6 h-1.5 bg-white'
-                    : 'w-1.5 h-1.5 bg-white/50 hover:bg-white/80'
+                    ? 'w-6 h-1.5 bg-[#D27848] shadow-xs shadow-[#D27848]/60'
+                    : 'w-1.5 h-1.5 bg-white/45 hover:bg-white/75'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
           </div>
 
-          {/* Full-width "Buy car" Red CTA Button */}
+          {/* Full-width Peachy CTA Button */}
           <button
             onClick={handleScrollToCatalog}
-            className="w-full py-3.5 px-6 rounded-xl bg-[#E12B47] hover:bg-[#C91F3A] active:scale-[0.98] text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#E12B47]/30 transition-all cursor-pointer"
+            className="w-full py-3.5 px-6 rounded-xl bg-[#D27848] hover:bg-[#B95C2E] active:scale-[0.98] text-white font-black text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#D27848]/35 transition-all cursor-pointer"
           >
             <CarIcon className="w-4 h-4 text-white" />
-            <span>{SLIDES[activeSlide].buttonText}</span>
+            <span>{CAR_SLIDES[activeSlide].buttonText}</span>
           </button>
 
         </div>
