@@ -67,3 +67,72 @@
   scrollbar-width: none;
 }
 
+/* Mini White Car Driving Across Animations */
+@keyframes carDriveAcross {
+  0% {
+    transform: translateX(-280px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 60px));
+  }
+}
+
+@keyframes carWheelSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes carDriveBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.75px);
+  }
+}
+
+@keyframes bannerFlutter {
+  0% {
+    transform: translateY(0px) rotate(-1deg) skewY(-0.5deg);
+  }
+  25% {
+    transform: translateY(-1.2px) rotate(1.2deg) skewY(1deg);
+  }
+  50% {
+    transform: translateY(0.8px) rotate(-1.5deg) skewY(-1deg);
+  }
+  75% {
+    transform: translateY(-0.6px) rotate(1deg) skewY(0.5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(-1deg) skewY(-0.5deg);
+  }
+}
+
+.animate-car-drive {
+  animation: carDriveAcross 8.5s linear infinite;
+  will-change: transform;
+}
+
+.animate-wheel-spin {
+  animation: carWheelSpin 0.45s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.animate-car-bounce {
+  animation: carDriveBounce 0.35s ease-in-out infinite;
+}
+
+.animate-banner-flutter {
+  animation: bannerFlutter 1.4s ease-in-out infinite;
+  transform-origin: right center;
+}
+
+
+
+
