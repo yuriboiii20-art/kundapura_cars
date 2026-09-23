@@ -92,10 +92,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '57 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80'
+      '/images/SUV/thar.jpg'
     ]
   },
   {
@@ -186,10 +183,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '57 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80'
+      '/images/SUV/scorpio.jpeg'
     ]
   },
   {
@@ -280,10 +274,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '50 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80'
+      '/images/SUV/harrier.jpeg'
     ]
   },
   {
@@ -374,10 +365,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '50 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80'
+      '/images/SUV/creata.jpeg'
     ]
   },
   {
@@ -468,10 +456,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '80 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80'
+      '/images/SUV/fortuner.jpeg'
     ]
   },
 
@@ -566,10 +551,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '40 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80'
+      '/images/Sedan/city.jpg'
     ]
   },
   {
@@ -660,10 +642,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '45 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80'
+      '/images/Sedan/virtus.jpg'
     ]
   },
   {
@@ -754,10 +733,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '45 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80'
+      '/images/Sedan/slavia.jpg'
     ]
   },
   {
@@ -848,10 +824,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '45 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80'
+      '/images/Sedan/verna.jpeg'
     ]
   },
   {
@@ -942,10 +915,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '43 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80'
+      '/images/Sedan/ciaz.jpg'
     ]
   },
 
@@ -1040,10 +1010,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '37 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80'
+      '/images/hatchback/baleno.jpg'
     ]
   },
   {
@@ -1134,10 +1101,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '37 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80'
+      '/images/hatchback/swift.jpg'
     ]
   },
   {
@@ -1228,10 +1192,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '37 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80'
+      '/images/hatchback/i20.jpg'
     ]
   },
   {
@@ -1322,10 +1283,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '37 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80'
+      '/images/hatchback/altroz.jpg'
     ]
   },
   {
@@ -1416,10 +1374,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '45 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80'
+      '/images/hatchback/polo.jpg'
     ]
   },
 
@@ -1514,10 +1469,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '55 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80'
+      '/images/MUV/crysta.jpg'
     ]
   },
   {
@@ -1608,10 +1560,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '45 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80'
+      '/images/MUV/ertiga.jpg'
     ]
   },
   {
@@ -1702,10 +1651,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '45 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80'
+      '/images/MUV/carens.jpg'
     ]
   },
   {
@@ -1796,10 +1742,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '52 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80'
+      '/images/MUV/hycross.jpg'
     ]
   },
   {
@@ -1890,489 +1833,11 @@ export const CARS_DATA: Car[] = [
       fuelTank: '45 Litres'
     },
     images: [
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80'
+      '/images/MUV/rumion.jpg'
     ]
   },
 
-  // ==========================================
-  // 5. LUXURY CATEGORY (5 CARS)
-  // ==========================================
-  {
-    id: 'kc-bmw-330i-2021',
-    title: '2021 BMW 3 Series 330i M Sport',
-    brand: 'BMW',
-    model: '3 Series',
-    variant: '330i M Sport 2.0L TwinPower Turbo',
-    year: 2021,
-    price: 3650000,
-    originalPrice: 3890000,
-    emiStarting: 67800,
-    kilometers: 26000,
-    fuelType: 'Petrol',
-    transmission: 'Automatic',
-    bodyType: 'Luxury',
-    owner: '1st Owner',
-    rto: 'KA-20 (Kundapura RTO)',
-    hubLocation: 'Kundapura NH 66 Highway Hub',
-    color: 'Portimao Blue Metallic',
-    isAssured: true,
-    featured: true,
-    trending: true,
-    tags: ['255 bhp Pure Power', 'M Sport Package', 'Harman Kardon', 'Laser Lights', 'Single Owner'],
-    inspectionScore: 10.0,
-    inspectionSummary: {
-      engineTransmission: {
-        title: 'B48 2.0L TwinPower Turbo & ZF 8-Speed Steptronic',
-        score: '10/10',
-        checksTotal: 48,
-        checksPassed: 48,
-        status: 'passed',
-        highlights: ['0-100 km/h in 5.8 seconds tested', 'ZF transmission sport calibration perfect', 'Pristine Bavarian engineering']
-      },
-      steeringSuspension: {
-        title: '50:50 Weight Distribution & M Sport Suspension',
-        score: '10/10',
-        checksTotal: 42,
-        checksPassed: 42,
-        status: 'passed',
-        highlights: ['Variable Sport Steering responsive', 'M Sport upgraded brakes at 90% life', 'Cornering stability pristine']
-      },
-      bodyPaint: {
-        title: 'Portimao Blue Paint & M Aerodynamic Kit',
-        score: '10/10',
-        checksTotal: 45,
-        checksPassed: 45,
-        status: 'passed',
-        highlights: ['Ceramic coating protected finish', 'Zero rock chips or scratches', 'BMW Laserlight headlights clear']
-      },
-      interiorElectricals: {
-        title: 'Live Cockpit Professional & Harman Kardon',
-        score: '10/10',
-        checksTotal: 35,
-        checksPassed: 35,
-        status: 'passed',
-        highlights: ['16-Speaker Harman Kardon 464W sound system', 'Wireless Apple CarPlay & Gesture Control', 'Vernasca leather pristine']
-      },
-      acTyres: {
-        title: '3-Zone Climate Control & Michelin Pilot Sport 4',
-        score: '9.9/10',
-        checksTotal: 30,
-        checksPassed: 30,
-        status: 'passed',
-        highlights: ['Michelin Pilot Sport 4 tyres with 84% life', '3-zone climate control ice cold', 'M 18-inch Bicolour alloys pristine']
-      }
-    },
-    features: [
-      '2.0L 4-Cylinder BMW TwinPower Turbo (255 bhp / 400 Nm)',
-      'ZF 8-Speed Steptronic Sport Automatic Transmission with Launch Control',
-      'BMW Live Cockpit Professional with 12.3-inch Digital Cluster & 10.25-inch Display',
-      'Harman Kardon Surround Sound System with 16 Speakers & 464W Amplifier',
-      'BMW Laserlight Headlights with High-Beam Assistant (500m throw)',
-      'M Sport Aerodynamics Package with M Steering Wheel & Anthracite Headliner',
-      'Vernasca Leather Sport Seats with Memory Function',
-      'Park Assistant Plus with Reversing Assistant (auto backs up 50m)'
-    ],
-    specs: {
-      engineCapacity: '1998 cc Turbo',
-      maxPower: '255 bhp @ 5000 rpm (0-100 in 5.8s)',
-      mileageARAI: '16.13 kmpl',
-      seatingCapacity: 5,
-      airbags: 6,
-      bootSpace: '480 Litres',
-      sunroof: 'Electric Glass Sunroof',
-      insuranceValidity: 'Comprehensive till Dec 2026',
-      groundClearance: '136 mm',
-      fuelTank: '59 Litres'
-    },
-    images: [
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80'
-    ]
-  },
-  {
-    id: 'kc-c200-2022',
-    title: '2022 Mercedes-Benz C-Class C200 Progressive',
-    brand: 'Mercedes-Benz',
-    model: 'C-Class',
-    variant: 'C200 Progressive Mild-Hybrid 9G-TRONIC',
-    year: 2022,
-    price: 4250000,
-    originalPrice: 4500000,
-    emiStarting: 78900,
-    kilometers: 19500,
-    fuelType: 'Petrol',
-    transmission: 'Automatic',
-    bodyType: 'Luxury',
-    owner: '1st Owner',
-    rto: 'KA-20 (Kundapura RTO)',
-    hubLocation: 'Kundapura Beach Road Hub',
-    color: 'Obsidian Black Metallic',
-    isAssured: true,
-    featured: true,
-    trending: true,
-    tags: ['Baby S-Class', '11.9-inch Portrait Screen', 'Burmester 3D', 'EQ Boost', 'Under MB Warranty'],
-    inspectionScore: 10.0,
-    inspectionSummary: {
-      engineTransmission: {
-        title: '1.5L Turbo + 48V Integrated Starter Generator & 9G-TRONIC',
-        score: '10/10',
-        checksTotal: 48,
-        checksPassed: 48,
-        status: 'passed',
-        highlights: ['204 bhp + 20 bhp EQ Boost instant surge', '9G-TRONIC 9-speed automatic silky shifts', 'Zero engine residue']
-      },
-      steeringSuspension: {
-        title: 'Agility Control Suspension & Adaptive Damping',
-        score: '10/10',
-        checksTotal: 42,
-        checksPassed: 42,
-        status: 'passed',
-        highlights: ['Supremely serene cabin noise isolation', 'Brake calipers and pads at 90% life', 'High-speed composure']
-      },
-      bodyPaint: {
-        title: 'Obsidian Black Metallic & Star Pattern Grille',
-        score: '10/10',
-        checksTotal: 45,
-        checksPassed: 45,
-        status: 'passed',
-        highlights: ['Deep obsidian glass shine', 'High performance LED headlamps pristine', 'Zero imperfections']
-      },
-      interiorElectricals: {
-        title: '11.9-inch MBUX Portrait Screen & Burmester 3D Sound',
-        score: '10/10',
-        checksTotal: 35,
-        checksPassed: 35,
-        status: 'passed',
-        highlights: ['15-Speaker 710W Burmester 3D audio tested', 'Fingerprint scanner biometric authentication', '64-color ambient light']
-      },
-      acTyres: {
-        title: 'Thermatic Dual Zone AC & Pirelli Cinturato Tyres',
-        score: '9.9/10',
-        checksTotal: 30,
-        checksPassed: 30,
-        status: 'passed',
-        highlights: ['Thermatic AC cools rapidly with HEPA air filter', 'Pirelli run-flat tyres at 85% life', '17-inch 5-spoke alloys clean']
-      }
-    },
-    features: [
-      '11.9-inch Centrally Mounted High-Res Portrait Touchscreen with NTG7 MBUX',
-      'Burmester 3D Surround Sound System with 15 Speakers (710 Watts)',
-      '48V EQ Boost Integrated Starter Generator (+200 Nm torque boost)',
-      'Panoramic Sliding Glass Sunroof with Rain Sensor Closure',
-      'Biometric Fingerprint Scanner for Driver Profile Customization',
-      'Active Brake Assist with Pedestrian Detection & Attention Assist',
-      'ARTICO Leather Upholstery with Memory Electric Front Seats',
-      'Mercedes-Benz Complete Star Care Package Valid till 2027'
-    ],
-    specs: {
-      engineCapacity: '1496 cc Turbo + EQ Boost',
-      maxPower: '201 bhp @ 5800 rpm',
-      mileageARAI: '16.90 kmpl',
-      seatingCapacity: 5,
-      airbags: 7,
-      bootSpace: '455 Litres',
-      sunroof: 'Panoramic Sunroof',
-      insuranceValidity: 'Zero Dep till Sep 2027',
-      groundClearance: '140 mm',
-      fuelTank: '66 Litres'
-    },
-    images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80'
-    ]
-  },
-  {
-    id: 'kc-a4-2022',
-    title: '2022 Audi A4 40 TFSI Technology',
-    brand: 'Audi',
-    model: 'A4',
-    variant: '40 TFSI Technology 2.0L Turbo S-Tronic',
-    year: 2022,
-    price: 3490000,
-    originalPrice: 3750000,
-    emiStarting: 64800,
-    kilometers: 24000,
-    fuelType: 'Petrol',
-    transmission: 'Automatic',
-    bodyType: 'Luxury',
-    owner: '1st Owner',
-    rto: 'KA-20 (Kundapura RTO)',
-    hubLocation: 'Kundapura NH 66 Highway Hub',
-    color: 'Ibis White',
-    isAssured: true,
-    featured: false,
-    trending: true,
-    tags: ['190 bhp Turbo', 'Virtual Cockpit Plus', 'Bang & Olufsen 3D', 'Matrix LED', 'Single Owner'],
-    inspectionScore: 9.9,
-    inspectionSummary: {
-      engineTransmission: {
-        title: '2.0L TFSI Turbo & 7-Speed S-Tronic Dual Clutch',
-        score: '10/10',
-        checksTotal: 48,
-        checksPassed: 48,
-        status: 'passed',
-        highlights: ['0-100 in 7.3s with effortless overtaking punch', 'S-Tronic dual clutch transmission tested', 'Engine bay in showroom condition']
-      },
-      steeringSuspension: {
-        title: 'Comfort Heavy Duty Suspension & Progressive Steering',
-        score: '9.9/10',
-        checksTotal: 42,
-        checksPassed: 42,
-        status: 'passed',
-        highlights: ['Supremely comfortable suspension tuned for Indian roads', 'Brakes at 86% life', 'Rock solid highway tracking']
-      },
-      bodyPaint: {
-        title: 'Ibis White Paint & Matrix LED Headlamps',
-        score: '9.9/10',
-        checksTotal: 45,
-        checksPassed: 45,
-        status: 'passed',
-        highlights: ['Audi Matrix LED headlamps with dynamic turn indicators', 'Original factory paint coat', 'Zero scratches']
-      },
-      interiorElectricals: {
-        title: 'Audi Virtual Cockpit Plus & B&O 3D Sound',
-        score: '10/10',
-        checksTotal: 35,
-        checksPassed: 35,
-        status: 'passed',
-        highlights: ['19-Speaker 755W Bang & Olufsen 3D sound system tested', '12.3-inch Virtual Cockpit navigation display', 'Wireless charging']
-      },
-      acTyres: {
-        title: '3-Zone Deluxe AC & 17-inch 5-Arm Alloys',
-        score: '9.8/10',
-        checksTotal: 30,
-        checksPassed: 30,
-        status: 'passed',
-        highlights: ['3-Zone automatic climate control tested', 'Michelin tyres at 82% tread life', 'Clean spare wheel']
-      }
-    },
-    features: [
-      '2.0L 4-Cylinder TFSI Turbo Petrol (190 bhp / 320 Nm)',
-      '7-Speed S-Tronic Dual Clutch Automatic Transmission',
-      'Audi Virtual Cockpit Plus with Full HD Google 3D Navigation Display',
-      'Bang & Olufsen 3D Premium Sound System with 19 Speakers (755W)',
-      'Audi Matrix LED Headlights with Dynamic Indicators & Welcome Staging',
-      'Audi Drive Select with 5 Modes (Efficiency, Comfort, Auto, Dynamic, Individual)',
-      'Park Assist with 360-Degree Camera & Auto Steering Entry',
-      '8 Airbags & Audi Pre-Sense Safety System'
-    ],
-    specs: {
-      engineCapacity: '1984 cc Turbo',
-      maxPower: '188 bhp @ 4200 rpm',
-      mileageARAI: '17.42 kmpl',
-      seatingCapacity: 5,
-      airbags: 8,
-      bootSpace: '460 Litres',
-      sunroof: 'Electric Glass Sunroof',
-      insuranceValidity: 'Comprehensive till Oct 2026',
-      groundClearance: '145 mm',
-      fuelTank: '54 Litres'
-    },
-    images: [
-      'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80'
-    ]
-  },
-  {
-    id: 'kc-x1-2022',
-    title: '2022 BMW X1 sDrive20d M Sport',
-    brand: 'BMW',
-    model: 'X1',
-    variant: 'sDrive20d M Sport 2.0L Turbo Diesel Steptronic',
-    year: 2022,
-    price: 3280000,
-    originalPrice: 3490000,
-    emiStarting: 60900,
-    kilometers: 27500,
-    fuelType: 'Diesel',
-    transmission: 'Automatic',
-    bodyType: 'Luxury',
-    owner: '1st Owner',
-    rto: 'KA-20 (Kundapura RTO)',
-    hubLocation: 'Koteshwara Highway Yard',
-    color: 'Storm Bay Metallic',
-    isAssured: true,
-    featured: false,
-    trending: true,
-    tags: ['190 bhp Diesel', 'M Sport Body Kit', 'Panoramic Sunroof', '19.6 kmpl Mileage', 'Single Owner'],
-    inspectionScore: 9.9,
-    inspectionSummary: {
-      engineTransmission: {
-        title: '2.0L TwinPower Turbo Diesel & 8-Speed Steptronic',
-        score: '10/10',
-        checksTotal: 48,
-        checksPassed: 48,
-        status: 'passed',
-        highlights: ['Massive 400 Nm torque pulls effortlessly on Western Ghat highways', '8-speed gearbox flawless', 'Zero oil leaks']
-      },
-      steeringSuspension: {
-        title: 'M Sport Suspension & Variable Assist Steering',
-        score: '9.8/10',
-        checksTotal: 42,
-        checksPassed: 42,
-        status: 'passed',
-        highlights: ['High-speed SUV roadholding', 'M Sport brakes at 85% life', 'Suspension links tight']
-      },
-      bodyPaint: {
-        title: 'Storm Bay Grey Paint & Shadow Line Gloss',
-        score: '9.9/10',
-        checksTotal: 45,
-        checksPassed: 45,
-        status: 'passed',
-        highlights: ['M Aerodynamics front and rear bumpers pristine', 'LED headlights with cornering lights clean', 'Factory coat']
-      },
-      interiorElectricals: {
-        title: '8.8-inch iDrive & Panoramic Glass Roof',
-        score: '9.9/10',
-        checksTotal: 35,
-        checksPassed: 35,
-        status: 'passed',
-        highlights: ['Panoramic sunroof fully functional', 'Sensatec sport seats with memory verified', 'Wireless Apple CarPlay']
-      },
-      acTyres: {
-        title: '2-Zone AC & 18-inch M Double Spoke Alloys',
-        score: '9.8/10',
-        checksTotal: 30,
-        checksPassed: 30,
-        status: 'passed',
-        highlights: ['2-Zone climate control chilled to 5.5°C', 'Bridgestone Turanza tyres at 80% life', 'Clean spare tyre']
-      }
-    },
-    features: [
-      '2.0L BMW TwinPower Turbo 4-Cylinder Diesel (190 bhp / 400 Nm)',
-      '8-Speed Steptronic Automatic Transmission with Paddle Shifters',
-      'Panorama Glass Roof with Electric Slide and Sunblind',
-      'M Sport Aerodynamic Body Styling with High-Gloss Shadowline',
-      'BMW iDrive Touch Infotainment with Wireless Apple CarPlay',
-      'BMW Head-Up Display (HUD) & Parking Assistant with Rear Camera',
-      'Sensatec Perforated Sport Seats with Electric Memory',
-      '6 Airbags, Dynamic Traction Control (DTC) & Cornering Brake Control (CBC)'
-    ],
-    specs: {
-      engineCapacity: '1995 cc Diesel Turbo',
-      maxPower: '188 bhp @ 4000 rpm',
-      mileageARAI: '19.62 kmpl',
-      seatingCapacity: 5,
-      airbags: 6,
-      bootSpace: '505 Litres',
-      sunroof: 'Panoramic Sunroof',
-      insuranceValidity: 'Comprehensive till Nov 2026',
-      groundClearance: '183 mm',
-      fuelTank: '51 Litres'
-    },
-    images: [
-      'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80'
-    ]
-  },
-  {
-    id: 'kc-gla-2022',
-    title: '2022 Mercedes-Benz GLA 200 Progressive',
-    brand: 'Mercedes-Benz',
-    model: 'GLA',
-    variant: 'GLA 200 1.3L Turbo 7G-DCT Progressive Line',
-    year: 2022,
-    price: 3540000,
-    originalPrice: 3790000,
-    emiStarting: 65700,
-    kilometers: 22100,
-    fuelType: 'Petrol',
-    transmission: 'Automatic',
-    bodyType: 'Luxury',
-    owner: '1st Owner',
-    rto: 'KA-20 (Kundapura RTO)',
-    hubLocation: 'Kundapura Beach Road Hub',
-    color: 'Polar White',
-    isAssured: true,
-    featured: false,
-    trending: false,
-    tags: ['Panoramic Sunroof', 'Dual 10.25-inch MBUX Screens', 'Wireless CarPlay', 'LED High Performance', 'Single Owner'],
-    inspectionScore: 9.9,
-    inspectionSummary: {
-      engineTransmission: {
-        title: '1.33L Turbo Engine with Cylinder Shut-off & 7G-DCT',
-        score: '10/10',
-        checksTotal: 48,
-        checksPassed: 48,
-        status: 'passed',
-        highlights: ['163 bhp turbocharged power with quick spool', '7G-DCT transmission shifts smoothly', 'Zero diagnostic faults']
-      },
-      steeringSuspension: {
-        title: 'Comfort Heavy Duty SUV Suspension & Steering',
-        score: '9.8/10',
-        checksTotal: 42,
-        checksPassed: 42,
-        status: 'passed',
-        highlights: ['183mm ground clearance glides over road bumps', 'Brakes at 84% life', 'Direct-steer system calibrated']
-      },
-      bodyPaint: {
-        title: 'Polar White Paint & Chrome SUV Skid Plates',
-        score: '9.9/10',
-        checksTotal: 45,
-        checksPassed: 45,
-        status: 'passed',
-        highlights: ['Original Polar White factory finish', 'LED High Performance headlamps with DRLs clean', 'No scratches']
-      },
-      interiorElectricals: {
-        title: 'Dual 10.25-inch Widescreen Cockpit & "Hey Mercedes"',
-        score: '10/10',
-        checksTotal: 35,
-        checksPassed: 35,
-        status: 'passed',
-        highlights: ['Voice activated "Hey Mercedes" AI tested', 'Wireless phone charging tested', '64-color ambient lighting']
-      },
-      acTyres: {
-        title: 'Thermotronic AC & 18-inch 5-Twin Spoke Alloys',
-        score: '9.8/10',
-        checksTotal: 30,
-        checksPassed: 30,
-        status: 'passed',
-        highlights: ['Turbine style AC vents chill cabin rapidly', 'Bridgestone tyres at 80% life', 'Clean spare tyre']
-      }
-    },
-    features: [
-      'Dual 10.25-inch Widescreen Digital Cockpit & Media Display',
-      'Panoramic Sliding Sunroof with Dual Stage Sunblind',
-      'MBUX Voice Control AI with Natural Speech Recognition ("Hey Mercedes")',
-      'LED High Performance Headlights with Adaptive Highbeam Assist',
-      'Front Memory Seats with Lumbar Adjustment & ARTICO Leather',
-      'Active Braking Assist, Blind Spot Assist & Attention Assist',
-      '18-inch 5-Twin Spoke Light Alloy Wheels',
-      '7 Airbags, Pre-Safe System & Tyre Pressure Loss Warning'
-    ],
-    specs: {
-      engineCapacity: '1332 cc Turbo',
-      maxPower: '161 bhp @ 5500 rpm',
-      mileageARAI: '17.40 kmpl',
-      seatingCapacity: 5,
-      airbags: 7,
-      bootSpace: '425 Litres',
-      sunroof: 'Panoramic Sunroof',
-      insuranceValidity: 'Comprehensive till Dec 2026',
-      groundClearance: '183 mm',
-      fuelTank: '43 Litres'
-    },
-    images: [
-      'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80'
-    ]
-  },
-
-  // ==========================================
-  // 6. EV CATEGORY (5 CARS)
+  // 5. EV CATEGORY (5 CARS)
   // ==========================================
   {
     id: 'kc-nexon-ev-2023',
@@ -2462,10 +1927,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '40.5 kWh Battery'
     },
     images: [
-      'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80'
+      '/images/EV/nexon.jpg'
     ]
   },
   {
@@ -2556,10 +2018,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '24 kWh Battery'
     },
     images: [
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80'
+      '/images/EV/tiago.jpg'
     ]
   },
   {
@@ -2650,10 +2109,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '50.3 kWh Battery'
     },
     images: [
-      'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80'
+      '/images/EV/mg.jpg'
     ]
   },
   {
@@ -2744,10 +2200,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '39.4 kWh Battery'
     },
     images: [
-      'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80'
+      '/images/EV/xuv.jpg'
     ]
   },
   {
@@ -2838,10 +2291,7 @@ export const CARS_DATA: Car[] = [
       fuelTank: '60.48 kWh Battery'
     },
     images: [
-      'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80'
+      '/images/EV/byd.jpg'
     ]
   }
 ];

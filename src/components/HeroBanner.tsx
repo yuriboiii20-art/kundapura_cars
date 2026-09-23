@@ -205,10 +205,10 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ onBuyCarClick }) => {
             ))}
           </div>
 
-          {/* Full-width Peachy CTA Button (Fixed text, no leading icon, fully visible) */}
+          {/* Circular / Pill Peachy CTA Button (Reduced width, rounded-full) */}
           <button
             onClick={handleScrollToCatalog}
-            className="w-full py-3 px-5 rounded-xl bg-[#D27848] hover:bg-[#B95C2E] active:scale-[0.98] text-white font-black text-sm flex items-center justify-center shadow-lg shadow-[#D27848]/35 transition-all cursor-pointer"
+            className="px-7 py-3 rounded-full bg-[#D27848] hover:bg-[#B95C2E] active:scale-[0.98] text-white font-black text-sm flex items-center justify-center shadow-lg shadow-[#D27848]/35 transition-all cursor-pointer mx-auto"
           >
             <span>Explore Available Cars</span>
           </button>
