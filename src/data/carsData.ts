@@ -5,44 +5,138 @@ export const CARS_DATA: Car[] = [
   // 1. SUV CATEGORY (5 CARS)
   // ==========================================
   {
-    id: 'kc-creta-2022',
-    title: '2022 Hyundai Creta SX (O) Turbo DCT',
-    brand: 'Hyundai',
-    model: 'Creta',
-    variant: 'SX (O) 1.4 Turbo Dual Clutch Automatic',
+    id: 'kc-thar-2022',
+    title: '2022 Mahindra Thar LX 4x4 Hard Top Manual',
+    brand: 'Mahindra',
+    model: 'Thar',
+    variant: 'LX 2.2 mHawk 4WD Diesel Manual Hard Top',
     year: 2022,
-    price: 1545000,
-    originalPrice: 1625000,
-    emiStarting: 28450,
-    kilometers: 23500,
-    fuelType: 'Petrol',
+    price: 1445000,
+    originalPrice: 1530000,
+    emiStarting: 26600,
+    kilometers: 36800,
+    fuelType: 'Diesel',
+    transmission: 'Manual',
+    bodyType: 'SUV',
+    owner: '2nd Owner',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Kundapura Beach Road Hub',
+    color: 'Red Rage',
+    isAssured: true,
+    featured: true,
+    trending: true,
+    tags: ['4x4 Drivetrain', 'Hard Top', '2nd Owner', 'Off-Road Ready', 'KA-20 RTO'],
+    inspectionScore: 9.8,
+    inspectionSummary: {
+      engineTransmission: {
+        title: 'mHawk 2.2L Diesel & 6-Speed Manual 4WD',
+        score: '10/10',
+        checksTotal: 48,
+        checksPassed: 48,
+        status: 'passed',
+        highlights: ['4x4 Low & High transfer case shift verified', 'Clutch plate and pressure plate healthy', 'Zero oil leaks or residue']
+      },
+      steeringSuspension: {
+        title: 'Steering, Heavy Duty Suspension & Brakes',
+        score: '9.7/10',
+        checksTotal: 42,
+        checksPassed: 42,
+        status: 'passed',
+        highlights: ['All-terrain suspension links checked', 'Heavy-duty brake calipers tested', 'Hydraulic assist responsive']
+      },
+      bodyPaint: {
+        title: 'Body, Frame & Underbody Shielding',
+        score: '9.9/10',
+        checksTotal: 45,
+        checksPassed: 45,
+        status: 'passed',
+        highlights: ['Original factory Red Rage finish', 'Factory hard top seals tight & water tested', 'Chassis 100% rust-free']
+      },
+      interiorElectricals: {
+        title: 'Drizzle-Resistant Interior & Electricals',
+        score: '9.8/10',
+        checksTotal: 35,
+        checksPassed: 35,
+        status: 'passed',
+        highlights: ['Adventure stats gauges fully working', 'Apple CarPlay & Android Auto tested', 'Roof mounted speakers crystal clear']
+      },
+      acTyres: {
+        title: 'AC & 18-inch Deep Tread All-Terrain Tyres',
+        score: '9.8/10',
+        checksTotal: 30,
+        checksPassed: 30,
+        status: 'passed',
+        highlights: ['18-inch CEAT Czar A/T tyres with 80% tread', 'AC blower and cooling verified at 7°C', 'Full size spare wheel inspected']
+      }
+    },
+    features: [
+      'Shift-on-the-fly 4WD Low / High Gearbox with Mechanical Locking Rear Diff',
+      'Factory Fitted Molded Hard Top with Tinted Rear Glass',
+      '7-inch Touchscreen with Adventure Telemetry & Compass',
+      'Electronic Stability Program (ESP) with Roll-over Mitigation',
+      'Cruise Control & Steering Mounted Controls',
+      'Roof Mounted Water-Resistant Speakers',
+      '18-inch Deep Dish Diamond Cut Alloy Wheels',
+      'Tyre Pressure Monitoring System (TPMS)'
+    ],
+    specs: {
+      engineCapacity: '2184 cc mHawk',
+      maxPower: '130 bhp @ 3750 rpm',
+      mileageARAI: '15.2 kmpl',
+      seatingCapacity: 4,
+      airbags: 2,
+      bootSpace: 'Foldable Rear Seats',
+      sunroof: 'Hard Top',
+      insuranceValidity: 'Comprehensive till Nov 2026',
+      groundClearance: '226 mm',
+      fuelTank: '57 Litres'
+    },
+    images: [
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 'kc-scorpio-n-2023',
+    title: '2023 Mahindra Scorpio-N Z8L 4x4 Diesel AT',
+    brand: 'Mahindra',
+    model: 'Scorpio-N',
+    variant: 'Z8L 2.2 mHawk 4XPLOR 7-Seater Automatic',
+    year: 2023,
+    price: 2190000,
+    originalPrice: 2340000,
+    emiStarting: 40500,
+    kilometers: 24500,
+    fuelType: 'Diesel',
     transmission: 'Automatic',
     bodyType: 'SUV',
     owner: '1st Owner',
     rto: 'KA-20 (Kundapura RTO)',
     hubLocation: 'Kundapura NH 66 Highway Hub',
-    color: 'Phantom Black',
+    color: 'Deep Forest Green',
     isAssured: true,
     featured: true,
     trending: true,
-    tags: ['Single Owner', 'Panoramic Sunroof', 'Ventilated Seats', 'Kundapura RTO', 'Under Warranty'],
+    tags: ['4x4 4XPLOR', 'Sony 12-Speaker 3D Audio', 'Sunroof', '7-Seater', 'Under Factory Warranty'],
     inspectionScore: 9.9,
     inspectionSummary: {
       engineTransmission: {
-        title: 'Engine & Dual Clutch Transmission',
+        title: '172 bhp mHawk Diesel & 6-Speed AT',
         score: '10/10',
         checksTotal: 48,
         checksPassed: 48,
         status: 'passed',
-        highlights: ['Smooth DCT shifts with zero delay', 'Turbo boost pressure verified', 'Zero oil leaks or residue']
+        highlights: ['4XPLOR Terrain management modes tested', 'Automatic gearshifts silky smooth', 'Zero engine vibration']
       },
       steeringSuspension: {
-        title: 'Steering, Suspension & Brakes',
-        score: '9.8/10',
+        title: 'Pentalink Rear Suspension & FSD Dampers',
+        score: '9.9/10',
         checksTotal: 42,
         checksPassed: 42,
         status: 'passed',
-        highlights: ['Disc brake pads at 85% life', 'Electronic power steering calibrated', 'Suspension bushings pristine']
+        highlights: ['Frequency Dependent Damping absorbs rough roads', 'Electric power steering featherlight', 'Brake pads at 88%']
       },
       bodyPaint: {
         title: 'Body, Frame & Paint Quality',
@@ -50,39 +144,227 @@ export const CARS_DATA: Car[] = [
         checksTotal: 45,
         checksPassed: 45,
         status: 'passed',
-        highlights: ['Original factory paint', 'Zero structural frame repairs', 'Clean underbody coating']
+        highlights: ['Original metallic Deep Forest paint', 'Zero denting or repaints', 'Hydroformed ladder frame intact']
       },
       interiorElectricals: {
-        title: 'Interior, Infotainment & Airbags',
-        score: '10/10',
+        title: 'Sony 3D Sound, Alexa & Infotainment',
+        score: '9.9/10',
         checksTotal: 35,
         checksPassed: 35,
         status: 'passed',
-        highlights: ['10.25-inch touchscreen fully functional', 'Bose 8-speaker audio tested', 'Ventilated seat motors verified']
+        highlights: ['Sony 12-speaker audio with roof speakers tested', '8-inch touchscreen fully functional', 'Front and rear parking cameras clear']
       },
       acTyres: {
-        title: 'AC Climate Control & Tyres',
+        title: 'Dual Zone AC & 18-inch Diamond Cut Alloys',
         score: '9.8/10',
         checksTotal: 30,
         checksPassed: 30,
         status: 'passed',
-        highlights: ['AC vents cool to 6°C in 2 minutes', 'Bridgestone tyres with 78% tread life left', 'Spare tyre unused']
+        highlights: ['Dual-zone climate control cools efficiently', 'Bridgestone Dueler tyres at 82% tread life', 'Spare tyre brand new']
       }
     },
     features: [
-      'Panoramic Sunroof',
-      'Ventilated Front Seats',
-      'Bose 8-Speaker Audio System',
-      'Wireless Phone Charger',
-      'Electronic Parking Brake with Auto Hold',
-      '10.25-inch Touchscreen with Apple CarPlay & Android Auto',
-      'Bluelink Connected Car Tech (Active)',
+      '4XPLOR Intelligent Terrain Management System (Normal, Snow, Mud, Sand)',
+      'Sony 12-Speaker Immersive 3D Sound System with Subwoofer',
+      'Electric Sunroof with Anti-Pinch Technology',
+      'Dual Zone FATC Automatic Climate Control',
+      '8-inch Touchscreen Infotainment with Built-in Alexa & Connected Car Tech',
+      'Driver Drowsiness Alert & Electronic Stability Control',
+      '6 Airbags & 5-Star Global NCAP Adult Safety Rating',
+      '18-inch Diamond Cut Machined Alloy Wheels'
+    ],
+    specs: {
+      engineCapacity: '2198 cc mHawk Diesel',
+      maxPower: '172 bhp @ 3500 rpm',
+      mileageARAI: '16.2 kmpl',
+      seatingCapacity: 7,
+      airbags: 6,
+      bootSpace: '460 Litres (Expanded)',
+      sunroof: 'Electric Sunroof',
+      insuranceValidity: 'Zero Dep till May 2027',
+      groundClearance: '187 mm',
+      fuelTank: '57 Litres'
+    },
+    images: [
+      'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 'kc-harrier-2021',
+    title: '2021 Tata Harrier XZA Plus Dark Edition AT',
+    brand: 'Tata',
+    model: 'Harrier',
+    variant: 'XZA Plus Dark Edition 2.0 Kryotec Automatic',
+    year: 2021,
+    price: 1520000,
+    originalPrice: 1630000,
+    emiStarting: 28100,
+    kilometers: 51200,
+    fuelType: 'Diesel',
+    transmission: 'Automatic',
+    bodyType: 'SUV',
+    owner: '3rd Owner',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Koteshwara Highway Yard',
+    color: 'Oberon Black (Dark Edition)',
+    isAssured: true,
+    featured: false,
+    trending: true,
+    tags: ['Dark Edition', 'Panoramic Sunroof', 'JBL 9-Speaker Audio', '3rd Owner', 'Ventilated Seats'],
+    inspectionScore: 9.8,
+    inspectionSummary: {
+      engineTransmission: {
+        title: '170 bhp Kryotec Diesel & Hyundai 6-Speed AT',
+        score: '9.8/10',
+        checksTotal: 48,
+        checksPassed: 48,
+        status: 'passed',
+        highlights: ['Robust torque delivery from 1750 rpm', 'Automatic gearbox shifts seamless', 'Turbocharger pressure certified']
+      },
+      steeringSuspension: {
+        title: 'Land Rover D8 Derived OMEGA-Arc Chassis',
+        score: '9.9/10',
+        checksTotal: 42,
+        checksPassed: 42,
+        status: 'passed',
+        highlights: ['Outstanding high-speed highway stability', 'All-round disc brakes at 80% life', 'Steering feedback accurate']
+      },
+      bodyPaint: {
+        title: 'Signature Dark Edition Body & Blackstone Alloys',
+        score: '9.8/10',
+        checksTotal: 45,
+        checksPassed: 45,
+        status: 'passed',
+        highlights: ['Oberon Black clear coat polished', 'No panel replacements', 'Underbody rust protection intact']
+      },
+      interiorElectricals: {
+        title: 'All-Black Benecke-Kaliko Leather & JBL Audio',
+        score: '9.9/10',
+        checksTotal: 35,
+        checksPassed: 35,
+        status: 'passed',
+        highlights: ['JBL 9-speaker system with acoustic amplifier tested', '8.8-inch touchscreen responsive', 'Driver seat electric adjust verified']
+      },
+      acTyres: {
+        title: 'Auto Climate Control & 18-inch Blackstone Alloys',
+        score: '9.7/10',
+        checksTotal: 30,
+        checksPassed: 30,
+        status: 'passed',
+        highlights: ['Automatic climate control cooling tested at 6.5°C', 'Goodyear tyres at 75% tread life', 'Clean air filter']
+      }
+    },
+    features: [
+      'Dark Edition Exclusive Oberon Black Paint with Blackstone 18-inch Alloys',
+      'Panoramic Sunroof with Global Close & Anti-Pinch',
+      'JBL 9-Speaker High Definition Sound System with Subwoofer',
+      '6-Way Powered Driver Seat with Adjustable Lumbar Support',
+      'Front Ventilated Cooling Seats for Coastal Summers',
+      'Terrain Response Modes (Normal, Rough, Wet)',
+      '6 Airbags & Advanced Electronic Stability Program (ESP)',
+      'Aerodynamic Xenon HID Projector Headlamps'
+    ],
+    specs: {
+      engineCapacity: '1956 cc Kryotec Diesel',
+      maxPower: '168 bhp @ 3750 rpm',
+      mileageARAI: '16.35 kmpl',
+      seatingCapacity: 5,
+      airbags: 6,
+      bootSpace: '425 Litres',
+      sunroof: 'Panoramic Sunroof',
+      insuranceValidity: 'Comprehensive till Jan 2027',
+      groundClearance: '205 mm',
+      fuelTank: '50 Litres'
+    },
+    images: [
+      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80'
+    ]
+  },
+  {
+    id: 'kc-creta-2022',
+    title: '2022 Hyundai Creta SX (O) 1.5 Diesel Automatic',
+    brand: 'Hyundai',
+    model: 'Creta',
+    variant: 'SX (O) 1.5 CRDi VGT 6-Speed Automatic',
+    year: 2022,
+    price: 1495000,
+    originalPrice: 1580000,
+    emiStarting: 27500,
+    kilometers: 29600,
+    fuelType: 'Diesel',
+    transmission: 'Automatic',
+    bodyType: 'SUV',
+    owner: '2nd Owner',
+    rto: 'KA-20 (Kundapura RTO)',
+    hubLocation: 'Udupi - Kundapura Expressway Hub',
+    color: 'Polar White with Phantom Black Roof',
+    isAssured: true,
+    featured: true,
+    trending: true,
+    tags: ['Panoramic Sunroof', 'Bose 8-Speaker Audio', 'Ventilated Seats', '2nd Owner', 'Bluelink Connected'],
+    inspectionScore: 9.9,
+    inspectionSummary: {
+      engineTransmission: {
+        title: '1.5L CRDi Diesel & 6-Speed Torque Converter AT',
+        score: '10/10',
+        checksTotal: 48,
+        checksPassed: 48,
+        status: 'passed',
+        highlights: ['Refined diesel engine with exceptional mileage (18.5 kmpl)', 'Torque converter shifts smooth', 'No smoke or residue']
+      },
+      steeringSuspension: {
+        title: 'Steering, Suspension & Brakes',
+        score: '9.8/10',
+        checksTotal: 42,
+        checksPassed: 42,
+        status: 'passed',
+        highlights: ['All 4 disc brakes with 84% life', 'Electronic power steering calibrated', 'Suspension silent over bumps']
+      },
+      bodyPaint: {
+        title: 'Dual Tone Body & Paint Quality',
+        score: '9.9/10',
+        checksTotal: 45,
+        checksPassed: 45,
+        status: 'passed',
+        highlights: ['Factory dual-tone paint finish intact', 'Zero accident repairs', 'Clean underbody coating']
+      },
+      interiorElectricals: {
+        title: '10.25-inch Touchscreen, Bose Audio & Sunroof',
+        score: '10/10',
+        checksTotal: 35,
+        checksPassed: 35,
+        status: 'passed',
+        highlights: ['Voice-enabled panoramic sunroof working flawlessly', 'Bose 8-speaker audio tested', 'Ventilated seat motors checked']
+      },
+      acTyres: {
+        title: 'AC Climate Control & 17-inch Alloys',
+        score: '9.8/10',
+        checksTotal: 30,
+        checksPassed: 30,
+        status: 'passed',
+        highlights: ['AC vents chill to 6°C in under 2 minutes', 'Bridgestone tyres at 80% tread life', 'Spare tyre unused']
+      }
+    },
+    features: [
+      'Voice-Enabled Smart Panoramic Sunroof',
+      'Front Ventilated Cooling Seats for Coastal Weather',
+      'Bose Premium 8-Speaker Sound System with Subwoofer',
+      '10.25-inch HD Touchscreen with Apple CarPlay & Android Auto',
+      'Hyundai Bluelink Connected Car Technology with 50+ Features',
+      'Electronic Parking Brake with Auto Hold Function',
+      'Traction Control Modes (Snow, Sand, Mud) & Drive Modes',
       '6 Airbags & Electronic Stability Control (ESC)'
     ],
     specs: {
-      engineCapacity: '1353 cc',
-      maxPower: '138 bhp @ 6000 rpm',
-      mileageARAI: '16.8 kmpl',
+      engineCapacity: '1493 cc CRDi Diesel',
+      maxPower: '113 bhp @ 4000 rpm',
+      mileageARAI: '18.5 kmpl (Segment Best Diesel)',
       seatingCapacity: 5,
       airbags: 6,
       bootSpace: '433 Litres',
@@ -99,379 +381,97 @@ export const CARS_DATA: Car[] = [
     ]
   },
   {
-    id: 'kc-thar-2023',
-    title: '2023 Mahindra Thar LX 4x4 Hard Top Automatic',
-    brand: 'Mahindra',
-    model: 'Thar',
-    variant: 'LX 2.2 mHawk 4WD Diesel AT',
-    year: 2023,
-    price: 1690000,
-    originalPrice: 1780000,
-    emiStarting: 31200,
-    kilometers: 16200,
+    id: 'kc-fortuner-2021',
+    title: '2021 Toyota Fortuner 4x4 Sigma 4 Diesel AT',
+    brand: 'Toyota',
+    model: 'Fortuner',
+    variant: '4x4 Sigma 4 2.8L D-4D Automatic',
+    year: 2021,
+    price: 3350000,
+    originalPrice: 3550000,
+    emiStarting: 61800,
+    kilometers: 54200,
     fuelType: 'Diesel',
     transmission: 'Automatic',
     bodyType: 'SUV',
-    owner: '1st Owner',
+    owner: '2nd Owner',
     rto: 'KA-20 (Kundapura RTO)',
-    hubLocation: 'Kundapura Beach Road Hub',
-    color: 'Deep Forest Green',
+    hubLocation: 'Kundapura NH 66 Highway Hub',
+    color: 'Super White Pearl',
     isAssured: true,
     featured: true,
     trending: true,
-    tags: ['4x4 Drivetrain', 'Hard Top', 'Low KM', 'Single Owner', 'Touchscreen'],
-    inspectionScore: 9.8,
+    tags: ['4x4 Sigma 4', '500 Nm Torque', '7-Seater Legend', 'Toyota Bulletproof Reliability', '2nd Owner'],
+    inspectionScore: 9.9,
     inspectionSummary: {
       engineTransmission: {
-        title: 'mHawk 2.2L Diesel & 6-Speed AT',
+        title: 'Toyota 2.8L D-4D 201 bhp / 500 Nm & 6-Speed AT',
         score: '10/10',
         checksTotal: 48,
         checksPassed: 48,
         status: 'passed',
-        highlights: ['4x4 Low & High transfer case shift verified', 'Diesel particulate filter clean', 'No engine noise or vibrations']
+        highlights: ['Massive 500 Nm pulling power verified', 'Sigma 4 4WD High/Low transfer case flawless', 'Engine compression 100% factory spec']
       },
       steeringSuspension: {
-        title: 'Steering, Heavy Duty Suspension & Brakes',
-        score: '9.7/10',
+        title: 'Heavy Duty Ladder Frame & Double Wishbone Suspension',
+        score: '10/10',
         checksTotal: 42,
         checksPassed: 42,
         status: 'passed',
-        highlights: ['All terrain suspension links checked', 'Heavy-duty brake calipers tested', 'Hydraulic assist responsive']
+        highlights: ['Indestructible ladder frame in pristine condition', 'Heavy-duty front & rear ventilated disc brakes at 82%', 'Hydraulic steering centered']
       },
       bodyPaint: {
-        title: 'Body, Frame & Underbody Shielding',
+        title: 'Super White Pearl Coat & Underbody Inspection',
         score: '9.9/10',
         checksTotal: 45,
         checksPassed: 45,
         status: 'passed',
-        highlights: ['Original factory clear coat', 'Factory hard top seals tight & water tested', 'Chassis rust-free']
+        highlights: ['Original Toyota Pearl White finish', 'Zero structural body damage', 'Full underbody anti-corrosion coating']
       },
       interiorElectricals: {
-        title: 'Drizzle-Resistant Interior & Electricals',
-        score: '9.8/10',
+        title: '7-Seater Chamois Leather Cabin & 11-Speaker JBL Audio',
+        score: '9.9/10',
         checksTotal: 35,
         checksPassed: 35,
         status: 'passed',
-        highlights: ['Adventure stats gauges fully working', 'Apple CarPlay tested', 'Roof mounted speakers crystal clear']
+        highlights: ['11-speaker JBL sound system tested', '8-inch touchscreen with Apple CarPlay & Android Auto', 'Dual power front seats working']
       },
       acTyres: {
-        title: 'AC & 18-inch Deep Tread All-Terrain Tyres',
+        title: 'Dual Climate AC & 18-inch All-Terrain Tyres',
         score: '9.8/10',
         checksTotal: 30,
         checksPassed: 30,
         status: 'passed',
-        highlights: ['18-inch CEAT Czar A/T tyres 82% tread', 'AC blower and cooling flawless', 'Full size spare wheel verified']
+        highlights: ['Dual air conditioning with ceiling vents for all 3 rows', 'Bridgestone Dueler A/T tyres at 78% tread', 'Full-size alloy spare']
       }
     },
     features: [
-      'Shift-on-the-fly 4WD Low / High Gearbox',
-      'Factory Fitted Molded Hard Top',
-      '7-inch Touchscreen with Adventure Telemetry',
-      'Electronic Stability Program (ESP) with Roll-over Mitigation',
-      'Cruise Control & Steering Mounted Controls',
-      'Roof Mounted Water-Resistant Speakers',
-      '18-inch Deep Dish Diamond Cut Alloy Wheels',
-      'Tyre Pressure Monitoring System (TPMS)'
+      'Sigma 4 4WD High & Low Transfer Case with Rear Differential Lock',
+      'Massive 201 bhp & 500 Nm 2.8L Turbo Diesel Engine',
+      '11-Speaker JBL Concert Sound System with Subwoofer',
+      'Ventilated Driver & Passenger Front Cooling Seats',
+      '8-Way Electrically Adjustable Driver & Front Passenger Seats',
+      'Power Tailgate with Hands-Free Kick Sensor & Height Memory',
+      'Drive Modes (Eco, Normal, Sport) with Downhill Assist Control (DAC)',
+      '7 Airbags, Vehicle Stability Control (VSC) & Hill Start Assist'
     ],
     specs: {
-      engineCapacity: '2184 cc',
-      maxPower: '130 bhp @ 3750 rpm',
-      mileageARAI: '15.2 kmpl',
-      seatingCapacity: 4,
-      airbags: 2,
-      bootSpace: 'NA (Foldable Rear Seats)',
-      sunroof: 'Hard Top',
-      insuranceValidity: 'Zero Dep till May 2027',
-      groundClearance: '226 mm',
-      fuelTank: '57 Litres'
+      engineCapacity: '2755 cc D-4D Turbo Diesel',
+      maxPower: '201 bhp @ 3000 rpm',
+      mileageARAI: '14.2 kmpl',
+      seatingCapacity: 7,
+      airbags: 7,
+      bootSpace: '296 Litres (Expandable to 710L)',
+      sunroof: 'None',
+      insuranceValidity: 'Comprehensive till Dec 2026',
+      groundClearance: '225 mm',
+      fuelTank: '80 Litres'
     },
     images: [
       'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&w=1200&q=80'
-    ]
-  },
-  {
-    id: 'kc-xuv700-2022',
-    title: '2022 Mahindra XUV700 AX7 Luxury Pack Diesel AT',
-    brand: 'Mahindra',
-    model: 'XUV700',
-    variant: 'AX7 L 2.2 mHawk 7-Seater Automatic',
-    year: 2022,
-    price: 2190000,
-    originalPrice: 2320000,
-    emiStarting: 40500,
-    kilometers: 32000,
-    fuelType: 'Diesel',
-    transmission: 'Automatic',
-    bodyType: 'SUV',
-    owner: '1st Owner',
-    rto: 'KA-20 (Kundapura RTO)',
-    hubLocation: 'Koteshwara Highway Yard',
-    color: 'Midnight Black (Deep Blue Hue)',
-    isAssured: true,
-    featured: true,
-    trending: true,
-    tags: ['ADAS Level 2', 'Skyroof', 'Sony 3D Audio', '7-Seater', '360 Camera'],
-    inspectionScore: 9.9,
-    inspectionSummary: {
-      engineTransmission: {
-        title: '182 bhp mHawk Diesel & Aisin 6AT',
-        score: '10/10',
-        checksTotal: 48,
-        checksPassed: 48,
-        status: 'passed',
-        highlights: ['Turbo pulls effortlessly on open expressways', 'Gear shifts silky smooth', 'Zero error codes on OBD']
-      },
-      steeringSuspension: {
-        title: 'FSD (Frequency Selective Damping) Suspension',
-        score: '10/10',
-        checksTotal: 42,
-        checksPassed: 42,
-        status: 'passed',
-        highlights: ['FSD dampers absorb road potholes seamlessly', 'Electronic park brake tested', 'Brakes at 84%']
-      },
-      bodyPaint: {
-        title: 'Body, Flush Door Handles & Skyroof',
-        score: '9.9/10',
-        checksTotal: 45,
-        checksPassed: 45,
-        status: 'passed',
-        highlights: ['Smart motorized flush door handles calibrated', 'Panoramic Skyroof sealed tight', 'Paint gloss score 96%']
-      },
-      interiorElectricals: {
-        title: 'Dual 10.25-inch Screens & ADAS Sensors',
-        score: '9.9/10',
-        checksTotal: 35,
-        checksPassed: 35,
-        status: 'passed',
-        highlights: ['ADAS radar & camera sensors factory calibrated', 'Sony 12-speaker 3D Sound tested', 'Wireless charger']
-      },
-      acTyres: {
-        title: 'Dual Zone AC & 18-inch Diamond Cut Tyres',
-        score: '9.8/10',
-        checksTotal: 30,
-        checksPassed: 30,
-        status: 'passed',
-        highlights: ['Dual-zone climate control with 3rd row AC', 'MRF Wanderer tyres at 80% tread', 'TPMS live readings']
-      }
-    },
-    features: [
-      'ADAS Level 2 Autonomous Driving Tech (Adaptive Cruise, Lane Keep, AEB)',
-      'Panoramic "Skyroof" (Largest in Segment)',
-      'Sony 12-Speaker Immersive 3D Audio with Roof Speakers',
-      'Dual 10.25-inch Monolithic Digital Cockpit Screens',
-      'Blind View Monitor with 360-Degree Surround Camera',
-      'Memory Driver Seat with Welcome Retract Feature',
-      'Wireless Apple CarPlay, Android Auto & Built-in Alexa',
-      '7 Airbags & 5-Star Global NCAP Safety Rating'
-    ],
-    specs: {
-      engineCapacity: '2198 cc',
-      maxPower: '182 bhp @ 3500 rpm',
-      mileageARAI: '16.5 kmpl',
-      seatingCapacity: 7,
-      airbags: 7,
-      bootSpace: '240 Litres (Expandable to 600L)',
-      sunroof: 'Panoramic Skyroof',
-      insuranceValidity: 'Comprehensive till Sep 2026',
-      groundClearance: '200 mm',
-      fuelTank: '60 Litres'
-    },
-    images: [
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
       'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80'
-    ]
-  },
-  {
-    id: 'kc-seltos-2022',
-    title: '2022 Kia Seltos GTX Plus 1.4 Turbo DCT',
-    brand: 'Kia',
-    model: 'Seltos',
-    variant: 'GTX Plus 1.4 T-GDi Automatic (Top Spec)',
-    year: 2022,
-    price: 1480000,
-    originalPrice: 1560000,
-    emiStarting: 27200,
-    kilometers: 27600,
-    fuelType: 'Petrol',
-    transmission: 'Automatic',
-    bodyType: 'SUV',
-    owner: '1st Owner',
-    rto: 'KA-20 (Kundapura RTO)',
-    hubLocation: 'Kundapura NH 66 Highway Hub',
-    color: 'Gravity Grey Metallic',
-    isAssured: true,
-    featured: false,
-    trending: true,
-    tags: ['Head-Up Display', 'Bose Audio', '360 Camera', 'Ventilated Seats', 'GT-Line Styling'],
-    inspectionScore: 9.8,
-    inspectionSummary: {
-      engineTransmission: {
-        title: '1.4L Smartstream Turbo & 7-DCT',
-        score: '9.8/10',
-        checksTotal: 48,
-        checksPassed: 48,
-        status: 'passed',
-        highlights: ['Crisp throttle response in Sport mode', 'Dual clutch gearbox smooth in traffic', 'Clean spark plugs']
-      },
-      steeringSuspension: {
-        title: 'Suspension & All Disc Brakes',
-        score: '9.8/10',
-        checksTotal: 42,
-        checksPassed: 42,
-        status: 'passed',
-        highlights: ['All-round disc brakes with 82% life', 'Traction modes (Sand, Mud, Snow) verified', 'Firm cornering stance']
-      },
-      bodyPaint: {
-        title: 'GT-Line Exterior & Red Accents',
-        score: '9.9/10',
-        checksTotal: 45,
-        checksPassed: 45,
-        status: 'passed',
-        highlights: ['GT-Line signature red bumper trims intact', 'Factory clear coat shine 95%', 'Zero body repainting']
-      },
-      interiorElectricals: {
-        title: 'Smart Air Purifier & 8-inch HUD',
-        score: '9.9/10',
-        checksTotal: 35,
-        checksPassed: 35,
-        status: 'passed',
-        highlights: ['8-inch Head-Up Display working cleanly', 'Bose 8-Speaker system with Subwoofer', 'Ambient mood lighting tested']
-      },
-      acTyres: {
-        title: 'Smart Purifier AC & 17-inch Crystal Alloys',
-        score: '9.8/10',
-        checksTotal: 30,
-        checksPassed: 30,
-        status: 'passed',
-        highlights: ['Integrated perfume diffuser and air purifier active', 'Goodyear tyres at 78% tread', 'Alloy rims scratch-free']
-      }
-    },
-    features: [
-      '8-inch Smart Head-Up Display (HUD)',
-      'Bose Premium 8-Speaker Sound System with Dynamic Speed Compensation',
-      '360-Degree Surround Camera with Blind View Monitor',
-      'Front Ventilated Cooling Seats for Warm Days',
-      'Integrated Smart Pure Air Purifier with Fragrance Dispenser',
-      'Multi-Drive Modes (Eco, Normal, Sport) & Multi-Traction Control',
-      'Electric Sunroof with One-Touch Operation',
-      '6 Airbags & Tyre Pressure Monitoring System (TPMS)'
-    ],
-    specs: {
-      engineCapacity: '1353 cc Turbo',
-      maxPower: '138 bhp @ 6000 rpm',
-      mileageARAI: '16.5 kmpl',
-      seatingCapacity: 5,
-      airbags: 6,
-      bootSpace: '433 Litres',
-      sunroof: 'Electric Sunroof',
-      insuranceValidity: 'Comprehensive till Nov 2026',
-      groundClearance: '190 mm',
-      fuelTank: '50 Litres'
-    },
-    images: [
       'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80'
-    ]
-  },
-  {
-    id: 'kc-hyryder-2023',
-    title: '2023 Toyota Urban Cruiser Hyryder Hybrid G',
-    brand: 'Toyota',
-    model: 'Hyryder',
-    variant: 'G Strong Hybrid e-CVT (Electric + Petrol)',
-    year: 2023,
-    price: 1650000,
-    originalPrice: 1740000,
-    emiStarting: 30400,
-    kilometers: 18200,
-    fuelType: 'Hybrid',
-    transmission: 'Automatic',
-    bodyType: 'SUV',
-    owner: '1st Owner',
-    rto: 'KA-20 (Kundapura RTO)',
-    hubLocation: 'Udupi - Kundapura Expressway Hub',
-    color: 'Cafe White & Midnight Black Dual Tone',
-    isAssured: true,
-    featured: false,
-    trending: true,
-    tags: ['27.97 kmpl Real Hybrid', 'Toyota e-CVT', 'Panoramic Sunroof', 'Single Owner', 'Silent EV Mode'],
-    inspectionScore: 9.9,
-    inspectionSummary: {
-      engineTransmission: {
-        title: 'Toyota Self-Charging Hybrid & e-CVT',
-        score: '10/10',
-        checksTotal: 48,
-        checksPassed: 48,
-        status: 'passed',
-        highlights: ['Switches seamlessly between pure EV and petrol engine', 'Delivers unmatched 25+ kmpl in Kundapura & city traffic', 'Zero starter sound']
-      },
-      steeringSuspension: {
-        title: 'Suspension & Regenerative Braking',
-        score: '9.9/10',
-        checksTotal: 42,
-        checksPassed: 42,
-        status: 'passed',
-        highlights: ['Smooth regenerative deceleration', 'Comfort tuned suspension', 'Brake pads at 88% life']
-      },
-      bodyPaint: {
-        title: 'Dual Tone Body & Exterior Quality',
-        score: '9.9/10',
-        checksTotal: 45,
-        checksPassed: 45,
-        status: 'passed',
-        highlights: ['Dual tone factory finish', 'Underbody hybrid shield verified', 'No panel repairs']
-      },
-      interiorElectricals: {
-        title: 'Panoramic Glassroof & Digital Cockpit',
-        score: '9.8/10',
-        checksTotal: 35,
-        checksPassed: 35,
-        status: 'passed',
-        highlights: ['Giant panoramic sunroof blinds and glass fully working', '9-inch SmartPlay Cast with Wireless Auto', 'Head-Up Display']
-      },
-      acTyres: {
-        title: 'Instant Climate AC & Apollo Tyres',
-        score: '9.8/10',
-        checksTotal: 30,
-        checksPassed: 30,
-        status: 'passed',
-        highlights: ['AC runs directly off high-voltage hybrid battery when parked', 'Tyres at 82% tread life', 'Alloys clean']
-      }
-    },
-    features: [
-      'Self-Charging Strong Hybrid Engine (Runs 50% of City Drive in Pure EV Mode)',
-      'Unbelievable ARAI Mileage of 27.97 kmpl',
-      'Panoramic Sunroof with Double Sliding Glass',
-      'Head-Up Display (HUD) with Hybrid Power Meter',
-      'Wireless Smartphone Charger & 9-inch Smart Touchscreen',
-      'Toyota i-Connect Connected Car Technology',
-      '6 Airbags, ABS with EBD & Hill Hold Assist',
-      '8 Years / 1,60,000 km Toyota Hybrid Battery Warranty'
-    ],
-    specs: {
-      engineCapacity: '1490 cc 3-Cyl Hybrid + Electric Motor',
-      maxPower: '114 bhp Combined Output',
-      mileageARAI: '27.97 kmpl (Segment Best)',
-      seatingCapacity: 5,
-      airbags: 6,
-      bootSpace: '255 Litres (Hybrid Battery Layout)',
-      sunroof: 'Panoramic Sunroof',
-      insuranceValidity: 'Zero Dep till Mar 2027',
-      groundClearance: '210 mm',
-      fuelTank: '45 Litres'
-    },
-    images: [
-      'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80'
+      'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1200&q=80'
     ]
   },
 

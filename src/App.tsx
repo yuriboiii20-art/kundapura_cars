@@ -6,7 +6,6 @@ import {
   Check,
   Car as CarIcon, 
   Layers, 
-  MessageSquare,
   X
 } from 'lucide-react';
 import { CARS_DATA } from './data/carsData';
@@ -498,17 +497,6 @@ export const App: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* Floating WhatsApp Quick Action */}
-      <a
-        href="https://wa.me/918254233440?text=Hi%20Kundapura%20Cars,%20I%20would%20like%20to%20inquire%20about%20certified%20used%20cars."
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-30 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#241A15] hover:bg-[#451E10] text-[#FDF8F4] shadow-hover flex items-center justify-center transition-all hover:scale-110 active:scale-95 border border-[#ECC4A6]/70"
-        title="Chat with Kundapura Hub on WhatsApp"
-      >
-        <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 text-[#D27848]" />
-      </a>
 
       {/* Modals */}
       {selectedCar && (
