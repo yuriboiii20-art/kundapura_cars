@@ -84,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span>Kundapura Exclusive Marketplace</span>
                   </div>
                   <p className="text-[#DFCFBA] text-[11px] leading-relaxed mb-3">
-                    Every car is physically available at our Kundapura Hubs with free home test drives.
+                    Every car is physically available at our Kundapura Hubs with 200-point inspection and 1-Year Warranty.
                   </p>
                   <div className="bg-[#17100D] p-2.5 rounded-xl text-[11px] font-semibold text-[#F7DEC9] space-y-1 border border-[#451E10]">
                     <div>📍 Kundapura NH 66 Hub</div>

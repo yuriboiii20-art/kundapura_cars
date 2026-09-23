@@ -26,7 +26,7 @@ export const TrustBadges: React.FC = () => {
     {
       icon: RotateCcw,
       title: '5-Day Money-Back',
-      description: 'Test drive in real life. Return within 5 days or 300 km for a 100% full refund with zero questions asked.',
+      description: 'Own with complete confidence. Return within 5 days or 300 km for a 100% full refund with zero questions asked.',
       badge: '100% Refund'
     },
     {

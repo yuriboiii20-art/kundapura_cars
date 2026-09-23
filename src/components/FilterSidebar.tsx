@@ -90,7 +90,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     filters.fuelTypes.length > 0 ||
     filters.transmissions.length > 0 ||
     filters.owners.length > 0 ||
-    filters.maxPrice < 4000000 ||
+    filters.maxPrice < 5000000 ||
     filters.minPrice > 0 ||
     filters.searchQuery !== '';
 
@@ -137,7 +137,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           <Slider
             value={[filters.maxPrice]}
             min={500000}
-            max={4000000}
+            max={5000000}
             step={50000}
             onValueChange={handleMaxPriceChange}
             showTooltip={true}
@@ -148,8 +148,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
         <div className="flex justify-between text-[10px] text-[#8B785F] font-bold">
           <span>₹ 5 Lakh</span>
-          <span>₹ 20 Lakh</span>
-          <span>₹ 40 Lakh+</span>
+          <span>₹ 25 Lakh</span>
+          <span>₹ 50 Lakh+</span>
         </div>
       </div>
 

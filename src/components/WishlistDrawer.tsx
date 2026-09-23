@@ -14,7 +14,6 @@ interface WishlistDrawerProps {
   wishlistCars: Car[];
   onRemoveWishlist: (carId: string) => void;
   onSelectCar: (car: Car) => void;
-  onBookTestDrive: (car: Car) => void;
 }
 
 export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
@@ -22,8 +21,7 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
   onClose,
   wishlistCars,
   onRemoveWishlist,
-  onSelectCar,
-  onBookTestDrive
+  onSelectCar
 }) => {
   if (!isOpen) return null;
 
@@ -34,12 +32,10 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
         {/* Header */}
         <div className="p-4 sm:p-5 border-b border-[#ECC4A6]/60 flex items-center justify-between bg-[#FDF8F4]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-[#241A15] text-[#D27848] flex items-center justify-center border border-[#451E10]">
-              <Heart className="w-4 h-4 fill-[#D27848] text-[#D27848]" />
-            </div>
+            <Heart className="w-5 h-5 fill-[#D27848] text-[#D27848] shrink-0" />
             <div>
-              <h3 className="font-extrabold text-[#2E271F] text-sm sm:text-base">
-                Saved Cars ({wishlistCars.length})
+              <h3 className="font-black text-[#2E271F] text-sm sm:text-base tracking-wide uppercase">
+                LIKED CARS ({wishlistCars.length})
               </h3>
               <p className="text-[11px] text-[#8B785F]">
                 Your shortlisted Kundapura certified vehicles
@@ -55,18 +51,18 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
           </button>
         </div>
 
-        {/* Saved List */}
+        {/* Liked List */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {wishlistCars.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center p-6 text-[#AA957A]">
               <div className="w-16 h-16 rounded-full bg-[#FBF0E6] flex items-center justify-center mb-3 border border-[#ECC4A6]">
-                <Heart className="w-8 h-8 text-[#D27848]" />
+                <Heart className="w-8 h-8 text-[#D27848] fill-[#D27848]" />
               </div>
               <h4 className="text-sm font-bold text-[#2E271F] mb-1">
-                No Saved Cars Yet
+                No Liked Cars Yet
               </h4>
               <p className="text-xs text-[#8B785F] max-w-xs mb-4">
-                Click the heart icon on any car card to save it for easy comparison and booking.
+                Click the heart icon on any car card to like it for easy comparison and booking.
               </p>
               <button
                 onClick={onClose}
@@ -125,11 +121,11 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
                     <button
                       onClick={() => {
                         onClose();
-                        onBookTestDrive(car);
+                        onSelectCar(car);
                       }}
                       className="px-2.5 py-1 bg-[#D27848] hover:bg-[#B95C2E] text-white text-[10px] font-bold rounded-lg flex items-center gap-1 transition-colors"
                     >
-                      <span>Test Drive</span>
+                      <span>View Car</span>
                       <ArrowRight className="w-3 h-3" />
                     </button>
                   </div>

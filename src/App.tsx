@@ -17,7 +17,6 @@ import { MobileDrawer } from './components/MobileDrawer';
 import { FilterSidebar } from './components/FilterSidebar';
 import { CarCard } from './components/CarCard';
 import { CarDetailModal } from './components/CarDetailModal';
-import { TestDriveModal } from './components/TestDriveModal';
 import { ReserveModal } from './components/ReserveModal';
 import { CompareModal } from './components/CompareModal';
 import { WishlistDrawer } from './components/WishlistDrawer';
@@ -42,7 +41,7 @@ const INITIAL_FILTERS: FilterState = {
   transmissions: [],
   owners: [],
   minPrice: 0,
-  maxPrice: 4000000,
+  maxPrice: 5000000,
   minYear: 2018,
   maxKm: 100000,
   sortBy: 'recommended'
@@ -68,7 +67,6 @@ export const App: React.FC = () => {
 
   // Modals & Drawers
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
-  const [testDriveCar, setTestDriveCar] = useState<Car | null>(null);
   const [reserveCar, setReserveCar] = useState<Car | null>(null);
   const [wishlistDrawerOpen, setWishlistDrawerOpen] = useState(false);
   const [compareModalOpen, setCompareModalOpen] = useState(false);
@@ -423,7 +421,6 @@ export const App: React.FC = () => {
                     isCompared={compareList.some((c) => c.id === car.id)}
                     onToggleCompare={toggleCompare}
                     onSelectCar={setSelectedCar}
-                    onBookTestDrive={setTestDriveCar}
                   />
                 ))}
               </div>
@@ -520,23 +517,12 @@ export const App: React.FC = () => {
           onClose={() => setSelectedCar(null)}
           isWishlisted={wishlistIds.includes(selectedCar.id)}
           onToggleWishlist={toggleWishlist}
-          onBookTestDrive={(c) => {
-            setSelectedCar(null);
-            setTestDriveCar(c);
-          }}
           onReserveCar={(c) => {
             setSelectedCar(null);
             setReserveCar(c);
           }}
           isCompared={compareList.some((c) => c.id === selectedCar.id)}
           onToggleCompare={toggleCompare}
-        />
-      )}
-
-      {testDriveCar && (
-        <TestDriveModal
-          car={testDriveCar}
-          onClose={() => setTestDriveCar(null)}
         />
       )}
 
@@ -553,7 +539,6 @@ export const App: React.FC = () => {
           onClose={() => setCompareModalOpen(false)}
           onRemoveCar={removeCompareCar}
           onSelectCar={setSelectedCar}
-          onBookTestDrive={setTestDriveCar}
         />
       )}
 
@@ -563,7 +548,6 @@ export const App: React.FC = () => {
         wishlistCars={wishlistCars}
         onRemoveWishlist={toggleWishlist}
         onSelectCar={setSelectedCar}
-        onBookTestDrive={setTestDriveCar}
       />
 
       {mobileFilterOpen && (
