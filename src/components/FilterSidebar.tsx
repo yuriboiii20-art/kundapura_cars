@@ -33,7 +33,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
   isMobileModal = false,
   onCloseMobileModal
 }) => {
-  const bodyTypes: BodyType[] = ['SUV', 'Sedan', 'Hatchback', 'EV', 'Luxury', 'MUV'];
+  const bodyTypes: BodyType[] = ['SUV', 'Sedan', 'Hatchback', 'MUV', 'EV'];
   const fuelTypes: FuelType[] = ['Petrol', 'Diesel', 'Electric', 'Hybrid'];
   const transmissions: TransmissionType[] = ['Automatic', 'Manual'];
   const ownerTypes: OwnerType[] = ['1st Owner', '2nd Owner'];

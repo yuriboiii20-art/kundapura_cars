@@ -15,7 +15,8 @@ import {
   ChevronRight,
   Phone,
   FileCheck,
-  Zap
+  Zap,
+  Camera
 } from 'lucide-react';
 import { Car } from '../types/car';
 import { formatPrice, formatKm, formatShortKm, formatShortRto } from '../utils/formatters';
@@ -128,54 +129,63 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
                 )}
 
                 {/* Photo Counter */}
-                <div className="absolute top-3 right-3 bg-[#241A15]/80 text-[#FDF8F4] text-xs font-bold px-2.5 py-1 rounded-lg backdrop-blur-xs border border-[#ECC4A6]/30">
-                  {activeImageIndex + 1} / {car.images.length} Photos
+                <div className="absolute top-3 right-3 bg-[#241A15]/80 text-[#FDF8F4] text-xs font-bold px-2.5 py-1 rounded-lg backdrop-blur-xs border border-[#ECC4A6]/30 flex items-center gap-1.5">
+                  <Camera className="w-3.5 h-3.5 text-[#D27848]" />
+                  <span>{car.images.length > 1 ? `${activeImageIndex + 1} / ${car.images.length} Photos` : 'Studio Verified Photo'}</span>
                 </div>
 
                 {/* 360 Toggle Button */}
-                <button
-                  onClick={() => setView360Mode(!view360Mode)}
-                  className={`absolute bottom-3 right-3 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all shadow-md flex items-center gap-1.5 z-10 ${
-                    view360Mode
-                      ? 'bg-[#D27848] text-white'
-                      : 'bg-white text-[#2E271F] hover:bg-[#FBF0E6] border border-[#ECC4A6]'
-                  }`}
-                >
-                  <RotateCw className="w-3.5 h-3.5 text-[#D27848]" />
-                  <span>{view360Mode ? 'Exit 360° View' : '360° Studio Tour'}</span>
-                </button>
+                {car.images.length > 1 && (
+                  <button
+                    onClick={() => setView360Mode(!view360Mode)}
+                    className={`absolute bottom-3 right-3 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all shadow-md flex items-center gap-1.5 z-10 ${
+                      view360Mode
+                        ? 'bg-[#D27848] text-white'
+                        : 'bg-white text-[#2E271F] hover:bg-[#FBF0E6] border border-[#ECC4A6]'
+                    }`}
+                  >
+                    <RotateCw className="w-3.5 h-3.5 text-[#D27848]" />
+                    <span>{view360Mode ? 'Exit 360° View' : '360° Studio Tour'}</span>
+                  </button>
+                )}
 
                 {/* Gallery Prev / Next Controls */}
-                <button
-                  onClick={() => setActiveImageIndex((prev) => (prev - 1 + car.images.length) % car.images.length)}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-[#2E271F] flex items-center justify-center transition-colors shadow-sm"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => setActiveImageIndex((prev) => (prev + 1) % car.images.length)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-[#2E271F] flex items-center justify-center transition-colors shadow-sm"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
+                {car.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => setActiveImageIndex((prev) => (prev - 1 + car.images.length) % car.images.length)}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-[#2E271F] flex items-center justify-center transition-colors shadow-sm"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      onClick={() => setActiveImageIndex((prev) => (prev + 1) % car.images.length)}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-[#2E271F] flex items-center justify-center transition-colors shadow-sm"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </>
+                )}
               </div>
 
               {/* Thumbnails Carousel */}
-              <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-                {car.images.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveImageIndex(idx)}
-                    className={`relative w-20 h-14 rounded-xl overflow-hidden shrink-0 border-2 transition-all ${
-                      idx === activeImageIndex
-                        ? 'border-[#D27848] ring-2 ring-[#D27848]/30 scale-95'
-                        : 'border-transparent opacity-75 hover:opacity-100'
-                    }`}
-                  >
-                    <img src={img} alt="thumb" className="w-full h-full object-cover" />
-                  </button>
-                ))}
-              </div>
+              {car.images.length > 1 && (
+                <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+                  {car.images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImageIndex(idx)}
+                      className={`relative w-20 h-14 rounded-xl overflow-hidden shrink-0 border-2 transition-all ${
+                        idx === activeImageIndex
+                          ? 'border-[#D27848] ring-2 ring-[#D27848]/30 scale-95'
+                          : 'border-transparent opacity-75 hover:opacity-100'
+                      }`}
+                    >
+                      <img src={img} alt="thumb" className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
 
               {/* Assured 4 Pillars Banner */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-2">
