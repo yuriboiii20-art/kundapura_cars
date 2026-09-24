@@ -240,33 +240,33 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] text-[#2E271F] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAF7F2] text-[#2E271F] flex flex-col font-sans w-full overflow-x-hidden">
       
       {/* 1. TOP ADMIN APP BAR */}
-      <header className="sticky top-0 z-40 bg-[#241A15] text-[#FDF8F4] border-b border-[#451E10] shadow-md">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 sm:h-16 gap-3">
+      <header className="sticky top-0 z-40 bg-[#241A15] text-[#FDF8F4] border-b border-[#451E10] shadow-md w-full">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full">
+          <div className="flex items-center justify-between h-14 sm:h-16 gap-2 sm:gap-3">
             
             {/* Left: Brand + Admin Pill */}
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#D27848] to-[#E0713B] flex items-center justify-center text-white shadow-sm">
-                <CarIcon className="w-4 h-4" />
+            <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-gradient-to-tr from-[#D27848] to-[#E0713B] flex items-center justify-center text-white shadow-sm shrink-0">
+                <CarIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm sm:text-base font-black tracking-tight text-white">
+              <div className="flex items-center gap-1.5 sm:gap-2 truncate">
+                <span className="text-xs sm:text-base font-black tracking-tight text-white whitespace-nowrap">
                   KUNDAPURA<span className="text-[#D27848]">CARS</span>
                 </span>
-                <span className="px-2 py-0.5 rounded-full bg-[#451E10] text-[#ECC4A6] text-[10px] font-bold border border-[#74351B] uppercase tracking-wider">
-                  Admin Hub
+                <span className="px-1.5 sm:px-2 py-0.5 rounded-full bg-[#451E10] text-[#ECC4A6] text-[9px] sm:text-[10px] font-bold border border-[#74351B] uppercase tracking-wider whitespace-nowrap">
+                  Admin
                 </span>
               </div>
             </div>
 
             {/* Right: Exit to site & Logout */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
               <button
                 onClick={onBackToSite}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#451E10] hover:bg-[#74351B] text-[#FDF8F4] text-xs font-bold border border-[#74351B] transition-all cursor-pointer"
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-[#451E10] hover:bg-[#74351B] text-[#FDF8F4] text-xs font-bold border border-[#74351B] transition-all cursor-pointer"
                 title="View live client website"
               >
                 <ArrowLeft className="w-3.5 h-3.5 text-[#D27848]" />
@@ -288,8 +288,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
         </div>
 
         {/* Tab Navigation Row */}
-        <div className="bg-[#17100D] border-t border-[#362117] px-3 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar py-1.5">
+        <div className="bg-[#17100D] border-t border-[#362117] px-3 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-7xl mx-auto flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar py-1.5 w-full">
             {[
               { id: 'inventory', label: 'Car Inventory', icon: CarIcon, badge: cars.length },
               { id: 'leads', label: 'Customer Leads', icon: Users, badge: stats.newLeadsCount > 0 ? stats.newLeadsCount : undefined, badgeColor: 'bg-[#D27848]' },
@@ -304,14 +304,14 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                  className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
                     isActive
                       ? 'bg-[#D27848] text-white shadow-xs'
                       : 'text-[#DFCFBA] hover:bg-[#2E1D16] hover:text-white'
                   }`}
                 >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span>{tab.label}</span>
+                  <Icon className="w-3.5 h-3.5 shrink-0" />
+                  <span className="whitespace-nowrap">{tab.label}</span>
                   {tab.badge !== undefined && (
                     <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-black ${tab.badgeColor || 'bg-[#241A15] text-[#ECC4A6]'}`}>
                       {tab.badge}
@@ -325,27 +325,27 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
       </header>
 
       {/* 2. MAIN ADMIN CONTENT CONTAINER */}
-      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 w-full flex-1">
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 w-full flex-1 min-w-0">
         
         {/* ========================================================== */}
         {/* TAB 1: CAR INVENTORY MANAGEMENT */}
         {/* ========================================================== */}
         {activeTab === 'inventory' && (
-          <div className="space-y-6 animate-fade-in">
+          <div className="space-y-4 sm:space-y-6 animate-fade-in w-full">
             
             {/* Header Toolbar */}
-            <div className="bg-white rounded-3xl p-4 sm:p-5 border border-[#ECC4A6] shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 border border-[#ECC4A6] shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 w-full">
               
               {/* Search & Filters */}
-              <div className="flex-1 flex flex-wrap items-center gap-2.5">
-                <div className="relative flex-1 min-w-[200px]">
+              <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5 w-full min-w-0">
+                <div className="relative flex-1 w-full min-w-0">
                   <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#AA957A]" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search by model, brand, RTO (e.g. Thar, Creta, KA-20)..."
-                    className="w-full pl-10 pr-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
+                    placeholder="Search model, brand, RTO (e.g. Thar, Creta, KA-20)..."
+                    className="w-full pl-10 pr-8 py-2 sm:py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
                   />
                   {searchQuery && (
                     <button
@@ -357,42 +357,44 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
                   )}
                 </div>
 
-                <select
-                  value={selectedBodyType}
-                  onChange={(e) => setSelectedBodyType(e.target.value)}
-                  className="px-3 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] outline-none cursor-pointer"
-                >
-                  <option value="all">All Body Types</option>
-                  <option value="SUV">SUV</option>
-                  <option value="Sedan">Sedan</option>
-                  <option value="Hatchback">Hatchback</option>
-                  <option value="EV">Electric (EV)</option>
-                  <option value="Luxury">Luxury</option>
-                  <option value="MUV">MUV</option>
-                </select>
+                <div className="grid grid-cols-2 sm:flex items-center gap-2 w-full sm:w-auto">
+                  <select
+                    value={selectedBodyType}
+                    onChange={(e) => setSelectedBodyType(e.target.value)}
+                    className="w-full sm:w-auto px-2.5 sm:px-3 py-2 sm:py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] outline-none cursor-pointer"
+                  >
+                    <option value="all">All Bodies</option>
+                    <option value="SUV">SUV</option>
+                    <option value="Sedan">Sedan</option>
+                    <option value="Hatchback">Hatchback</option>
+                    <option value="EV">Electric (EV)</option>
+                    <option value="Luxury">Luxury</option>
+                    <option value="MUV">MUV</option>
+                  </select>
 
-                <select
-                  value={selectedFuelType}
-                  onChange={(e) => setSelectedFuelType(e.target.value)}
-                  className="px-3 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] outline-none cursor-pointer"
-                >
-                  <option value="all">All Fuel Types</option>
-                  <option value="Petrol">Petrol</option>
-                  <option value="Diesel">Diesel</option>
-                  <option value="Electric">Electric</option>
-                  <option value="CNG">CNG</option>
-                  <option value="Hybrid">Hybrid</option>
-                </select>
+                  <select
+                    value={selectedFuelType}
+                    onChange={(e) => setSelectedFuelType(e.target.value)}
+                    className="w-full sm:w-auto px-2.5 sm:px-3 py-2 sm:py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] outline-none cursor-pointer"
+                  >
+                    <option value="all">All Fuels</option>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Electric">Electric</option>
+                    <option value="CNG">CNG</option>
+                    <option value="Hybrid">Hybrid</option>
+                  </select>
+                </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex items-center gap-2 shrink-0 w-full md:w-auto">
                 <button
                   onClick={() => {
                     setEditingCar(null);
                     setCarModalOpen(true);
                   }}
-                  className="flex-1 md:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#D27848] to-[#B95C2E] hover:from-[#B95C2E] hover:to-[#964521] text-white text-xs font-black rounded-xl shadow-md transition-all cursor-pointer"
+                  className="w-full md:w-auto flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-[#D27848] to-[#B95C2E] hover:from-[#B95C2E] hover:to-[#964521] text-white text-xs font-black rounded-xl shadow-md transition-all cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add New Car</span>
@@ -403,14 +405,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
 
             {/* Results Count & Quick Badges */}
             <div className="flex items-center justify-between text-xs text-[#8B785F] font-bold px-1">
-              <div>
-                Showing <strong className="text-[#2E271F]">{filteredCars.length}</strong> of {cars.length} certified vehicles in stock
+              <div className="truncate">
+                Showing <strong className="text-[#2E271F]">{filteredCars.length}</strong> of {cars.length} cars
               </div>
-              <div className="flex items-center gap-2">
-                <span className="hidden sm:inline">Quick Filters:</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                 <button
                   onClick={() => setSelectedBodyType(selectedBodyType === 'SUV' ? 'all' : 'SUV')}
-                  className={`px-2.5 py-1 rounded-lg border text-[11px] font-bold cursor-pointer ${
+                  className={`px-2 sm:px-2.5 py-1 rounded-lg border text-[10px] sm:text-[11px] font-bold cursor-pointer ${
                     selectedBodyType === 'SUV'
                       ? 'bg-[#D27848] text-white border-[#D27848]'
                       : 'bg-white text-[#74351B] border-[#ECC4A6]'
@@ -420,7 +421,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
                 </button>
                 <button
                   onClick={() => setSelectedFuelType(selectedFuelType === 'Electric' ? 'all' : 'Electric')}
-                  className={`px-2.5 py-1 rounded-lg border text-[11px] font-bold cursor-pointer ${
+                  className={`px-2 sm:px-2.5 py-1 rounded-lg border text-[10px] sm:text-[11px] font-bold cursor-pointer ${
                     selectedFuelType === 'Electric'
                       ? 'bg-[#D27848] text-white border-[#D27848]'
                       : 'bg-white text-[#74351B] border-[#ECC4A6]'
@@ -431,104 +432,116 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
               </div>
             </div>
 
-            {/* CARS INVENTORY LIST / TABLE */}
+            {/* CARS INVENTORY LIST */}
             {filteredCars.length > 0 ? (
-              <div className="space-y-3">
+              <div className="space-y-3 w-full">
                 {filteredCars.map((car) => (
                   <div
                     key={car.id}
-                    className="bg-white rounded-2xl border border-[#ECC4A6] p-3.5 sm:p-4 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+                    className="bg-white rounded-2xl border border-[#ECC4A6] p-3 sm:p-4 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 overflow-hidden w-full"
                   >
                     
                     {/* Left: Thumbnail & Info */}
-                    <div className="flex items-center gap-3.5 min-w-0 flex-1">
+                    <div className="flex items-start gap-3 min-w-0 flex-1 w-full">
                       <div className="relative w-20 h-16 sm:w-24 sm:h-20 rounded-xl overflow-hidden shrink-0 border border-[#ECC4A6] bg-[#FAF7F2]">
-                        <img
-                          src={car.images[0]}
-                          alt={car.title}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            (e.target as HTMLElement).setAttribute('src', 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80');
-                          }}
-                        />
+                        {car.images && car.images.length > 0 ? (
+                          <img
+                            src={car.images[0]}
+                            alt={car.title}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              (e.target as HTMLElement).setAttribute('src', 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80');
+                            }}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex flex-col items-center justify-center text-[#AA957A] bg-[#FAF7F2]">
+                            <span className="text-base">🚗</span>
+                            <span className="text-[8px] font-bold">No Photo</span>
+                          </div>
+                        )}
                         <span className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/70 text-white text-[9px] font-bold">
-                          {car.images.length} 📷
+                          {car.images?.length || 0} 📷
                         </span>
                       </div>
 
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-1.5 flex-wrap mb-1">
-                          <span className="px-2 py-0.5 rounded-md bg-[#FAF7F2] text-[#74351B] border border-[#ECC4A6] text-[10px] font-extrabold">
+                      <div className="min-w-0 flex-1 space-y-1">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="px-1.5 py-0.5 rounded-md bg-[#FAF7F2] text-[#74351B] border border-[#ECC4A6] text-[10px] font-extrabold whitespace-nowrap">
                             {car.year} • {car.fuelType} • {car.transmission}
                           </span>
-                          <span className="px-2 py-0.5 rounded-md bg-[#FDF3EA] text-[#D27848] text-[10px] font-black border border-[#ECC4A6]">
+                          <span className="px-1.5 py-0.5 rounded-md bg-[#FDF3EA] text-[#D27848] text-[10px] font-black border border-[#ECC4A6] whitespace-nowrap">
                             {car.rto}
                           </span>
                           {car.featured && (
-                            <span className="px-1.5 py-0.5 rounded bg-[#241A15] text-[#ECC4A6] text-[9px] font-black">
+                            <span className="px-1.5 py-0.5 rounded bg-[#241A15] text-[#ECC4A6] text-[9px] font-black whitespace-nowrap">
                               ★ FEATURED
                             </span>
                           )}
                           {car.trending && (
-                            <span className="px-1.5 py-0.5 rounded bg-orange-600 text-white text-[9px] font-black">
+                            <span className="px-1.5 py-0.5 rounded bg-orange-600 text-white text-[9px] font-black whitespace-nowrap">
                               🔥 TRENDING
                             </span>
                           )}
                         </div>
 
-                        <h4 className="text-xs sm:text-sm font-black text-[#2E271F] truncate">
+                        <h4 className="text-xs sm:text-sm font-black text-[#2E271F] leading-snug line-clamp-2">
                           {car.title}
                         </h4>
 
-                        <div className="text-[11px] text-[#8B785F] truncate mt-0.5">
+                        <div className="text-[11px] text-[#8B785F] line-clamp-1">
                           📍 {car.hubLocation} • {car.kilometers.toLocaleString('en-IN')} km • {car.owner}
                         </div>
                       </div>
                     </div>
 
-                    {/* Middle: Pricing & EMI */}
-                    <div className="flex sm:flex-col items-baseline sm:items-end justify-between sm:justify-center w-full sm:w-auto pt-2 sm:pt-0 border-t sm:border-t-0 border-[#ECC4A6]/50 shrink-0">
-                      <div className="text-sm sm:text-base font-black text-[#D27848]">
-                        {formatPrice(car.price)}
+                    {/* Right / Bottom: Pricing & Actions merged into a clean row on mobile */}
+                    <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4 w-full sm:w-auto pt-2.5 sm:pt-0 border-t sm:border-t-0 border-[#ECC4A6]/50 shrink-0">
+                      
+                      {/* Price & EMI */}
+                      <div className="flex flex-col items-start sm:items-end">
+                        <div className="text-sm sm:text-base font-black text-[#D27848] leading-tight">
+                          {formatPrice(car.price)}
+                        </div>
+                        <div className="text-[10px] sm:text-[11px] text-[#8B785F] font-semibold">
+                          EMI ₹{car.emiStarting.toLocaleString('en-IN')}/mo
+                        </div>
                       </div>
-                      <div className="text-[11px] text-[#8B785F] font-semibold">
-                        EMI ₹{car.emiStarting.toLocaleString('en-IN')}/mo
+
+                      {/* Actions */}
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          onClick={() => setPreviewCar(car)}
+                          className="p-2 rounded-xl bg-[#FAF7F2] hover:bg-[#FDF3EA] text-[#74351B] border border-[#ECC4A6] transition-colors cursor-pointer"
+                          title="Preview Car Modal as User"
+                        >
+                          <Eye className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            setEditingCar(car);
+                            setCarModalOpen(true);
+                          }}
+                          className="flex items-center gap-1 px-3 py-2 rounded-xl bg-[#FAF7F2] hover:bg-[#FDF3EA] text-[#74351B] border border-[#ECC4A6] text-xs font-bold transition-colors cursor-pointer"
+                          title="Edit all attributes of this car"
+                        >
+                          <Edit3 className="w-3.5 h-3.5 text-[#D27848]" />
+                          <span>Edit</span>
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            if (confirm(`Are you sure you want to remove "${car.title}" from Kundapura Cars inventory?`)) {
+                              deleteCar(car.id);
+                            }
+                          }}
+                          className="p-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 transition-colors cursor-pointer"
+                          title="Delete vehicle"
+                        >
+                          <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                        </button>
                       </div>
-                    </div>
 
-                    {/* Right: Actions */}
-                    <div className="flex items-center gap-1.5 w-full sm:w-auto justify-end shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#ECC4A6]/50">
-                      <button
-                        onClick={() => setPreviewCar(car)}
-                        className="p-2 rounded-xl bg-[#FAF7F2] hover:bg-[#FDF3EA] text-[#74351B] border border-[#ECC4A6] transition-colors cursor-pointer"
-                        title="Preview Car Modal as User"
-                      >
-                        <Eye className="w-4 h-4" />
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          setEditingCar(car);
-                          setCarModalOpen(true);
-                        }}
-                        className="flex items-center gap-1 px-3 py-2 rounded-xl bg-[#FAF7F2] hover:bg-[#FDF3EA] text-[#74351B] border border-[#ECC4A6] text-xs font-bold transition-colors cursor-pointer"
-                        title="Edit all attributes of this car"
-                      >
-                        <Edit3 className="w-3.5 h-3.5 text-[#D27848]" />
-                        <span>Edit</span>
-                      </button>
-
-                      <button
-                        onClick={() => {
-                          if (confirm(`Are you sure you want to remove "${car.title}" from Kundapura Cars inventory?`)) {
-                            deleteCar(car.id);
-                          }
-                        }}
-                        className="p-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 transition-colors cursor-pointer"
-                        title="Delete vehicle"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
                     </div>
 
                   </div>
@@ -559,53 +572,55 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
         {/* TAB 2: CUSTOMER LEADS & INQUIRIES */}
         {/* ========================================================== */}
         {activeTab === 'leads' && (
-          <div className="space-y-6 animate-fade-in">
+          <div className="space-y-4 sm:space-y-6 animate-fade-in w-full">
             
             {/* Leads Toolbar */}
-            <div className="bg-white rounded-3xl p-4 sm:p-5 border border-[#ECC4A6] shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 border border-[#ECC4A6] shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 w-full">
               
-              <div className="flex-1 flex flex-wrap items-center gap-2.5">
-                <div className="relative flex-1 min-w-[200px]">
+              <div className="flex-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5 w-full min-w-0">
+                <div className="relative flex-1 w-full min-w-0">
                   <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#AA957A]" />
                   <input
                     type="text"
                     value={leadSearch}
                     onChange={(e) => setLeadSearch(e.target.value)}
-                    placeholder="Search by customer name, phone, car title..."
-                    className="w-full pl-10 pr-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
+                    placeholder="Search customer name, phone, car title..."
+                    className="w-full pl-10 pr-3.5 py-2 sm:py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
                   />
                 </div>
 
-                <select
-                  value={leadTypeFilter}
-                  onChange={(e) => setLeadTypeFilter(e.target.value)}
-                  className="px-3 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] outline-none cursor-pointer"
-                >
-                  <option value="all">All Inquiry Types</option>
-                  <option value="reservation">₹999 Reservations</option>
-                  <option value="test_drive">Test Drive Requests</option>
-                  <option value="emi_inquiry">Loan / EMI Requests</option>
-                  <option value="callback">Callback Requests</option>
-                </select>
+                <div className="grid grid-cols-2 sm:flex items-center gap-2 w-full sm:w-auto">
+                  <select
+                    value={leadTypeFilter}
+                    onChange={(e) => setLeadTypeFilter(e.target.value)}
+                    className="w-full sm:w-auto px-2.5 sm:px-3 py-2 sm:py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] outline-none cursor-pointer"
+                  >
+                    <option value="all">All Types</option>
+                    <option value="reservation">₹999 Reservations</option>
+                    <option value="test_drive">Test Drive</option>
+                    <option value="emi_inquiry">Loan / EMI</option>
+                    <option value="callback">Callback</option>
+                  </select>
 
-                <select
-                  value={leadStatusFilter}
-                  onChange={(e) => setLeadStatusFilter(e.target.value)}
-                  className="px-3 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] outline-none cursor-pointer"
-                >
-                  <option value="all">All Lead Statuses</option>
-                  <option value="new">🟢 New Inquiries</option>
-                  <option value="contacted">🟡 Contacted</option>
-                  <option value="scheduled">🔵 Scheduled</option>
-                  <option value="closed">🟣 Deal Closed</option>
-                  <option value="cancelled">🔴 Cancelled</option>
-                </select>
+                  <select
+                    value={leadStatusFilter}
+                    onChange={(e) => setLeadStatusFilter(e.target.value)}
+                    className="w-full sm:w-auto px-2.5 sm:px-3 py-2 sm:py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] outline-none cursor-pointer"
+                  >
+                    <option value="all">All Statuses</option>
+                    <option value="new">🟢 New</option>
+                    <option value="contacted">🟡 Contacted</option>
+                    <option value="scheduled">🔵 Scheduled</option>
+                    <option value="closed">🟣 Closed</option>
+                    <option value="cancelled">🔴 Cancelled</option>
+                  </select>
+                </div>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex items-center gap-2 shrink-0 w-full md:w-auto">
                 <button
                   onClick={() => setManualLeadModalOpen(true)}
-                  className="flex items-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-[#D27848] to-[#B95C2E] hover:from-[#B95C2E] hover:to-[#964521] text-white text-xs font-black rounded-xl shadow-md transition-all cursor-pointer"
+                  className="w-full md:w-auto flex items-center justify-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-[#D27848] to-[#B95C2E] hover:from-[#B95C2E] hover:to-[#964521] text-white text-xs font-black rounded-xl shadow-md transition-all cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Add Lead</span>
@@ -616,28 +631,28 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
 
             {/* Leads List */}
             {filteredLeads.length > 0 ? (
-              <div className="space-y-3">
+              <div className="space-y-3 w-full">
                 {filteredLeads.map((lead) => (
                   <div
                     key={lead.id}
-                    className="bg-white rounded-2xl border border-[#ECC4A6] p-4 sm:p-5 shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+                    className="bg-white rounded-2xl border border-[#ECC4A6] p-3.5 sm:p-5 shadow-sm hover:shadow-md transition-all flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4 w-full overflow-hidden"
                   >
                     
                     {/* Left: Lead Details */}
-                    <div className="flex items-start gap-3.5 min-w-0 flex-1">
-                      <div className="w-10 h-10 rounded-2xl bg-[#FDF3EA] text-[#D27848] border border-[#ECC4A6] flex items-center justify-center font-black text-xs shrink-0">
+                    <div className="flex items-start gap-3 min-w-0 flex-1 w-full">
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-[#FDF3EA] text-[#D27848] border border-[#ECC4A6] flex items-center justify-center font-black text-xs shrink-0">
                         {lead.type === 'reservation' ? '₹999' : lead.type === 'test_drive' ? '🏎️' : '📞'}
                       </div>
 
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <div className="min-w-0 flex-1 space-y-1">
+                        <div className="flex items-center gap-1.5 flex-wrap">
                           <span className="text-xs sm:text-sm font-black text-[#2E271F]">
                             {lead.customerName}
                           </span>
                           
                           {/* Type Badge */}
-                          <span className="px-2 py-0.5 rounded-full bg-[#FAF7F2] text-[#74351B] border border-[#ECC4A6] text-[10px] font-bold">
-                            {lead.type === 'reservation' ? '₹999 Online Reservation' : lead.type === 'test_drive' ? 'Test Drive Booking' : 'EMI Consultation'}
+                          <span className="px-2 py-0.5 rounded-full bg-[#FAF7F2] text-[#74351B] border border-[#ECC4A6] text-[10px] font-bold whitespace-nowrap">
+                            {lead.type === 'reservation' ? '₹999 Reservation' : lead.type === 'test_drive' ? 'Test Drive' : 'EMI Consult'}
                           </span>
 
                           {/* Status Pill */}
@@ -664,17 +679,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
                           </select>
                         </div>
 
-                        <div className="text-xs text-[#74351B] font-bold">
+                        <div className="text-xs text-[#74351B] font-bold truncate">
                           🚗 {lead.carTitle || 'Kundapura Certified Car'}
                         </div>
 
                         {lead.notes && (
-                          <div className="text-[11px] text-[#8B785F] mt-1 bg-[#FAF7F2] p-2 rounded-xl border border-[#ECC4A6]/50">
+                          <div className="text-[11px] text-[#8B785F] bg-[#FAF7F2] p-2 rounded-xl border border-[#ECC4A6]/50">
                             💬 "{lead.notes}"
                           </div>
                         )}
 
-                        <div className="flex items-center gap-3 text-[10px] text-[#AA957A] font-semibold mt-2">
+                        <div className="flex items-center gap-2 flex-wrap text-[10px] text-[#AA957A] font-semibold pt-0.5">
                           <span>📅 {new Date(lead.createdAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}</span>
                           {lead.hubLocation && <span>📍 {lead.hubLocation}</span>}
                           {lead.paymentMethod && <span>💳 {lead.paymentMethod}</span>}
@@ -683,13 +698,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
                     </div>
 
                     {/* Right: Quick Communication Buttons */}
-                    <div className="flex items-center gap-2 w-full md:w-auto justify-end pt-2 md:pt-0 border-t md:border-t-0 border-[#ECC4A6]/50 shrink-0">
+                    <div className="flex items-center justify-end gap-2 w-full md:w-auto pt-2.5 md:pt-0 border-t md:border-t-0 border-[#ECC4A6]/50 shrink-0">
                       
                       <a
                         href={getWhatsAppLink(lead)}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-xs transition-colors"
+                        className="flex-1 md:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-xs transition-colors"
                       >
                         <MessageSquare className="w-3.5 h-3.5" />
                         <span>WhatsApp</span>
@@ -697,10 +712,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
 
                       <a
                         href={`tel:${lead.phone.replace(/[^0-9+]/g, '')}`}
-                        className="flex items-center gap-1.5 px-3.5 py-2 bg-[#241A15] hover:bg-[#451E10] text-[#FDF8F4] text-xs font-bold rounded-xl shadow-xs transition-colors"
+                        className="flex-1 md:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-2 bg-[#241A15] hover:bg-[#451E10] text-[#FDF8F4] text-xs font-bold rounded-xl shadow-xs transition-colors"
                       >
                         <Phone className="w-3.5 h-3.5 text-[#D27848]" />
-                        <span>Call {lead.phone}</span>
+                        <span>Call</span>
                       </a>
 
                       <button
@@ -709,7 +724,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
                             deleteLead(lead.id);
                           }
                         }}
-                        className="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-colors cursor-pointer"
+                        className="p-2 text-red-500 hover:bg-red-50 rounded-xl transition-colors cursor-pointer shrink-0"
                         title="Delete Lead"
                       >
                         <Trash2 className="w-4 h-4" />
