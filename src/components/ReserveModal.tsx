@@ -12,6 +12,7 @@ import {
 import confetti from 'canvas-confetti';
 import { Car } from '../types/car';
 import { formatPrice } from '../utils/formatters';
+import { useInventory } from '../context/InventoryContext';
 
 interface ReserveModalProps {
   car: Car;
@@ -19,6 +20,7 @@ interface ReserveModalProps {
 }
 
 export const ReserveModal: React.FC<ReserveModalProps> = ({ car, onClose }) => {
+  const { addLead } = useInventory();
   const [paymentMethod, setPaymentMethod] = useState<'upi' | 'card' | 'netbanking'>('upi');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -28,6 +30,25 @@ export const ReserveModal: React.FC<ReserveModalProps> = ({ car, onClose }) => {
   const handleReserve = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) return;
+
+    try {
+      addLead({
+        customerName: name.trim(),
+        phone: phone.trim(),
+        carId: car.id,
+        carTitle: car.title,
+        carImage: car.images[0],
+        carPrice: car.price,
+        type: 'reservation',
+        status: 'new',
+        hubLocation: car.hubLocation,
+        amountPaid: 999,
+        paymentMethod: `UPI (${paymentMethod.toUpperCase()})`,
+        notes: `Online reservation for ₹999 token from Kundapura Cars storefront.`
+      });
+    } catch (err) {
+      console.error('Failed to register lead', err);
+    }
 
     confetti({
       particleCount: 100,

@@ -2,14 +2,16 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { 
   SlidersHorizontal, 
   ArrowUpDown, 
-  ChevronDown,
-  Check,
+  ChevronDown, 
+  Check, 
   Car as CarIcon, 
   Layers, 
   X
 } from 'lucide-react';
-import { CARS_DATA } from './data/carsData';
 import { Car, FilterState, BodyType } from './types/car';
+import { useInventory } from './context/InventoryContext';
+import { AdminDashboard } from './admin/AdminDashboard';
+import { AdminLogin } from './admin/AdminLogin';
 import { Navbar } from './components/Navbar';
 import { HeroBanner } from './components/HeroBanner';
 import { MobileDrawer } from './components/MobileDrawer';
@@ -47,6 +49,72 @@ const INITIAL_FILTERS: FilterState = {
 };
 
 export const App: React.FC = () => {
+  const { cars, isAdmin } = useInventory();
+  
+  // Router state
+  const [isAdminView, setIsAdminView] = useState<boolean>(() => {
+    const hash = window.location.hash.toLowerCase();
+    const path = window.location.pathname.toLowerCase();
+    const search = window.location.search.toLowerCase();
+    return hash.includes('admin') || path.includes('/admin') || search.includes('admin=true') || search.includes('admin=1') || search.includes('page=admin');
+  });
+
+  // Listen to hash and URL navigation
+  useEffect(() => {
+    const handleUrlChange = () => {
+      const hash = window.location.hash.toLowerCase();
+      const path = window.location.pathname.toLowerCase();
+      const search = window.location.search.toLowerCase();
+      const shouldShowAdmin = hash.includes('admin') || path.includes('/admin') || search.includes('admin=true') || search.includes('admin=1') || search.includes('page=admin');
+      setIsAdminView(shouldShowAdmin);
+    };
+
+    window.addEventListener('hashchange', handleUrlChange);
+    window.addEventListener('popstate', handleUrlChange);
+
+    // Discrete secret keyboard shortcut: Ctrl+Shift+A (or Cmd+Shift+A) for admin access
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        if (isAdminView) {
+          window.location.hash = '';
+          setIsAdminView(false);
+        } else {
+          window.location.hash = '#/admin';
+          setIsAdminView(true);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('hashchange', handleUrlChange);
+      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isAdminView]);
+
+  const handleExitAdmin = () => {
+    window.location.hash = '';
+    setIsAdminView(false);
+  };
+
+  // If in Admin view, render Admin Portal
+  if (isAdminView) {
+    if (isAdmin) {
+      return <AdminDashboard onBackToSite={handleExitAdmin} />;
+    }
+    return <AdminLogin onBackToSite={handleExitAdmin} />;
+  }
+
+  // ==========================================
+  // CUSTOMER-FACING PUBLIC STORE (ZERO ADMIN SHOWN)
+  // ==========================================
+  return <ClientStorefront cars={cars} />;
+};
+
+// Sub-component for client storefront
+const ClientStorefront: React.FC<{ cars: Car[] }> = ({ cars }) => {
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
   const [sortDropdownOpen, setSortDropdownOpen] = useState(false);
   const sortDropdownRef = useRef<HTMLDivElement>(null);
@@ -138,16 +206,16 @@ export const App: React.FC = () => {
     setCompareList((prev) => prev.filter((c) => c.id !== carId));
   };
 
-  // Available brands list derived from data
+  // Available brands list derived dynamically from current inventory
   const availableBrands = useMemo(() => {
     const brandsSet = new Set<string>();
-    CARS_DATA.forEach((c) => brandsSet.add(c.brand));
+    cars.forEach((c) => brandsSet.add(c.brand));
     return Array.from(brandsSet).sort();
-  }, []);
+  }, [cars]);
 
   // Filter and Sort Engine
   const filteredCars = useMemo(() => {
-    return CARS_DATA.filter((car) => {
+    return cars.filter((car) => {
       // Search Query
       if (filters.searchQuery.trim()) {
         const q = filters.searchQuery.toLowerCase().trim();
@@ -158,7 +226,7 @@ export const App: React.FC = () => {
         const matchesBody = car.bodyType.toLowerCase().includes(q);
         const matchesFuel = car.fuelType.toLowerCase().includes(q);
         const matchesRto = car.rto.toLowerCase().includes(q);
-        const matchesTags = car.tags.some((t) => t.toLowerCase().includes(q));
+        const matchesTags = car.tags ? car.tags.some((t) => t.toLowerCase().includes(q)) : false;
 
         if (!matchesTitle && !matchesBrand && !matchesModel && !matchesVariant && !matchesBody && !matchesFuel && !matchesRto && !matchesTags) {
           return false;
@@ -210,15 +278,15 @@ export const App: React.FC = () => {
         default:
           if (a.featured && !b.featured) return -1;
           if (!a.featured && b.featured) return 1;
-          return b.inspectionScore - a.inspectionScore;
+          return (b.inspectionScore || 0) - (a.inspectionScore || 0);
       }
     });
-  }, [filters]);
+  }, [cars, filters]);
 
   // Wishlist Cars list
   const wishlistCars = useMemo(() => {
-    return CARS_DATA.filter((car) => wishlistIds.includes(car.id));
-  }, [wishlistIds]);
+    return cars.filter((car) => wishlistIds.includes(car.id));
+  }, [cars, wishlistIds]);
 
   const handleResetFilters = () => {
     setFilters(INITIAL_FILTERS);
@@ -242,7 +310,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#2E271F]">
+    <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#2E271F] font-sans selection:bg-[#F7DEC9] selection:text-[#74351B]">
       
       {/* 1. Header / Navbar */}
       <Navbar
@@ -298,7 +366,7 @@ export const App: React.FC = () => {
               </button>
             </div>
 
-            {/* Right: Custom Themed Sort Dropdown (Bug-free, no native blue OS popups) */}
+            {/* Right: Custom Themed Sort Dropdown */}
             <div className="relative" ref={sortDropdownRef}>
               <button
                 type="button"
@@ -400,7 +468,7 @@ export const App: React.FC = () => {
 
               <button
                 onClick={handleResetFilters}
-                className="text-xs font-bold text-[#D27848] hover:text-[#B95C2E] hover:underline ml-2"
+                className="text-xs font-bold text-[#D27848] hover:text-[#B95C2E] hover:underline ml-2 cursor-pointer"
               >
                 Clear All Filters
               </button>
@@ -437,7 +505,7 @@ export const App: React.FC = () => {
                 </p>
                 <button
                   onClick={handleResetFilters}
-                  className="px-5 py-2.5 bg-[#D27848] hover:bg-[#B95C2E] text-white font-extrabold text-xs rounded-xl shadow-md transition-all"
+                  className="px-5 py-2.5 bg-[#D27848] hover:bg-[#B95C2E] text-white font-extrabold text-xs rounded-xl shadow-md transition-all cursor-pointer"
                 >
                   Reset All Filters
                 </button>
@@ -483,13 +551,13 @@ export const App: React.FC = () => {
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={() => setCompareModalOpen(true)}
-              className="px-3 sm:px-3.5 py-1.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-[11px] sm:text-xs font-extrabold rounded-xl transition-all shadow-xs"
+              className="px-3 sm:px-3.5 py-1.5 bg-[#D27848] hover:bg-[#B95C2E] text-white text-[11px] sm:text-xs font-extrabold rounded-xl transition-all shadow-xs cursor-pointer"
             >
               Compare
             </button>
             <button
               onClick={() => setCompareList([])}
-              className="p-1 text-[#AA957A] hover:text-[#FDF8F4]"
+              className="p-1 text-[#AA957A] hover:text-[#FDF8F4] cursor-pointer"
               title="Clear"
             >
               <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />

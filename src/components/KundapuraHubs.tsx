@@ -9,13 +9,16 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import { KUNDAPURA_HUBS } from '../data/carsData';
+import { useInventory } from '../context/InventoryContext';
 
 interface KundapuraHubsProps {
   onFilterByHub?: (hubName: string) => void;
 }
 
 export const KundapuraHubs: React.FC<KundapuraHubsProps> = () => {
-  const [selectedHub, setSelectedHub] = useState(KUNDAPURA_HUBS[0].id);
+  const { hubs } = useInventory();
+  const activeHubs = hubs && hubs.length > 0 ? hubs : KUNDAPURA_HUBS;
+  const [selectedHub, setSelectedHub] = useState(activeHubs[0]?.id || 'hub-nh66');
 
   return (
     <section id="kundapura-hubs" className="py-12 sm:py-16 bg-white border-b border-[#ECC4A6]/60">
@@ -37,7 +40,7 @@ export const KundapuraHubs: React.FC<KundapuraHubsProps> = () => {
 
         {/* Hubs Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {KUNDAPURA_HUBS.map((hub) => {
+          {activeHubs.map((hub) => {
             const isSelected = selectedHub === hub.id;
             return (
               <div
@@ -99,7 +102,7 @@ export const KundapuraHubs: React.FC<KundapuraHubsProps> = () => {
                       Hub Amenities
                     </div>
                     <div className="flex flex-wrap gap-1.5">
-                      {hub.amenities.map((a, i) => (
+                      {(hub.amenities || ['Test Drive Track', 'Finance Desk', 'Inspection Zone']).map((a, i) => (
                         <span
                           key={i}
                           className="text-[10px] font-semibold bg-white text-[#74351B] px-2 py-0.5 rounded-md border border-[#ECC4A6]/70 flex items-center gap-1"
