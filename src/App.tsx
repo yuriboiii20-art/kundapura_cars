@@ -174,7 +174,7 @@ const ClientStorefront: React.FC<{ cars: Car[] }> = ({ cars }) => {
       const hash = window.location.hash;
       if (hash.startsWith('#car-')) {
         const cleanCarId = hash.replace('#car-', '').split('-photo')[0];
-        const matchedCar = CARS_DATA.find((c) => c.id === cleanCarId);
+        const matchedCar = cars.find((c: Car) => c.id === cleanCarId);
         if (matchedCar) {
           setSelectedCar(matchedCar);
         } else {
