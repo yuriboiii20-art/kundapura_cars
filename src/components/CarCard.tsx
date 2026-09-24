@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { 
   Heart, 
   ChevronLeft, 
-  ChevronRight
+  ChevronRight,
+  MapPin,
+  ShieldCheck
 } from 'lucide-react';
 import { Car } from '@/types/car';
 import { formatPrice, formatShortKm, formatShortRto } from '@/utils/formatters';
@@ -34,15 +36,12 @@ export const CarCard: React.FC<CarCardProps> = ({
     setCurrentImageIndex((prev) => (prev - 1 + car.images.length) % car.images.length);
   };
 
-  const qualityTag = car.tags?.[0] || 'High quality, less driven';
-
   return (
     <div 
       onClick={() => onSelectCar(car)}
-      className="group bg-white rounded-3xl border border-[#ECC4A6]/70 shadow-subtle hover:shadow-hover hover:border-[#D27848] transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative"
+      className="group bg-white rounded-2xl border border-[#EBD7C7] hover:border-[#D27848] shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative"
     >
-      
-      {/* Top Image Section with soft peach / apricot-tinted backdrop & Heart Icon */}
+      {/* Top Image Section */}
       <div className="relative aspect-[16/10] bg-gradient-to-b from-[#FBF0E6] via-[#FDF8F4] to-[#FAF7F2] overflow-hidden">
         <img
           src={car.images[currentImageIndex]}
@@ -51,50 +50,62 @@ export const CarCard: React.FC<CarCardProps> = ({
           loading="lazy"
         />
 
+        {/* Top Badges */}
+        <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5">
+          <span className="px-2 py-0.5 rounded-md bg-white/95 backdrop-blur-xs text-[#74351B] text-[11px] font-bold shadow-2xs border border-[#ECC4A6]/60 flex items-center gap-1">
+            <ShieldCheck className="w-3 h-3 text-[#D27848]" />
+            <span>Assured {car.inspectionScore}</span>
+          </span>
+          <span className="px-1.5 py-0.5 rounded-md bg-[#241A15]/80 backdrop-blur-xs text-white text-[10px] font-bold shadow-2xs">
+            {car.year}
+          </span>
+        </div>
+
         {/* Wishlist Heart Icon Button */}
         <button
           onClick={(e) => {
             e.stopPropagation();
             onToggleWishlist(car.id);
           }}
-          className="absolute top-3.5 right-3.5 z-10 p-1.5 rounded-full bg-white/80 hover:bg-white backdrop-blur-xs text-[#74351B] transition-transform active:scale-90 hover:scale-110 shadow-2xs"
+          className="absolute top-2.5 right-2.5 z-10 p-1.5 rounded-full bg-white/90 hover:bg-white backdrop-blur-xs text-[#74351B] transition-all active:scale-90 hover:scale-110 shadow-2xs"
           title={isWishlisted ? 'Remove from Saved' : 'Save Car'}
+          aria-label={isWishlisted ? 'Remove from Saved' : 'Save Car'}
         >
           <Heart 
-            className={`w-5 h-5 transition-colors ${
+            className={`w-4 h-4 transition-colors ${
               isWishlisted ? 'fill-[#D27848] text-[#D27848]' : 'text-[#74351B] stroke-[2]'
             }`} 
           />
         </button>
 
-        {/* Image navigation arrows */}
+        {/* Image navigation arrows (when multiple images exist) */}
         {car.images.length > 1 && (
           <>
             <button
               onClick={prevImage}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[#2E271F] opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 shadow-sm"
+              className="absolute left-1.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/90 hover:bg-white text-[#2E271F] opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 shadow-xs"
               aria-label="Previous photo"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={nextImage}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white/90 hover:bg-white text-[#2E271F] opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 shadow-sm"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/90 hover:bg-white text-[#2E271F] opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center justify-center z-10 shadow-xs"
               aria-label="Next photo"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </>
         )}
 
-        {/* Carousel Dots */}
+        {/* Carousel Dots (when multiple images exist) */}
         {car.images.length > 1 && (
-          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1 z-10">
+          <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 flex items-center gap-1 z-10">
             {car.images.map((_, i) => (
               <span
                 key={i}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === currentImageIndex ? 'w-3.5 bg-[#D27848]' : 'w-1.5 bg-[#D27848]/30'
+                className={`h-1 rounded-full transition-all ${
+                  i === currentImageIndex ? 'w-3 bg-[#D27848]' : 'w-1 bg-white/70'
                 }`}
               />
             ))}
@@ -102,75 +113,58 @@ export const CarCard: React.FC<CarCardProps> = ({
         )}
       </div>
 
-      {/* Card Content Body */}
-      <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-        
+      {/* Card Content */}
+      <div className="p-3.5 flex-1 flex flex-col justify-between">
         <div>
-          {/* Row 1: Year Brand Model & Price */}
-          <div className="flex items-baseline justify-between gap-2 mb-0.5">
-            <h3 className="font-extrabold text-base sm:text-[17px] text-[#2E271F] tracking-tight line-clamp-1 group-hover:text-[#D27848] transition-colors">
-              {car.year} {car.brand} {car.model}
-            </h3>
-            <span className="font-extrabold text-base sm:text-[17px] text-[#2E271F] shrink-0">
-              {formatPrice(car.price)}
-            </span>
-          </div>
+          {/* Title */}
+          <h3 className="font-extrabold text-[15px] text-[#2E271F] tracking-tight line-clamp-1 group-hover:text-[#D27848] transition-colors">
+            {car.year} {car.brand} {car.model}
+          </h3>
 
-          {/* Row 2: Variant & EMI */}
-          <div className="flex items-baseline justify-between gap-2 mb-3">
-            <p className="text-xs text-[#8B785F] font-medium line-clamp-1">
-              {car.variant}
-            </p>
-            <span className="text-xs text-[#6D5D49] font-medium shrink-0">
-              EMI ₹ {car.emiStarting.toLocaleString('en-IN')}/m*
-            </span>
-          </div>
+          {/* Variant Trim */}
+          <p className="text-[11px] text-[#8B785F] font-medium line-clamp-1 mt-0.5">
+            {car.variant}
+          </p>
 
-          {/* Row 3: Specifications Badges Pills in Soft Peach */}
-          <div className="flex items-center gap-1.5 flex-wrap mb-3.5">
-            <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-[11px] sm:text-xs font-semibold rounded-full border border-[#F3DFC9]">
+          {/* Key Specs Pill Row */}
+          <div className="flex items-center gap-1.5 text-[11px] text-[#6D5D49] font-semibold my-2.5 flex-wrap">
+            <span className="px-2 py-0.5 rounded-md bg-[#FBF0E6] text-[#74351B] border border-[#F3DFC9]">
               {formatShortKm(car.kilometers)}
             </span>
-            <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-[11px] sm:text-xs font-semibold rounded-full border border-[#F3DFC9]">
+            <span className="px-2 py-0.5 rounded-md bg-[#FBF0E6] text-[#74351B] border border-[#F3DFC9]">
               {car.fuelType}
             </span>
-            <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-[11px] sm:text-xs font-semibold rounded-full border border-[#F3DFC9]">
+            <span className="px-2 py-0.5 rounded-md bg-[#FBF0E6] text-[#74351B] border border-[#F3DFC9]">
               {car.transmission}
             </span>
-            <span className="px-2.5 py-1 bg-[#FDF3EA] text-[#74351B] text-[11px] sm:text-xs font-semibold rounded-full border border-[#F3DFC9]">
+            <span className="px-2 py-0.5 rounded-md bg-[#FBF0E6] text-[#74351B] border border-[#F3DFC9]">
               {formatShortRto(car.rto)}
             </span>
           </div>
 
-          {/* Row 4: Kundapura Hub Location */}
-          <div className="flex items-center gap-1.5 text-xs text-[#8B785F] font-medium mb-3">
-            <span className="inline-flex items-center justify-center w-4 h-4 rounded-xs border border-[#ECC4A6] bg-[#FBF0E6] text-[8px] font-black text-[#74351B]">
-              S
-            </span>
-            <span className="font-bold text-[#74351B]">HUB</span>
-            <span>•</span>
+          {/* Hub Location */}
+          <div className="flex items-center gap-1 text-[11px] text-[#8B785F] truncate">
+            <MapPin className="w-3 h-3 text-[#D27848] shrink-0" />
             <span className="truncate">{car.hubLocation}</span>
           </div>
         </div>
 
-        {/* Card Bottom Bar (Separated by border) */}
-        <div className="pt-3 border-t border-[#ECC4A6]/50 flex items-center justify-between">
-          <span className="text-xs font-medium text-[#8B785F] truncate">
-            {qualityTag}
-          </span>
+        {/* Price & EMI Bottom Row */}
+        <div className="pt-2.5 mt-2.5 border-t border-[#F0E2D4] flex items-center justify-between">
+          <div>
+            <div className="text-[10px] text-[#8B785F] font-medium uppercase tracking-wider leading-none mb-0.5">Fixed Price</div>
+            <div className="text-base font-black text-[#2E271F] leading-none">
+              {formatPrice(car.price)}
+            </div>
+          </div>
 
-          <span className="inline-flex items-center gap-1 text-xs font-extrabold text-[#D27848] shrink-0">
-            <svg className="w-3.5 h-3.5 text-[#D27848]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
-            </svg>
-            <span>Assured</span>
-          </span>
+          <div className="text-right">
+            <span className="inline-block text-[11px] font-bold text-[#D27848] bg-[#FDF3EA] px-2 py-0.5 rounded-md border border-[#ECC4A6]/60">
+              EMI ₹{Math.round(car.emiStarting / 1000)}k/mo
+            </span>
+          </div>
         </div>
-
       </div>
-
     </div>
   );
 };
-
-
