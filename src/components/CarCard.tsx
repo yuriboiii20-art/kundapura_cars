@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { 
   Heart, 
+  Share2,
   ChevronLeft, 
-  ChevronRight,
+  ChevronRight, 
   MapPin,
   ShieldCheck
 } from 'lucide-react';
 import { Car } from '@/types/car';
 import { formatPrice, formatShortKm, formatShortRto } from '@/utils/formatters';
+import { shareCar } from '@/utils/shareCar';
 
 interface CarCardProps {
   car: Car;
@@ -25,6 +27,7 @@ export const CarCard: React.FC<CarCardProps> = ({
   onSelectCar
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [copiedLink, setCopiedLink] = useState(false);
 
   const nextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -34,6 +37,15 @@ export const CarCard: React.FC<CarCardProps> = ({
   const prevImage = (e: React.MouseEvent) => {
     e.stopPropagation();
     setCurrentImageIndex((prev) => (prev - 1 + car.images.length) % car.images.length);
+  };
+
+  const handleShare = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const result = await shareCar(car);
+    if (result.status === 'copied') {
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
+    }
   };
 
   return (
@@ -61,22 +73,42 @@ export const CarCard: React.FC<CarCardProps> = ({
           </span>
         </div>
 
-        {/* Wishlist Heart Icon Button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onToggleWishlist(car.id);
-          }}
-          className="absolute top-2.5 right-2.5 z-10 p-1.5 rounded-full bg-white/90 hover:bg-white backdrop-blur-xs text-[#74351B] transition-all active:scale-90 hover:scale-110 shadow-2xs"
-          title={isWishlisted ? 'Remove from Saved' : 'Save Car'}
-          aria-label={isWishlisted ? 'Remove from Saved' : 'Save Car'}
-        >
-          <Heart 
-            className={`w-4 h-4 transition-colors ${
-              isWishlisted ? 'fill-[#D27848] text-[#D27848]' : 'text-[#74351B] stroke-[2]'
-            }`} 
-          />
-        </button>
+        {/* Action Buttons (Share & Wishlist) */}
+        <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5">
+          {/* Share Button */}
+          <div className="relative">
+            <button
+              onClick={handleShare}
+              className="p-1.5 rounded-full bg-white/90 hover:bg-white backdrop-blur-xs text-[#74351B] transition-all active:scale-90 hover:scale-110 shadow-2xs"
+              title="Share Car"
+              aria-label="Share Car"
+            >
+              <Share2 className="w-3.5 h-3.5 text-[#74351B]" />
+            </button>
+            {copiedLink && (
+              <span className="absolute -bottom-6 right-0 text-[10px] bg-[#241A15] text-[#FDF8F4] px-2 py-0.5 rounded shadow whitespace-nowrap z-30 animate-fade-in font-bold">
+                Copied!
+              </span>
+            )}
+          </div>
+
+          {/* Wishlist Heart Icon Button */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleWishlist(car.id);
+            }}
+            className="p-1.5 rounded-full bg-white/90 hover:bg-white backdrop-blur-xs text-[#74351B] transition-all active:scale-90 hover:scale-110 shadow-2xs"
+            title={isWishlisted ? 'Remove from Saved' : 'Save Car'}
+            aria-label={isWishlisted ? 'Remove from Saved' : 'Save Car'}
+          >
+            <Heart 
+              className={`w-3.5 h-3.5 transition-colors ${
+                isWishlisted ? 'fill-[#D27848] text-[#D27848]' : 'text-[#74351B] stroke-[2]'
+              }`} 
+            />
+          </button>
+        </div>
 
         {/* Image navigation arrows (when multiple images exist) */}
         {car.images.length > 1 && (

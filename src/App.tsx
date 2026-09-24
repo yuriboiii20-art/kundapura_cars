@@ -72,6 +72,46 @@ export const App: React.FC = () => {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
+  // Handle Car Selection with browser history push (so swipe-back on mobile closes modal instead of exiting site)
+  const handleSelectCar = (car: Car) => {
+    setSelectedCar(car);
+    const targetHash = `#car-${car.id}`;
+    if (window.location.hash !== targetHash) {
+      window.history.pushState({ modal: 'car-detail', carId: car.id }, '', targetHash);
+    }
+  };
+
+  const handleCloseCarModal = () => {
+    setSelectedCar(null);
+    if (window.location.hash.startsWith('#car-')) {
+      window.history.back();
+    }
+  };
+
+  // Sync modal state with browser back/forward and mobile swipe-back gestures
+  useEffect(() => {
+    const handlePopState = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#car-')) {
+        const cleanCarId = hash.replace('#car-', '').split('-photo')[0];
+        const matchedCar = CARS_DATA.find((c) => c.id === cleanCarId);
+        if (matchedCar) {
+          setSelectedCar(matchedCar);
+        } else {
+          setSelectedCar(null);
+        }
+      } else {
+        setSelectedCar(null);
+      }
+    };
+
+    // Check on initial page load if direct car hash is present
+    handlePopState();
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const handleSelectCategory = (category: string) => {
     if (category === 'Luxury') {
       setFilters(prev => ({ ...prev, minPrice: 1500000, maxPrice: 4000000 }));
@@ -419,7 +459,7 @@ export const App: React.FC = () => {
                     onToggleWishlist={toggleWishlist}
                     isCompared={compareList.some((c) => c.id === car.id)}
                     onToggleCompare={toggleCompare}
-                    onSelectCar={setSelectedCar}
+                    onSelectCar={handleSelectCar}
                   />
                 ))}
               </div>
@@ -502,7 +542,7 @@ export const App: React.FC = () => {
       {selectedCar && (
         <CarDetailModal
           car={selectedCar}
-          onClose={() => setSelectedCar(null)}
+          onClose={handleCloseCarModal}
           isWishlisted={wishlistIds.includes(selectedCar.id)}
           onToggleWishlist={toggleWishlist}
           onReserveCar={(c) => {
@@ -526,7 +566,7 @@ export const App: React.FC = () => {
           cars={compareList}
           onClose={() => setCompareModalOpen(false)}
           onRemoveCar={removeCompareCar}
-          onSelectCar={setSelectedCar}
+          onSelectCar={handleSelectCar}
         />
       )}
 
@@ -535,7 +575,7 @@ export const App: React.FC = () => {
         onClose={() => setWishlistDrawerOpen(false)}
         wishlistCars={wishlistCars}
         onRemoveWishlist={toggleWishlist}
-        onSelectCar={setSelectedCar}
+        onSelectCar={handleSelectCar}
       />
 
       {mobileFilterOpen && (
