@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { Car } from '../types/car';
 import { formatPrice, formatKm, formatShortKm, formatShortRto } from '../utils/formatters';
+import { shareCar } from '../utils/shareCar';
 import { InspectionReport } from './InspectionReport';
 import { EmiCalculator } from './EmiCalculator';
 
@@ -58,10 +59,27 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
 
-  const handleShare = () => {
-    navigator.clipboard?.writeText(window.location.href);
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2000);
+  const handleShare = async () => {
+    const result = await shareCar(car);
+    if (result.status === 'copied') {
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
+    }
+  };
+
+  const openLightbox = () => {
+    setIsLightboxOpen(true);
+    if (!window.location.hash.includes('-photo')) {
+      window.history.pushState({ modal: 'lightbox' }, '', window.location.hash ? `${window.location.hash}-photo` : '#photo');
+    }
+  };
+
+  const closeLightbox = () => {
+    setIsLightboxOpen(false);
+    setIsZoomed(false);
+    if (window.location.hash.includes('-photo') || window.location.hash === '#photo') {
+      window.history.back();
+    }
   };
 
   const nextImage = useCallback(() => {
@@ -96,13 +114,12 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
     setTouchEndX(null);
   };
 
-  // Keyboard navigation for image gallery / lightbox
+  // Keyboard navigation & popstate for image gallery / lightbox
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         if (isLightboxOpen) {
-          setIsLightboxOpen(false);
-          setIsZoomed(false);
+          closeLightbox();
         } else {
           onClose();
         }
@@ -113,8 +130,19 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
       }
     };
 
+    const handlePopState = () => {
+      if (isLightboxOpen && !window.location.hash.includes('-photo')) {
+        setIsLightboxOpen(false);
+        setIsZoomed(false);
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('popstate', handlePopState);
+    };
   }, [isLightboxOpen, nextImage, prevImage, onClose]);
 
   // Lock body scroll when modal or lightbox is open
@@ -189,7 +217,7 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
             <div className="lg:col-span-7 space-y-3">
               
               <div 
-                onClick={() => setIsLightboxOpen(true)}
+                onClick={openLightbox}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
                 onTouchEnd={handleTouchEnd}
@@ -557,10 +585,7 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
       {isLightboxOpen && (
         <div 
           className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-md flex flex-col justify-between p-3 sm:p-6 animate-fade-in select-none"
-          onClick={() => {
-            setIsLightboxOpen(false);
-            setIsZoomed(false);
-          }}
+          onClick={closeLightbox}
         >
           {/* Lightbox Top Controls */}
           <div className="flex items-center justify-between text-white z-20" onClick={(e) => e.stopPropagation()}>
@@ -583,10 +608,7 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
               </button>
 
               <button
-                onClick={() => {
-                  setIsLightboxOpen(false);
-                  setIsZoomed(false);
-                }}
+                onClick={closeLightbox}
                 className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
                 title="Close (Esc)"
               >
