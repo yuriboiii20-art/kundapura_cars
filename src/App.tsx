@@ -72,10 +72,22 @@ export const App: React.FC = () => {
     window.addEventListener('hashchange', handleUrlChange);
     window.addEventListener('popstate', handleUrlChange);
 
-    // Discrete secret keyboard shortcut: Ctrl+Shift+A (or Cmd+Shift+A) for admin access
+    // Discrete secret keyboard shortcut: Ctrl+Alt+A, Ctrl+Shift+K, Alt+Shift+A, or Ctrl+Shift+A
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+      const isCtrlOrCmd = e.ctrlKey || e.metaKey;
+      const isKeyA = e.key === 'a' || e.key === 'A';
+      const isKeyK = e.key === 'k' || e.key === 'K';
+
+      // (Ctrl+Alt+A) OR (Ctrl+Shift+K) OR (Alt+Shift+A) OR (Ctrl+Shift+A)
+      const isShortcut = 
+        (isCtrlOrCmd && e.altKey && isKeyA) ||
+        (isCtrlOrCmd && e.shiftKey && isKeyK) ||
+        (e.altKey && e.shiftKey && isKeyA) ||
+        (isCtrlOrCmd && e.shiftKey && isKeyA);
+
+      if (isShortcut) {
         e.preventDefault();
+        e.stopPropagation();
         if (isAdminView) {
           window.location.hash = '';
           setIsAdminView(false);
