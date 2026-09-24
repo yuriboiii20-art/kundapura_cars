@@ -117,7 +117,25 @@ export const Footer: React.FC<FooterProps> = ({ onOpenHubs }) => {
 
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#AA957A]">
-          <div>
+          <div 
+            onClick={() => {
+              const now = Date.now();
+              const lastTap = (window as any).__kc_last_foot_tap || 0;
+              const tapCount = (window as any).__kc_foot_taps || 0;
+              if (now - lastTap < 600) {
+                const newCount = tapCount + 1;
+                (window as any).__kc_foot_taps = newCount;
+                if (newCount >= 3) {
+                  (window as any).__kc_foot_taps = 0;
+                  window.location.hash = '#/admin';
+                }
+              } else {
+                (window as any).__kc_foot_taps = 1;
+              }
+              (window as any).__kc_last_foot_tap = now;
+            }}
+            className="cursor-pointer select-none"
+          >
             © {new Date().getFullYear()} KUNDAPURA CARS INDIA PVT LTD. All rights reserved.
           </div>
           <div className="flex items-center gap-1 text-[11px]">

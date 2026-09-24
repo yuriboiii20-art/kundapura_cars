@@ -58,8 +58,31 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Menu className="w-6 h-6 text-[#2E271F]" />
             </button>
 
-            {/* Brand Logo */}
-            <a href="#" className="flex items-center group">
+            {/* Brand Logo with secret triple-tap for admin on mobile/desktop */}
+            <a 
+              href="#" 
+              onClick={(e) => {
+                // Secret triple-tap detection to enter admin on mobile without revealing UI to clients
+                const now = Date.now();
+                const lastTap = (window as any).__kc_last_logo_tap || 0;
+                const tapCount = (window as any).__kc_logo_taps || 0;
+                
+                if (now - lastTap < 600) {
+                  const newCount = tapCount + 1;
+                  (window as any).__kc_logo_taps = newCount;
+                  if (newCount >= 3) {
+                    e.preventDefault();
+                    (window as any).__kc_logo_taps = 0;
+                    window.location.hash = '#/admin';
+                    return;
+                  }
+                } else {
+                  (window as any).__kc_logo_taps = 1;
+                }
+                (window as any).__kc_last_logo_tap = now;
+              }}
+              className="flex items-center group cursor-pointer"
+            >
               <span className="text-base sm:text-2xl font-black tracking-tight text-[#2E271F] group-hover:opacity-85 transition-opacity">
                 KUNDAPURA<span className="text-[#D27848] font-extrabold ml-0.5">CARS</span>
               </span>
