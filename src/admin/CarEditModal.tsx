@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   X, 
   Save, 
@@ -6,9 +6,12 @@ import {
   Trash2, 
   ShieldCheck, 
   Car as CarIcon, 
-  CheckCircle2
+  CheckCircle2,
+  Upload,
+  Link as LinkIcon,
+  Image as ImageIcon
 } from 'lucide-react';
-import { Car, BodyType, FuelType, TransmissionType, OwnerType, CarSpecs } from '../types/car';
+import { Car, BodyType, FuelType, TransmissionType, OwnerType, CarSpecs, InspectionCategory } from '../types/car';
 import { formatPrice } from '../utils/formatters';
 
 interface CarEditModalProps {
@@ -36,29 +39,29 @@ const DEFAULT_SPECS: CarSpecs = {
   fuelTank: '50 Litres'
 };
 
-const DEFAULT_INSPECTION = {
+const DEFAULT_INSPECTION: Car['inspectionSummary'] = {
   engineTransmission: {
     title: 'Engine, Gearbox & Transmission Unit',
-    score: '9.8/10',
+    score: '10/10',
     checksTotal: 48,
     checksPassed: 48,
-    status: 'passed' as const,
+    status: 'passed',
     highlights: ['Engine compression balanced', 'Smooth clutch engagement', 'Zero abnormal vibration']
   },
   steeringSuspension: {
     title: 'Steering, Suspension & Brakes',
-    score: '9.6/10',
+    score: '9.8/10',
     checksTotal: 38,
     checksPassed: 38,
-    status: 'passed' as const,
+    status: 'passed',
     highlights: ['Brake pads have 85%+ life remaining', 'No play in steering rack', 'Struts in prime condition']
   },
   bodyPaint: {
     title: 'Body, Chassis & Paint Thickness',
-    score: '9.5/10',
+    score: '9.6/10',
     checksTotal: 45,
     checksPassed: 44,
-    status: 'passed' as const,
+    status: 'passed',
     highlights: ['OEM factory paint thickness verified', 'Zero structural damage or flood signs', 'Original glass on all windows']
   },
   interiorElectricals: {
@@ -66,7 +69,7 @@ const DEFAULT_INSPECTION = {
     score: '9.9/10',
     checksTotal: 42,
     checksPassed: 42,
-    status: 'passed' as const,
+    status: 'passed',
     highlights: ['Touchscreen & digital cluster 100% operational', 'Airbags diagnostic scanned OK', 'Clean non-smoker interior']
   },
   acTyres: {
@@ -74,13 +77,14 @@ const DEFAULT_INSPECTION = {
     score: '9.7/10',
     checksTotal: 27,
     checksPassed: 27,
-    status: 'passed' as const,
+    status: 'passed',
     highlights: ['Cabin cooled to 18°C in under 3 minutes', 'Tyre tread depth > 5.5mm (80%+ life)', 'Even tread wear across all 4 tyres']
   }
 };
 
 export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose, onSave }) => {
   const [activeTab, setActiveTab] = useState<'basics' | 'pricing' | 'specs' | 'inspection' | 'media'>('basics');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Form states
   const [title, setTitle] = useState('');
@@ -102,8 +106,13 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
   const [isAssured, setIsAssured] = useState(true);
   const [featured, setFeatured] = useState(false);
   const [trending, setTrending] = useState(false);
-  const [inspectionScore, setInspectionScore] = useState<number>(9.6);
   
+  // Inspection score (can be any value from 0 to 10)
+  const [inspectionScore, setInspectionScore] = useState<number | string>(9.6);
+  
+  // Detailed 5 inspection modules
+  const [inspectionSummary, setInspectionSummary] = useState<Car['inspectionSummary']>(DEFAULT_INSPECTION);
+
   // Arrays & Objects
   const [images, setImages] = useState<string[]>([]);
   const [newImageUrl, setNewImageUrl] = useState('');
@@ -133,8 +142,9 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
       setIsAssured(car.isAssured);
       setFeatured(!!car.featured);
       setTrending(!!car.trending);
-      setInspectionScore(car.inspectionScore || 9.5);
-      setImages(car.images.length > 0 ? car.images : ['https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80']);
+      setInspectionScore(car.inspectionScore !== undefined ? car.inspectionScore : 9.5);
+      setInspectionSummary(car.inspectionSummary || DEFAULT_INSPECTION);
+      setImages(car.images || []);
       setTagsInput(car.tags ? car.tags.join(', ') : '');
       setFeaturesInput(car.features ? car.features.join('\n') : '');
       setSpecs(car.specs || DEFAULT_SPECS);
@@ -160,6 +170,7 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
       setFeatured(true);
       setTrending(false);
       setInspectionScore(9.7);
+      setInspectionSummary(DEFAULT_INSPECTION);
       setImages([
         'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80',
         'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80'
@@ -172,15 +183,54 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
 
   if (!isOpen) return null;
 
-  const handleAddImage = () => {
-    if (newImageUrl.trim()) {
-      setImages((prev) => [...prev, newImageUrl.trim()]);
-      setNewImageUrl('');
+  // Add Image URL
+  const handleAddImageUrl = () => {
+    let url = newImageUrl.trim();
+    if (!url) return;
+    if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('data:') && !url.startsWith('/')) {
+      url = `https://${url}`;
+    }
+    setImages((prev) => [...prev, url]);
+    setNewImageUrl('');
+  };
+
+  // Upload Local Files (Converts to Data URL)
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    Array.from(files).forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          setImages((prev) => [...prev, event.target!.result as string]);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
   };
 
   const handleRemoveImage = (index: number) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  // Helper to update specific inspection module
+  const handleUpdateInspectionCategory = (
+    categoryKey: keyof Car['inspectionSummary'],
+    field: keyof InspectionCategory,
+    value: any
+  ) => {
+    setInspectionSummary((prev) => ({
+      ...prev,
+      [categoryKey]: {
+        ...prev[categoryKey],
+        [field]: value,
+      },
+    }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -217,7 +267,7 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
       owner,
       rto: rto.trim(),
       hubLocation: hubLocation.trim(),
-      images: images.length > 0 ? images : ['https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80'],
+      images: images, // Do NOT replace with fallback if user deleted them
       color: color.trim(),
       isAssured,
       featured,
@@ -225,8 +275,8 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
       tags: tags.length > 0 ? tags : ['Verified', 'KA-20 RTO'],
       features: features.length > 0 ? features : ['1-Year Comprehensive Warranty', '200-Point Inspected'],
       specs,
-      inspectionScore: Number(inspectionScore),
-      inspectionSummary: car?.inspectionSummary || DEFAULT_INSPECTION,
+      inspectionScore: Number(inspectionScore) || 0,
+      inspectionSummary,
     };
 
     onSave(carData);
@@ -275,7 +325,7 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id as any)}
-              className={`px-3.5 py-2.5 text-xs font-extrabold rounded-t-xl transition-all border-t border-x whitespace-nowrap ${
+              className={`px-3.5 py-2.5 text-xs font-extrabold rounded-t-xl transition-all border-t border-x whitespace-nowrap cursor-pointer ${
                 activeTab === tab.id
                   ? 'bg-white text-[#D27848] border-[#ECC4A6] border-b-transparent shadow-xs'
                   : 'text-[#8B785F] hover:text-[#2E271F] border-transparent'
@@ -358,8 +408,8 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
                     type="number"
                     value={year}
                     onChange={(e) => setYear(Number(e.target.value))}
-                    min={2010}
-                    max={2026}
+                    min={2000}
+                    max={2030}
                     required
                     className="w-full px-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
                   />
@@ -684,61 +734,122 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
             </div>
           )}
 
-          {/* TAB 4: INSPECTION SCORE */}
+          {/* TAB 4: INSPECTION SCORE & EDITABLE MODULES */}
           {activeTab === 'inspection' && (
-            <div className="space-y-4 animate-fade-in">
+            <div className="space-y-5 animate-fade-in">
+              
+              {/* Overall Score with NO MIN LIMIT */}
               <div className="p-4 rounded-2xl bg-[#FDF8F4] border border-[#ECC4A6]">
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-2">
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="w-5 h-5 text-[#D27848]" />
-                    <span className="text-xs font-black text-[#2E271F]">Overall 200-Point Inspection Score</span>
+                    <span className="text-xs font-black text-[#2E271F]">Overall Inspection Score (0 to 10)</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <input
                       type="number"
-                      step={0.1}
-                      min={8.0}
-                      max={10.0}
+                      step="any"
                       value={inspectionScore}
-                      onChange={(e) => setInspectionScore(Number(e.target.value))}
-                      className="w-20 px-2 py-1 bg-white rounded-lg border border-[#ECC4A6] text-sm font-black text-[#D27848] text-center"
+                      onChange={(e) => setInspectionScore(e.target.value)}
+                      placeholder="e.g. 9.8"
+                      className="w-24 px-3 py-1.5 bg-white rounded-xl border border-[#ECC4A6] text-sm font-black text-[#D27848] text-center outline-none focus:border-[#D27848]"
                     />
                     <span className="text-xs font-bold text-[#8B785F]">/ 10.0</span>
                   </div>
                 </div>
 
                 <p className="text-[11px] text-[#8B785F]">
-                  This score displays on the car card, vehicle detail modal, and the Kundapura Cars 200-point certificate.
+                  You can type any number (e.g. 10, 9.8, 8.5, 7.0, etc.). It displays on the car card, vehicle detail modal, and certificate.
                 </p>
               </div>
 
-              <div className="space-y-3">
-                <div className="text-xs font-bold text-[#74351B]">
-                  Inspection Modules (Passed 200-Point Verification)
+              {/* Editable 5 Inspection Modules */}
+              <div className="space-y-4">
+                <div className="text-xs font-extrabold text-[#74351B] uppercase tracking-wider">
+                  Edit Inspection Category Scores &amp; Details
                 </div>
                 
                 {[
-                  { name: 'Engine & Gearbox (48 Checks)', status: 'Verified Healthy • 10/10' },
-                  { name: 'Steering, Suspension & Brakes (38 Checks)', status: '85%+ Pad Life • 9.8/10' },
-                  { name: 'Chassis, Paint & Body Integrity (45 Checks)', status: 'Non-Accidental Verified • 9.6/10' },
-                  { name: 'Interior, Dashboard & Electricals (42 Checks)', status: 'Fully Tested • 9.9/10' },
-                  { name: 'AC & Tyre Condition (27 Checks)', status: 'Chilled Air & >80% Tread • 9.7/10' },
-                ].map((mod, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-[#FAF7F2] border border-[#ECC4A6]/60 text-xs">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-[#389E0D]" />
-                      <span className="font-bold text-[#2E271F]">{mod.name}</span>
+                  { key: 'engineTransmission' as const, label: 'Engine, Gearbox & Transmission Unit', defaultChecks: 48 },
+                  { key: 'steeringSuspension' as const, label: 'Steering, Suspension & Brakes', defaultChecks: 38 },
+                  { key: 'bodyPaint' as const, label: 'Body, Chassis & Paint Thickness', defaultChecks: 45 },
+                  { key: 'interiorElectricals' as const, label: 'Interior, Dashboard & Electricals', defaultChecks: 42 },
+                  { key: 'acTyres' as const, label: 'Air Conditioning & Tyres', defaultChecks: 27 },
+                ].map((mod) => {
+                  const data = inspectionSummary[mod.key] || DEFAULT_INSPECTION[mod.key];
+                  return (
+                    <div key={mod.key} className="p-3.5 sm:p-4 rounded-2xl bg-[#FAF7F2] border border-[#ECC4A6] space-y-3">
+                      
+                      {/* Top Header of Category */}
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-[#389E0D] shrink-0" />
+                          <span className="font-bold text-xs text-[#2E271F]">{mod.label}</span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <input
+                            type="text"
+                            value={data.score}
+                            onChange={(e) => handleUpdateInspectionCategory(mod.key, 'score', e.target.value)}
+                            placeholder="e.g. 10/10"
+                            className="w-20 px-2 py-1 bg-white text-xs font-bold text-[#389E0D] text-center rounded-lg border border-[#ECC4A6] outline-none"
+                          />
+
+                          <select
+                            value={data.status}
+                            onChange={(e) => handleUpdateInspectionCategory(mod.key, 'status', e.target.value)}
+                            className="px-2 py-1 bg-white text-[11px] font-bold text-[#74351B] rounded-lg border border-[#ECC4A6] outline-none"
+                          >
+                            <option value="passed">Passed</option>
+                            <option value="good">Good</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      {/* Checks Numbers & Highlights */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[11px] font-semibold text-[#74351B] whitespace-nowrap">Checks Passed:</span>
+                          <input
+                            type="number"
+                            value={data.checksPassed}
+                            onChange={(e) => handleUpdateInspectionCategory(mod.key, 'checksPassed', Number(e.target.value))}
+                            className="w-16 px-2 py-1 bg-white text-xs font-bold rounded-lg border border-[#ECC4A6] outline-none text-center"
+                          />
+                          <span className="text-[11px] text-[#8B785F]">/</span>
+                          <input
+                            type="number"
+                            value={data.checksTotal}
+                            onChange={(e) => handleUpdateInspectionCategory(mod.key, 'checksTotal', Number(e.target.value))}
+                            className="w-16 px-2 py-1 bg-white text-xs font-bold rounded-lg border border-[#ECC4A6] outline-none text-center"
+                          />
+                          <span className="text-[11px] text-[#8B785F]">Total</span>
+                        </div>
+
+                        {/* Highlights summary */}
+                        <div>
+                          <input
+                            type="text"
+                            value={data.highlights ? data.highlights.join(', ') : ''}
+                            onChange={(e) => handleUpdateInspectionCategory(mod.key, 'highlights', e.target.value.split(',').map(s => s.trim()).filter(Boolean))}
+                            placeholder="Highlights (e.g. Zero leak, Clutch healthy)"
+                            className="w-full px-2.5 py-1 bg-white text-[11px] text-[#2E271F] rounded-lg border border-[#ECC4A6] outline-none"
+                          />
+                        </div>
+                      </div>
+
                     </div>
-                    <span className="text-[11px] font-bold text-[#389E0D]">{mod.status}</span>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
+
             </div>
           )}
 
           {/* TAB 5: PHOTOS & BADGES */}
           {activeTab === 'media' && (
-            <div className="space-y-4 animate-fade-in">
+            <div className="space-y-5 animate-fade-in">
               
               {/* Badges Toggles */}
               <div className="p-4 rounded-2xl bg-[#FDF8F4] border border-[#ECC4A6] grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -783,56 +894,117 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
               </div>
 
               {/* Photos Gallery */}
-              <div>
-                <label className="block text-xs font-bold text-[#74351B] mb-2">
-                  Car Photos &amp; Image URLs ({images.length} Photos)
-                </label>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-bold text-[#74351B]">
+                    Car Photos ({images.length} Attached)
+                  </label>
+                  {images.length > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => setImages([])}
+                      className="text-[11px] font-bold text-red-600 hover:underline cursor-pointer"
+                    >
+                      Delete All Photos
+                    </button>
+                  )}
+                </div>
                 
-                {/* Add Photo Input */}
-                <div className="flex gap-2 mb-3">
+                {/* Method 1: Local Device Upload Button */}
+                <div className="p-4 rounded-2xl bg-[#FDF8F4] border-2 border-dashed border-[#ECC4A6] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-white border border-[#ECC4A6] flex items-center justify-center text-[#D27848]">
+                      <Upload className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-[#2E271F]">Upload Photos from Laptop or Mobile Phone</div>
+                      <div className="text-[10px] text-[#8B785F]">Choose images from your device gallery, camera, or folders</div>
+                    </div>
+                  </div>
+
                   <input
-                    type="url"
-                    value={newImageUrl}
-                    onChange={(e) => setNewImageUrl(e.target.value)}
-                    placeholder="Paste image URL (https://images.unsplash.com/...)"
-                    className="flex-1 px-3.5 py-2 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleFileUpload}
+                    className="hidden"
+                    id="car-photo-file-picker"
                   />
+                  <label
+                    htmlFor="car-photo-file-picker"
+                    className="px-4 py-2 bg-[#241A15] hover:bg-[#451E10] text-white text-xs font-bold rounded-xl shadow-xs transition-all cursor-pointer inline-flex items-center gap-1.5 shrink-0"
+                  >
+                    <Upload className="w-3.5 h-3.5 text-[#D27848]" />
+                    <span>Select Files</span>
+                  </label>
+                </div>
+
+                {/* Method 2: Paste URL Input */}
+                <div className="flex gap-2">
+                  <div className="relative flex-1">
+                    <LinkIcon className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#AA957A]" />
+                    <input
+                      type="text"
+                      value={newImageUrl}
+                      onChange={(e) => setNewImageUrl(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          e.preventDefault();
+                          handleAddImageUrl();
+                        }
+                      }}
+                      placeholder="Or paste direct image URL (https://... or unsplash.com/...)"
+                      className="w-full pl-10 pr-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
+                    />
+                  </div>
+
                   <button
                     type="button"
-                    onClick={handleAddImage}
-                    className="px-4 py-2 bg-[#D27848] hover:bg-[#B95C2E] text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer"
+                    onClick={handleAddImageUrl}
+                    className="px-4 py-2 bg-[#D27848] hover:bg-[#B95C2E] text-white text-xs font-bold rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
                   >
                     <Plus className="w-4 h-4" />
                     <span>Add Photo</span>
                   </button>
                 </div>
 
-                {/* Photo Previews */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {images.map((img, idx) => (
-                    <div key={idx} className="relative group rounded-2xl overflow-hidden border border-[#ECC4A6] aspect-4/3 bg-[#FAF7F2]">
-                      <img
-                        src={img}
-                        alt={`Car photo ${idx + 1}`}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          (e.target as HTMLElement).setAttribute('src', 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80');
-                        }}
-                      />
-                      <div className="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-full bg-black/60 text-white text-[9px] font-bold">
-                        {idx === 0 ? 'Cover' : `#${idx + 1}`}
+                {/* Photo Previews or Empty State */}
+                {images.length > 0 ? (
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                    {images.map((img, idx) => (
+                      <div key={idx} className="relative group rounded-2xl overflow-hidden border border-[#ECC4A6] aspect-4/3 bg-[#FAF7F2] shadow-xs">
+                        <img
+                          src={img}
+                          alt={`Car photo ${idx + 1}`}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLElement).setAttribute('src', 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80');
+                          }}
+                        />
+                        <div className="absolute top-1.5 left-1.5 px-2 py-0.5 rounded-full bg-black/70 text-white text-[9px] font-bold">
+                          {idx === 0 ? 'Cover Photo' : `#${idx + 1}`}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveImage(idx)}
+                          className="absolute top-1.5 right-1.5 p-1.5 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-md transition-transform hover:scale-110 cursor-pointer"
+                          title="Delete this photo"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveImage(idx)}
-                        className="absolute top-1.5 right-1.5 p-1 rounded-full bg-red-600 text-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-                        title="Delete photo"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="p-8 rounded-2xl bg-[#FAF7F2] border border-[#ECC4A6] text-center text-[#8B785F]">
+                    <ImageIcon className="w-8 h-8 mx-auto text-[#AA957A] mb-2" />
+                    <div className="text-xs font-bold text-[#2E271F]">No Photos Attached</div>
+                    <p className="text-[11px] text-[#8B785F] mt-0.5">
+                      Upload from your device or paste an image link above. If empty, the car will display a clean "Photo Pending" badge.
+                    </p>
+                  </div>
+                )}
               </div>
 
             </div>

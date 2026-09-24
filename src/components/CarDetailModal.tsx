@@ -223,11 +223,18 @@ export const CarDetailModal: React.FC<CarDetailModalProps> = ({
                 onTouchEnd={handleTouchEnd}
                 className="relative aspect-[16/10] bg-gradient-to-b from-[#FBF0E6] via-[#FDF8F4] to-[#FAF7F2] rounded-2xl overflow-hidden border border-[#ECC4A6] shadow-sm group cursor-zoom-in select-none"
               >
-                <img
-                  src={car.images[activeImageIndex]}
-                  alt={car.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-102"
-                />
+                {car.images && car.images.length > 0 ? (
+                  <img
+                    src={car.images[activeImageIndex] || car.images[0]}
+                    alt={car.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-102"
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center text-[#AA957A] gap-2">
+                    <span className="text-3xl">🚗</span>
+                    <span className="text-xs font-bold">No Photos Uploaded</span>
+                  </div>
+                )}
 
 
 

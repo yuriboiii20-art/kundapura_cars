@@ -54,13 +54,20 @@ export const CarCard: React.FC<CarCardProps> = ({
       className="group bg-white rounded-2xl border border-[#EBD7C7] hover:border-[#D27848] shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col overflow-hidden cursor-pointer relative"
     >
       {/* Top Image Section */}
-      <div className="relative aspect-[16/10] bg-gradient-to-b from-[#FBF0E6] via-[#FDF8F4] to-[#FAF7F2] overflow-hidden">
-        <img
-          src={car.images[currentImageIndex]}
-          alt={car.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-          loading="lazy"
-        />
+      <div className="relative aspect-[16/10] bg-gradient-to-b from-[#FBF0E6] via-[#FDF8F4] to-[#FAF7F2] overflow-hidden flex items-center justify-center">
+        {car.images && car.images.length > 0 ? (
+          <img
+            src={car.images[currentImageIndex] || car.images[0]}
+            alt={car.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="lazy"
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center text-[#AA957A] gap-1 p-4">
+            <span className="text-2xl">🚗</span>
+            <span className="text-[11px] font-bold">Photo Pending</span>
+          </div>
+        )}
 
         {/* Top Badges */}
         <div className="absolute top-2.5 left-2.5 z-10 flex items-center gap-1.5">

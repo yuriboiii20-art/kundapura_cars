@@ -25,6 +25,8 @@ export const InspectionReport: React.FC<InspectionReportProps> = ({ car }) => {
     { id: 'ac', label: 'AC & Tyres', icon: Wind, data: car.inspectionSummary.acTyres }
   ] as const;
 
+  const totalPassed = Object.values(car.inspectionSummary || {}).reduce((acc: number, cat: any) => acc + (Number(cat?.checksPassed) || 0), 0) || 200;
+  const totalChecks = Object.values(car.inspectionSummary || {}).reduce((acc: number, cat: any) => acc + (Number(cat?.checksTotal) || 0), 0) || 200;
   const currentCategory = categories.find((c) => c.id === activeTab) || categories[0];
 
   return (
@@ -57,7 +59,7 @@ export const InspectionReport: React.FC<InspectionReportProps> = ({ car }) => {
           </div>
           <div className="h-8 w-px bg-[#ECC4A6]" />
           <div className="text-xs font-bold text-[#74351B]">
-            200 / 200<br />Checks Passed
+            {totalPassed} / {totalChecks}<br />Checks Passed
           </div>
         </div>
       </div>
