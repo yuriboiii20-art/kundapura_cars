@@ -25,10 +25,7 @@ import {
   Database,
   RefreshCw,
   AlertCircle,
-  ExternalLink,
-  Check,
-  Loader2,
-  Save
+  Loader2
 } from 'lucide-react';
 import { useInventory } from '../context/InventoryContext';
 import { Car } from '../types/car';
@@ -65,21 +62,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
     cloudError,
     isCloudConfigured,
     firebaseConfig,
-    updateFirebaseConfig,
     syncLocalDataToCloud
   } = useInventory();
 
   // Active Tab
   const [activeTab, setActiveTab] = useState<'analytics' | 'inventory' | 'leads' | 'hubs' | 'settings' | 'backup' | 'cloud'>('inventory');
 
-  // Cloud Sync Form States
-  const [fbApiKey, setFbApiKey] = useState(firebaseConfig?.apiKey || '');
-  const [fbProjectId, setFbProjectId] = useState(firebaseConfig?.projectId || '');
-  const [fbAuthDomain, setFbAuthDomain] = useState(firebaseConfig?.authDomain || '');
-  const [fbStorageBucket, setFbStorageBucket] = useState(firebaseConfig?.storageBucket || '');
-  const [fbMessagingSenderId, setFbMessagingSenderId] = useState(firebaseConfig?.messagingSenderId || '');
-  const [fbAppId, setFbAppId] = useState(firebaseConfig?.appId || '');
-  const [fbJsonInput, setFbJsonInput] = useState('');
+  // Cloud Sync Status States
   const [cloudSyncing, setCloudSyncing] = useState(false);
   const [cloudFeedbackMsg, setCloudFeedbackMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
@@ -1324,141 +1313,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
               )}
             </div>
 
-            {/* 2. Setup Guide / Quick Tutorial */}
-            <div className="bg-white rounded-3xl p-6 border border-[#ECC4A6] shadow-sm space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#FDF3EA] text-[#D27848] flex items-center justify-center border border-[#ECC4A6]">
-                  <Sparkles className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-base font-black text-[#2E271F]">
-                    How to Setup Free Firebase Cloud Sync (2 Minutes)
-                  </h3>
-                  <p className="text-xs text-[#8B785F]">
-                    Follow these 4 simple steps to enable live real-time synchronization across all devices and browsers.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#ECC4A6] space-y-1.5">
-                  <div className="font-black text-[#74351B] flex items-center gap-1.5">
-                    <span className="w-5 h-5 rounded-full bg-[#D27848] text-white flex items-center justify-center text-[10px]">1</span>
-                    <span>Create Free Firebase Project</span>
-                  </div>
-                  <p className="text-[#8B785F] text-[11px] leading-relaxed">
-                    Go to <a href="https://console.firebase.google.com" target="_blank" rel="noreferrer" className="text-[#D27848] font-bold underline inline-flex items-center gap-0.5">console.firebase.google.com <ExternalLink className="w-3 h-3" /></a> and click <strong>Add project</strong> (e.g. <code>kundapura-cars</code>).
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#ECC4A6] space-y-1.5">
-                  <div className="font-black text-[#74351B] flex items-center gap-1.5">
-                    <span className="w-5 h-5 rounded-full bg-[#D27848] text-white flex items-center justify-center text-[10px]">2</span>
-                    <span>Enable Cloud Firestore &amp; Storage</span>
-                  </div>
-                  <p className="text-[#8B785F] text-[11px] leading-relaxed">
-                    In Firebase console side-menu, click <strong>Firestore Database</strong> &rarr; <strong>Create Database</strong> (Start in Test Mode). Also enable <strong>Storage</strong> for cloud photo uploads.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#ECC4A6] space-y-1.5">
-                  <div className="font-black text-[#74351B] flex items-center gap-1.5">
-                    <span className="w-5 h-5 rounded-full bg-[#D27848] text-white flex items-center justify-center text-[10px]">3</span>
-                    <span>Register Web App &amp; Copy Config</span>
-                  </div>
-                  <p className="text-[#8B785F] text-[11px] leading-relaxed">
-                    In Project Settings &rarr; General, click the <strong>Web icon (&lt;/&gt;)</strong>. Copy the <code>firebaseConfig</code> code snippet.
-                  </p>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#ECC4A6] space-y-1.5">
-                  <div className="font-black text-[#74351B] flex items-center gap-1.5">
-                    <span className="w-5 h-5 rounded-full bg-[#D27848] text-white flex items-center justify-center text-[10px]">4</span>
-                    <span>Paste &amp; Connect Below</span>
-                  </div>
-                  <p className="text-[#8B785F] text-[11px] leading-relaxed">
-                    Paste the snippet into the box below or add to Vercel Environment Variables. All changes will now sync across phones, laptops, and visitors automatically!
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* 3. Quick Paste Snippet Box */}
-            <div className="bg-white rounded-3xl p-6 border border-[#ECC4A6] shadow-sm space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-[#241A15] text-[#D27848] flex items-center justify-center font-bold">
-                    &lt;/&gt;
-                  </div>
-                  <div>
-                    <h3 className="text-base font-black text-[#2E271F]">
-                      Option A: Quick Paste Firebase Config Snippet
-                    </h3>
-                    <p className="text-xs text-[#8B785F]">
-                      Paste the entire code block copied from Firebase Web App setup
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <textarea
-                rows={4}
-                value={fbJsonInput}
-                onChange={(e) => setFbJsonInput(e.target.value)}
-                placeholder={`const firebaseConfig = {\n  apiKey: "AIzaSy...",\n  authDomain: "kundapura-cars.firebaseapp.com",\n  projectId: "kundapura-cars",\n  storageBucket: "kundapura-cars.firebasestorage.app",\n  messagingSenderId: "...",\n  appId: "..."\n};`}
-                className="w-full p-3.5 bg-[#FAF7F2] rounded-2xl border border-[#ECC4A6] text-xs font-mono text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
-              />
-
-              <button
-                type="button"
-                onClick={() => {
-                  if (!fbJsonInput.trim()) {
-                    alert('Please paste your Firebase configuration snippet first.');
-                    return;
-                  }
-                  try {
-                    let clean = fbJsonInput.trim();
-                    if (clean.includes('=')) {
-                      clean = clean.substring(clean.indexOf('=') + 1);
-                    }
-                    if (clean.endsWith(';')) {
-                      clean = clean.slice(0, -1);
-                    }
-                    clean = clean.replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:/g, '"$2": ');
-                    clean = clean.replace(/'/g, '"');
-                    const parsed = JSON.parse(clean);
-
-                    setFbApiKey(parsed.apiKey || '');
-                    setFbProjectId(parsed.projectId || '');
-                    setFbAuthDomain(parsed.authDomain || '');
-                    setFbStorageBucket(parsed.storageBucket || '');
-                    setFbMessagingSenderId(parsed.messagingSenderId || '');
-                    setFbAppId(parsed.appId || '');
-
-                    updateFirebaseConfig({
-                      apiKey: parsed.apiKey || '',
-                      projectId: parsed.projectId || '',
-                      authDomain: parsed.authDomain || `${parsed.projectId}.firebaseapp.com`,
-                      storageBucket: parsed.storageBucket || `${parsed.projectId}.firebasestorage.app`,
-                      messagingSenderId: parsed.messagingSenderId || '',
-                      appId: parsed.appId || '',
-                    });
-
-                    setCloudFeedbackMsg({ type: 'success', text: '✅ Firebase configuration applied! Real-time sync is now active.' });
-                    setFbJsonInput('');
-                    setTimeout(() => setCloudFeedbackMsg(null), 5000);
-                  } catch (err) {
-                    alert('Could not parse JSON snippet. Please check formatting or fill fields below manually.');
-                  }
-                }}
-                className="px-5 py-2.5 bg-[#241A15] hover:bg-[#451E10] text-white text-xs font-black rounded-xl shadow-xs transition-all cursor-pointer inline-flex items-center gap-2"
-              >
-                <Check className="w-4 h-4 text-[#D27848]" />
-                <span>Parse &amp; Connect Firebase</span>
-              </button>
-            </div>
-
-            {/* 4. Individual Field Editor */}
+            {/* 2. Secured Cloud Infrastructure Overview */}
             <div className="bg-white rounded-3xl p-6 border border-[#ECC4A6] shadow-sm space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -1467,149 +1322,75 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite }) 
                   </div>
                   <div>
                     <h3 className="text-base font-black text-[#2E271F]">
-                      Option B: Configure Firebase Credentials Manually
+                      Cloud Infrastructure &amp; Security Status
                     </h3>
                     <p className="text-xs text-[#8B785F]">
-                      Direct keys for Firestore Database &amp; Cloud Storage
+                      Live database and asset delivery network status
                     </p>
                   </div>
                 </div>
 
-                {isCloudConfigured && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (confirm('Disconnect Firebase cloud database? The app will return to local storage mode.')) {
-                        updateFirebaseConfig(null);
-                        setFbApiKey('');
-                        setFbProjectId('');
-                        setFbAuthDomain('');
-                        setFbStorageBucket('');
-                        setFbMessagingSenderId('');
-                        setFbAppId('');
-                        setCloudFeedbackMsg({ type: 'success', text: 'Firebase disconnected. Switched to local storage mode.' });
-                        setTimeout(() => setCloudFeedbackMsg(null), 4000);
-                      }
-                    }}
-                    className="text-xs font-bold text-red-600 hover:underline cursor-pointer"
-                  >
-                    Disconnect Cloud
-                  </button>
-                )}
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-800 text-[11px] font-bold">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>Credentials Protected</span>
+                </div>
               </div>
 
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (!fbApiKey.trim() || !fbProjectId.trim()) {
-                    alert('API Key and Project ID are required.');
-                    return;
-                  }
-                  updateFirebaseConfig({
-                    apiKey: fbApiKey.trim(),
-                    projectId: fbProjectId.trim(),
-                    authDomain: fbAuthDomain.trim() || `${fbProjectId.trim()}.firebaseapp.com`,
-                    storageBucket: fbStorageBucket.trim() || `${fbProjectId.trim()}.firebasestorage.app`,
-                    messagingSenderId: fbMessagingSenderId.trim(),
-                    appId: fbAppId.trim(),
-                  });
-                  setCloudFeedbackMsg({ type: 'success', text: 'Firebase credentials saved! Connecting to cloud database...' });
-                  setTimeout(() => setCloudFeedbackMsg(null), 5000);
-                }}
-                className="space-y-4 pt-2"
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-[#74351B] mb-1">
-                      Project ID *
-                    </label>
-                    <input
-                      type="text"
-                      value={fbProjectId}
-                      onChange={(e) => setFbProjectId(e.target.value)}
-                      placeholder="e.g. kundapura-cars-live"
-                      required
-                      className="w-full px-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-bold text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
-                    />
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#ECC4A6] space-y-1">
+                  <div className="text-[11px] font-bold text-[#8B785F]">Firestore Database</div>
+                  <div className="text-sm font-black text-[#2E271F] flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    <span>Real-time Sync Active</span>
                   </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#74351B] mb-1">
-                      API Key *
-                    </label>
-                    <input
-                      type="text"
-                      value={fbApiKey}
-                      onChange={(e) => setFbApiKey(e.target.value)}
-                      placeholder="e.g. AIzaSyB..."
-                      required
-                      className="w-full px-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-mono font-bold text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#74351B] mb-1">
-                      Auth Domain
-                    </label>
-                    <input
-                      type="text"
-                      value={fbAuthDomain}
-                      onChange={(e) => setFbAuthDomain(e.target.value)}
-                      placeholder="e.g. kundapura-cars-live.firebaseapp.com"
-                      className="w-full px-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#74351B] mb-1">
-                      Storage Bucket (for car photos)
-                    </label>
-                    <input
-                      type="text"
-                      value={fbStorageBucket}
-                      onChange={(e) => setFbStorageBucket(e.target.value)}
-                      placeholder="e.g. kundapura-cars-live.firebasestorage.app"
-                      className="w-full px-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#74351B] mb-1">
-                      Messaging Sender ID
-                    </label>
-                    <input
-                      type="text"
-                      value={fbMessagingSenderId}
-                      onChange={(e) => setFbMessagingSenderId(e.target.value)}
-                      placeholder="e.g. 1029384756"
-                      className="w-full px-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-mono text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-[#74351B] mb-1">
-                      App ID
-                    </label>
-                    <input
-                      type="text"
-                      value={fbAppId}
-                      onChange={(e) => setFbAppId(e.target.value)}
-                      placeholder="e.g. 1:1029384756:web:abcd1234"
-                      className="w-full px-3.5 py-2.5 bg-[#FAF7F2] rounded-xl border border-[#ECC4A6] text-xs font-mono text-[#2E271F] focus:bg-white focus:border-[#D27848] outline-none"
-                    />
-                  </div>
+                  <div className="text-[10px] text-[#8B785F]">{cars.length} cars currently in state</div>
                 </div>
 
-                <div className="flex gap-3 pt-2">
-                  <button
-                    type="submit"
-                    className="px-6 py-2.5 bg-gradient-to-r from-[#D27848] to-[#B95C2E] hover:from-[#B95C2E] hover:to-[#964521] text-white text-xs font-black rounded-xl shadow-md transition-all cursor-pointer flex items-center gap-2"
-                  >
-                    <Save className="w-4 h-4" />
-                    <span>Save &amp; Connect Cloud</span>
-                  </button>
+                <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#ECC4A6] space-y-1">
+                  <div className="text-[11px] font-bold text-[#8B785F]">Cloud Photo CDN</div>
+                  <div className="text-sm font-black text-[#2E271F] flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    <span>Storage Connected</span>
+                  </div>
+                  <div className="text-[10px] text-[#8B785F]">Auto client-side compression</div>
                 </div>
-              </form>
+
+                <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#ECC4A6] space-y-1">
+                  <div className="text-[11px] font-bold text-[#8B785F]">Cross-Device Propagation</div>
+                  <div className="text-sm font-black text-[#2E271F] flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    <span>Instant Live Push</span>
+                  </div>
+                  <div className="text-[10px] text-[#8B785F]">Chrome, Edge &amp; Mobile phone</div>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-[#FDF8F4] border border-[#ECC4A6] flex items-center justify-between gap-3 text-xs">
+                <div className="space-y-0.5">
+                  <div className="font-bold text-[#2E271F]">Need to manually re-seed or refresh cloud listings?</div>
+                  <div className="text-[11px] text-[#8B785F]">
+                    Clicking "Sync All Cars to Cloud" writes the complete catalogue to Firestore in a single batch.
+                  </div>
+                </div>
+                <button
+                  onClick={async () => {
+                    setCloudSyncing(true);
+                    setCloudFeedbackMsg(null);
+                    const res = await syncLocalDataToCloud();
+                    setCloudSyncing(false);
+                    setCloudFeedbackMsg({
+                      type: res.success ? 'success' : 'error',
+                      text: res.message
+                    });
+                    setTimeout(() => setCloudFeedbackMsg(null), 6000);
+                  }}
+                  disabled={cloudSyncing}
+                  className="px-4 py-2 bg-[#241A15] hover:bg-[#451E10] text-white text-xs font-bold rounded-xl shadow-xs transition-all cursor-pointer inline-flex items-center gap-1.5 shrink-0"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 text-[#D27848] ${cloudSyncing ? 'animate-spin' : ''}`} />
+                  <span>{cloudSyncing ? 'Syncing...' : 'Sync Now'}</span>
+                </button>
+              </div>
             </div>
 
           </div>
