@@ -9,10 +9,15 @@ import {
   CheckCircle2,
   Upload,
   Link as LinkIcon,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Loader2,
+  Cloud
 } from 'lucide-react';
 import { Car, BodyType, FuelType, TransmissionType, OwnerType, CarSpecs, InspectionCategory } from '../types/car';
 import { formatPrice } from '../utils/formatters';
+import { compressImageFile, formatFileSize } from '../utils/imageCompressor';
+import { uploadCarImage } from '../services/firebaseService';
+import { isFirebaseConfigured } from '../lib/firebase';
 
 interface CarEditModalProps {
   car: Car | null; // null if creating a new car
@@ -120,6 +125,10 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
   const [featuresInput, setFeaturesInput] = useState('');
   const [specs, setSpecs] = useState<CarSpecs>(DEFAULT_SPECS);
 
+  // Upload Progress States
+  const [isUploadingPhotos, setIsUploadingPhotos] = useState(false);
+  const [uploadProgressMsg, setUploadProgressMsg] = useState('');
+
   // Populate form on car change
   useEffect(() => {
     if (car) {
@@ -194,20 +203,47 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
     setNewImageUrl('');
   };
 
-  // Upload Local Files (Converts to Data URL)
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Upload Local Files (Compresses & uploads to Cloud Storage / Data URL)
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    Array.from(files).forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          setImages((prev) => [...prev, event.target!.result as string]);
+    setIsUploadingPhotos(true);
+    const fileList = Array.from(files);
+    const newUploadedUrls: string[] = [];
+
+    for (let i = 0; i < fileList.length; i++) {
+      const file = fileList[i];
+      setUploadProgressMsg(`Compressing & preparing photo ${i + 1} of ${fileList.length}...`);
+
+      try {
+        // Compress photo to web-optimized dimensions & size (reducing 10MB -> ~150KB)
+        const compressed = await compressImageFile(file, 1600, 1200, 0.82);
+
+        if (isFirebaseConfigured()) {
+          try {
+            setUploadProgressMsg(`Uploading photo ${i + 1}/${fileList.length} to Cloud (${formatFileSize(compressed.compressedSize)})...`);
+            const cloudUrl = await uploadCarImage(compressed.blob, car?.id || `kc_${Date.now()}`, file.name);
+            newUploadedUrls.push(cloudUrl);
+            continue;
+          } catch (cloudErr) {
+            console.warn('Firebase Storage upload failed, using optimized inline image:', cloudErr);
+          }
         }
-      };
-      reader.readAsDataURL(file);
-    });
+
+        // Fallback to compressed data URL
+        newUploadedUrls.push(compressed.dataUrl);
+      } catch (err) {
+        console.error('Failed to process photo:', file.name, err);
+      }
+    }
+
+    if (newUploadedUrls.length > 0) {
+      setImages((prev) => [...prev, ...newUploadedUrls]);
+    }
+
+    setIsUploadingPhotos(false);
+    setUploadProgressMsg('');
 
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
@@ -914,11 +950,24 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
                 <div className="p-4 rounded-2xl bg-[#FDF8F4] border-2 border-dashed border-[#ECC4A6] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-white border border-[#ECC4A6] flex items-center justify-center text-[#D27848]">
-                      <Upload className="w-5 h-5" />
+                      {isUploadingPhotos ? (
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                      ) : (
+                        <Upload className="w-5 h-5" />
+                      )}
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-[#2E271F]">Upload Photos from Laptop or Mobile Phone</div>
-                      <div className="text-[10px] text-[#8B785F]">Choose images from your device gallery, camera, or folders</div>
+                      <div className="text-xs font-bold text-[#2E271F] flex items-center gap-2 justify-center sm:justify-start">
+                        <span>Upload Photos from Laptop or Mobile Phone</span>
+                        {isFirebaseConfigured() && (
+                          <span className="px-2 py-0.5 rounded-md bg-[#241A15] text-[#D27848] text-[10px] font-bold flex items-center gap-1">
+                            <Cloud className="w-3 h-3" /> Cloud Storage
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-[10px] text-[#8B785F]">
+                        {uploadProgressMsg || 'Auto-compressed & optimized for high-speed mobile loading'}
+                      </div>
                     </div>
                   </div>
 
@@ -927,16 +976,28 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
                     type="file"
                     accept="image/*"
                     multiple
+                    disabled={isUploadingPhotos}
                     onChange={handleFileUpload}
                     className="hidden"
                     id="car-photo-file-picker"
                   />
                   <label
                     htmlFor="car-photo-file-picker"
-                    className="px-4 py-2 bg-[#241A15] hover:bg-[#451E10] text-white text-xs font-bold rounded-xl shadow-xs transition-all cursor-pointer inline-flex items-center gap-1.5 shrink-0"
+                    className={`px-4 py-2 bg-[#241A15] hover:bg-[#451E10] text-white text-xs font-bold rounded-xl shadow-xs transition-all cursor-pointer inline-flex items-center gap-1.5 shrink-0 ${
+                      isUploadingPhotos ? 'opacity-50 pointer-events-none' : ''
+                    }`}
                   >
-                    <Upload className="w-3.5 h-3.5 text-[#D27848]" />
-                    <span>Select Files</span>
+                    {isUploadingPhotos ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-[#D27848]" />
+                        <span>Uploading...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Upload className="w-3.5 h-3.5 text-[#D27848]" />
+                        <span>Select Files</span>
+                      </>
+                    )}
                   </label>
                 </div>
 

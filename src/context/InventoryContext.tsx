@@ -1,7 +1,22 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { Car } from '../types/car';
 import { CustomerLead, HubData, SiteSettings } from '../types/admin';
 import { CARS_DATA, KUNDAPURA_HUBS } from '../data/carsData';
+import { isFirebaseConfigured, getStoredFirebaseConfig, saveFirebaseConfig, FirebaseConfig } from '../lib/firebase';
+import {
+  subscribeToCars,
+  subscribeToLeads,
+  subscribeToHubs,
+  subscribeToSettings,
+  saveCarToCloud,
+  deleteCarFromCloud,
+  saveLeadToCloud,
+  deleteLeadFromCloud,
+  saveHubToCloud,
+  deleteHubFromCloud,
+  saveSettingsToCloud,
+  seedAllDataToCloud,
+} from '../services/firebaseService';
 
 const STORAGE_KEYS = {
   CARS: 'kc_inventory_cars_v2',
@@ -38,7 +53,7 @@ const INITIAL_DEMO_LEADS: CustomerLead[] = [
     carPrice: 1445000,
     type: 'reservation',
     status: 'new',
-    createdAt: new Date(Date.now() - 1000 * 60 * 45).toISOString(), // 45 mins ago
+    createdAt: new Date(Date.now() - 1000 * 60 * 45).toISOString(),
     hubLocation: 'Kundapura Beach Road Hub',
     amountPaid: 999,
     paymentMethod: 'UPI (PhonePe)',
@@ -55,7 +70,7 @@ const INITIAL_DEMO_LEADS: CustomerLead[] = [
     carPrice: 1585000,
     type: 'test_drive',
     status: 'scheduled',
-    createdAt: new Date(Date.now() - 1000 * 60 * 180).toISOString(), // 3 hours ago
+    createdAt: new Date(Date.now() - 1000 * 60 * 180).toISOString(),
     hubLocation: 'Kundapura NH 66 Central Hub',
     preferredDate: 'Tomorrow at 4:30 PM',
     notes: 'Requested doorstep test drive at Koteshwara residence.'
@@ -70,10 +85,12 @@ const INITIAL_DEMO_LEADS: CustomerLead[] = [
     carPrice: 1390000,
     type: 'emi_inquiry',
     status: 'contacted',
-    createdAt: new Date(Date.now() - 1000 * 60 * 600).toISOString(), // 10 hours ago
+    createdAt: new Date(Date.now() - 1000 * 60 * 600).toISOString(),
     notes: 'Inquired about 85% loan financing via Karnataka Bank.'
   }
 ];
+
+export type CloudSyncStatus = 'connected' | 'disconnected' | 'syncing' | 'error';
 
 interface InventoryContextType {
   cars: Car[];
@@ -81,20 +98,26 @@ interface InventoryContextType {
   hubs: HubData[];
   settings: SiteSettings;
   isAdmin: boolean;
+  cloudStatus: CloudSyncStatus;
+  cloudError: string | null;
+  isCloudConfigured: boolean;
+  firebaseConfig: FirebaseConfig | null;
+  updateFirebaseConfig: (config: FirebaseConfig | null) => void;
+  syncLocalDataToCloud: () => Promise<{ success: boolean; message: string }>;
   loginAdmin: (pin: string) => boolean;
   logoutAdmin: () => void;
-  addCar: (car: Omit<Car, 'id'> & { id?: string }) => void;
-  updateCar: (id: string, updated: Partial<Car>) => void;
-  deleteCar: (id: string) => void;
+  addCar: (car: Omit<Car, 'id'> & { id?: string }) => Promise<void>;
+  updateCar: (id: string, updated: Partial<Car>) => Promise<void>;
+  deleteCar: (id: string) => Promise<void>;
   resetCars: () => void;
-  addLead: (lead: Omit<CustomerLead, 'id' | 'createdAt' | 'status'> & { status?: CustomerLead['status'] }) => void;
-  updateLeadStatus: (id: string, status: CustomerLead['status']) => void;
-  deleteLead: (id: string) => void;
+  addLead: (lead: Omit<CustomerLead, 'id' | 'createdAt' | 'status'> & { status?: CustomerLead['status'] }) => Promise<void>;
+  updateLeadStatus: (id: string, status: CustomerLead['status']) => Promise<void>;
+  deleteLead: (id: string) => Promise<void>;
   clearLeads: () => void;
-  addHub: (hub: HubData) => void;
-  updateHub: (id: string, hub: Partial<HubData>) => void;
-  deleteHub: (id: string) => void;
-  updateSettings: (newSettings: Partial<SiteSettings>) => void;
+  addHub: (hub: HubData) => Promise<void>;
+  updateHub: (id: string, hub: Partial<HubData>) => Promise<void>;
+  deleteHub: (id: string) => Promise<void>;
+  updateSettings: (newSettings: Partial<SiteSettings>) => Promise<void>;
   exportData: () => string;
   importData: (jsonData: string) => boolean;
 }
@@ -166,7 +189,113 @@ export const InventoryProvider: React.FC<{ children: ReactNode }> = ({ children 
     }
   });
 
-  // Save changes to localStorage
+  // 6. Cloud Sync State
+  const [cloudStatus, setCloudStatus] = useState<CloudSyncStatus>(
+    isFirebaseConfigured() ? 'syncing' : 'disconnected'
+  );
+  const [cloudError, setCloudError] = useState<string | null>(null);
+  const [firebaseConfig, setFirebaseConfigState] = useState<FirebaseConfig | null>(() => getStoredFirebaseConfig());
+  const isCloudConfigured = Boolean(firebaseConfig?.projectId && firebaseConfig?.apiKey);
+
+  // Synchronize with Firebase Firestore in Real Time
+  useEffect(() => {
+    if (!isFirebaseConfigured()) {
+      setCloudStatus('disconnected');
+      return;
+    }
+
+    setCloudStatus('syncing');
+    setCloudError(null);
+
+    let unsubCars: (() => void) | null = null;
+    let unsubLeads: (() => void) | null = null;
+    let unsubHubs: (() => void) | null = null;
+    let unsubSettings: (() => void) | null = null;
+
+    try {
+      // 1. Subscribe to Cars
+      unsubCars = subscribeToCars(
+        (cloudCars) => {
+          if (cloudCars && cloudCars.length > 0) {
+            setCars(cloudCars);
+            try {
+              localStorage.setItem(STORAGE_KEYS.CARS, JSON.stringify(cloudCars));
+            } catch {}
+          } else {
+            // If cloud collection is completely empty, automatically seed with local/default cars
+            console.log('Firebase cars collection is empty. Auto-seeding default cars...');
+            seedAllDataToCloud(cars.length > 0 ? cars : CARS_DATA, hubs, settings, leads)
+              .catch((err) => console.error('Auto-seed failed:', err));
+          }
+          setCloudStatus('connected');
+        },
+        (err) => {
+          console.error('Firebase cars sync error:', err);
+          setCloudStatus('error');
+          setCloudError(err?.message || 'Failed to connect to Firebase database');
+        }
+      );
+
+      // 2. Subscribe to Leads
+      unsubLeads = subscribeToLeads(
+        (cloudLeads) => {
+          setLeads(cloudLeads);
+          try {
+            localStorage.setItem(STORAGE_KEYS.LEADS, JSON.stringify(cloudLeads));
+          } catch {}
+          setCloudStatus('connected');
+        },
+        (err) => {
+          console.error('Firebase leads sync error:', err);
+        }
+      );
+
+      // 3. Subscribe to Hubs
+      unsubHubs = subscribeToHubs(
+        (cloudHubs) => {
+          if (cloudHubs && cloudHubs.length > 0) {
+            setHubs(cloudHubs);
+            try {
+              localStorage.setItem(STORAGE_KEYS.HUBS, JSON.stringify(cloudHubs));
+            } catch {}
+          }
+          setCloudStatus('connected');
+        },
+        (err) => {
+          console.error('Firebase hubs sync error:', err);
+        }
+      );
+
+      // 4. Subscribe to Settings
+      unsubSettings = subscribeToSettings(
+        (cloudSettings) => {
+          if (cloudSettings) {
+            setSettings((prev) => ({ ...prev, ...cloudSettings }));
+            try {
+              localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(cloudSettings));
+            } catch {}
+          }
+          setCloudStatus('connected');
+        },
+        (err) => {
+          console.error('Firebase settings sync error:', err);
+        }
+      );
+    } catch (e: any) {
+      console.error('Error starting Firebase subscriptions:', e);
+      setCloudStatus('error');
+      setCloudError(e?.message || 'Error initializing cloud listener');
+    }
+
+    return () => {
+      if (unsubCars) unsubCars();
+      if (unsubLeads) unsubLeads();
+      if (unsubHubs) unsubHubs();
+      if (unsubSettings) unsubSettings();
+    };
+  }, [firebaseConfig]);
+
+  // Save changes to localStorage as offline fallback
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEYS.CARS, JSON.stringify(cars));
@@ -222,6 +351,28 @@ export const InventoryProvider: React.FC<{ children: ReactNode }> = ({ children 
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
+  // Admin Config Management
+  const updateFirebaseConfig = (config: FirebaseConfig | null) => {
+    saveFirebaseConfig(config);
+    setFirebaseConfigState(config);
+  };
+
+  const syncLocalDataToCloud = useCallback(async (): Promise<{ success: boolean; message: string }> => {
+    try {
+      if (!isFirebaseConfigured()) {
+        return { success: false, message: 'Please configure Firebase in Settings first.' };
+      }
+      setCloudStatus('syncing');
+      const result = await seedAllDataToCloud(cars, hubs, settings, leads);
+      setCloudStatus('connected');
+      return { success: true, message: `Successfully synced ${result.carsCount} cars to Firebase Cloud!` };
+    } catch (e: any) {
+      setCloudStatus('error');
+      setCloudError(e?.message || 'Sync failed');
+      return { success: false, message: e?.message || 'Failed to sync data to Firebase Cloud' };
+    }
+  }, [cars, hubs, settings, leads]);
+
   // Auth functions
   const loginAdmin = (pin: string): boolean => {
     if (pin.trim() === settings.adminPin || pin.trim() === 'admin123' || pin.trim() === 'kundapura2026') {
@@ -242,23 +393,58 @@ export const InventoryProvider: React.FC<{ children: ReactNode }> = ({ children 
   };
 
   // Car Actions
-  const addCar = (newCarData: Omit<Car, 'id'> & { id?: string }) => {
+  const addCar = async (newCarData: Omit<Car, 'id'> & { id?: string }) => {
     const newId = newCarData.id || `kc-custom-${Date.now()}`;
     const newCar: Car = {
       ...newCarData,
       id: newId,
     };
+    // Optimistic UI
     setCars((prev) => [newCar, ...prev]);
+
+    // Push to Cloud
+    if (isFirebaseConfigured()) {
+      try {
+        await saveCarToCloud(newCar);
+      } catch (err) {
+        console.error('Failed to save car to cloud:', err);
+      }
+    }
   };
 
-  const updateCar = (id: string, updated: Partial<Car>) => {
+  const updateCar = async (id: string, updated: Partial<Car>) => {
+    let finalCar: Car | null = null;
     setCars((prev) =>
-      prev.map((car) => (car.id === id ? { ...car, ...updated } : car))
+      prev.map((car) => {
+        if (car.id === id) {
+          finalCar = { ...car, ...updated };
+          return finalCar;
+        }
+        return car;
+      })
     );
+
+    // Push to Cloud
+    if (isFirebaseConfigured() && finalCar) {
+      try {
+        await saveCarToCloud(finalCar);
+      } catch (err) {
+        console.error('Failed to update car in cloud:', err);
+      }
+    }
   };
 
-  const deleteCar = (id: string) => {
+  const deleteCar = async (id: string) => {
     setCars((prev) => prev.filter((car) => car.id !== id));
+
+    // Push to Cloud
+    if (isFirebaseConfigured()) {
+      try {
+        await deleteCarFromCloud(id);
+      } catch (err) {
+        console.error('Failed to delete car from cloud:', err);
+      }
+    }
   };
 
   const resetCars = () => {
@@ -270,10 +456,14 @@ export const InventoryProvider: React.FC<{ children: ReactNode }> = ({ children 
       localStorage.setItem(STORAGE_KEYS.HUBS, JSON.stringify(KUNDAPURA_HUBS));
       localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(DEFAULT_SETTINGS));
     } catch {}
+
+    if (isFirebaseConfigured()) {
+      seedAllDataToCloud(CARS_DATA, KUNDAPURA_HUBS, DEFAULT_SETTINGS, leads).catch(console.error);
+    }
   };
 
   // Leads Actions
-  const addLead = (leadData: Omit<CustomerLead, 'id' | 'createdAt' | 'status'> & { status?: CustomerLead['status'] }) => {
+  const addLead = async (leadData: Omit<CustomerLead, 'id' | 'createdAt' | 'status'> & { status?: CustomerLead['status'] }) => {
     const newLead: CustomerLead = {
       ...leadData,
       id: `lead-${Date.now()}`,
@@ -281,16 +471,47 @@ export const InventoryProvider: React.FC<{ children: ReactNode }> = ({ children 
       createdAt: new Date().toISOString(),
     };
     setLeads((prev) => [newLead, ...prev]);
+
+    if (isFirebaseConfigured()) {
+      try {
+        await saveLeadToCloud(newLead);
+      } catch (err) {
+        console.error('Failed to save lead to cloud:', err);
+      }
+    }
   };
 
-  const updateLeadStatus = (id: string, status: CustomerLead['status']) => {
+  const updateLeadStatus = async (id: string, status: CustomerLead['status']) => {
+    let updatedLead: CustomerLead | null = null;
     setLeads((prev) =>
-      prev.map((l) => (l.id === id ? { ...l, status } : l))
+      prev.map((l) => {
+        if (l.id === id) {
+          updatedLead = { ...l, status };
+          return updatedLead;
+        }
+        return l;
+      })
     );
+
+    if (isFirebaseConfigured() && updatedLead) {
+      try {
+        await saveLeadToCloud(updatedLead);
+      } catch (err) {
+        console.error('Failed to update lead in cloud:', err);
+      }
+    }
   };
 
-  const deleteLead = (id: string) => {
+  const deleteLead = async (id: string) => {
     setLeads((prev) => prev.filter((l) => l.id !== id));
+
+    if (isFirebaseConfigured()) {
+      try {
+        await deleteLeadFromCloud(id);
+      } catch (err) {
+        console.error('Failed to delete lead from cloud:', err);
+      }
+    }
   };
 
   const clearLeads = () => {
@@ -298,23 +519,63 @@ export const InventoryProvider: React.FC<{ children: ReactNode }> = ({ children 
   };
 
   // Hub Actions
-  const addHub = (hub: HubData) => {
+  const addHub = async (hub: HubData) => {
     setHubs((prev) => [...prev, hub]);
+
+    if (isFirebaseConfigured()) {
+      try {
+        await saveHubToCloud(hub);
+      } catch (err) {
+        console.error('Failed to add hub to cloud:', err);
+      }
+    }
   };
 
-  const updateHub = (id: string, updated: Partial<HubData>) => {
+  const updateHub = async (id: string, updated: Partial<HubData>) => {
+    let updatedHub: HubData | null = null;
     setHubs((prev) =>
-      prev.map((h) => (h.id === id ? { ...h, ...updated } : h))
+      prev.map((h) => {
+        if (h.id === id) {
+          updatedHub = { ...h, ...updated };
+          return updatedHub;
+        }
+        return h;
+      })
     );
+
+    if (isFirebaseConfigured() && updatedHub) {
+      try {
+        await saveHubToCloud(updatedHub);
+      } catch (err) {
+        console.error('Failed to update hub in cloud:', err);
+      }
+    }
   };
 
-  const deleteHub = (id: string) => {
+  const deleteHub = async (id: string) => {
     setHubs((prev) => prev.filter((h) => h.id !== id));
+
+    if (isFirebaseConfigured()) {
+      try {
+        await deleteHubFromCloud(id);
+      } catch (err) {
+        console.error('Failed to delete hub from cloud:', err);
+      }
+    }
   };
 
   // Settings Actions
-  const updateSettings = (newSettings: Partial<SiteSettings>) => {
-    setSettings((prev) => ({ ...prev, ...newSettings }));
+  const updateSettings = async (newSettings: Partial<SiteSettings>) => {
+    const updated = { ...settings, ...newSettings };
+    setSettings(updated);
+
+    if (isFirebaseConfigured()) {
+      try {
+        await saveSettingsToCloud(updated);
+      } catch (err) {
+        console.error('Failed to update settings in cloud:', err);
+      }
+    }
   };
 
   // Export & Import
@@ -344,6 +605,11 @@ export const InventoryProvider: React.FC<{ children: ReactNode }> = ({ children 
       if (parsed.settings) {
         setSettings({ ...DEFAULT_SETTINGS, ...parsed.settings });
       }
+
+      if (isFirebaseConfigured() && parsed.cars) {
+        seedAllDataToCloud(parsed.cars, parsed.hubs || hubs, parsed.settings || settings, parsed.leads || leads)
+          .catch(console.error);
+      }
       return true;
     } catch (e) {
       console.error('Failed to import JSON data', e);
@@ -359,6 +625,12 @@ export const InventoryProvider: React.FC<{ children: ReactNode }> = ({ children 
         hubs,
         settings,
         isAdmin,
+        cloudStatus,
+        cloudError,
+        isCloudConfigured,
+        firebaseConfig,
+        updateFirebaseConfig,
+        syncLocalDataToCloud,
         loginAdmin,
         logoutAdmin,
         addCar,
