@@ -15,9 +15,9 @@ export interface CompressionResult {
 
 export async function compressImageFile(
   file: File,
-  maxWidth = 1600,
-  maxHeight = 1200,
-  quality = 0.82
+  maxWidth = 1400,
+  maxHeight = 1050,
+  quality = 0.78
 ): Promise<CompressionResult> {
   return new Promise((resolve, reject) => {
     const originalSize = file.size;
@@ -51,6 +51,10 @@ export async function compressImageFile(
           reject(new Error('Failed to get canvas 2D rendering context'));
           return;
         }
+
+        // Fill background white in case of transparent PNG/WebP
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, width, height);
 
         // Use high quality image rendering on canvas
         ctx.imageSmoothingEnabled = true;
@@ -94,3 +98,4 @@ export function formatFileSize(bytes: number): string {
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
 }
+

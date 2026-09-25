@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { Car, BodyType, FuelType, TransmissionType, OwnerType, CarSpecs, InspectionCategory } from '../types/car';
 import { formatPrice } from '../utils/formatters';
-import { compressImageFile, formatFileSize } from '../utils/imageCompressor';
+import { compressImageFile } from '../utils/imageCompressor';
 import { uploadCarImage } from '../services/firebaseService';
 import { isFirebaseConfigured } from '../lib/firebase';
 
@@ -203,50 +203,50 @@ export const CarEditModal: React.FC<CarEditModalProps> = ({ car, isOpen, onClose
     setNewImageUrl('');
   };
 
-  // Upload Local Files (Compresses & uploads to Cloud Storage / Data URL)
+  // Upload Local Files (Compresses & adds photos instantly)
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
     setIsUploadingPhotos(true);
     const fileList = Array.from(files);
-    const newUploadedUrls: string[] = [];
 
-    for (let i = 0; i < fileList.length; i++) {
-      const file = fileList[i];
-      setUploadProgressMsg(`Compressing & preparing photo ${i + 1} of ${fileList.length}...`);
+    try {
+      for (let i = 0; i < fileList.length; i++) {
+        const file = fileList[i];
+        setUploadProgressMsg(`Processing photo ${i + 1} of ${fileList.length}...`);
 
-      try {
-        // Compress photo to web-optimized dimensions & size (reducing 10MB -> ~150KB)
-        const compressed = await compressImageFile(file, 1600, 1200, 0.82);
+        try {
+          // Compress photo to web-optimized dimensions & size (e.g. 10MB -> ~50KB)
+          const compressed = await compressImageFile(file, 1400, 1050, 0.78);
+          let finalUrl = compressed.dataUrl;
 
-        if (isFirebaseConfigured()) {
-          try {
-            setUploadProgressMsg(`Uploading photo ${i + 1}/${fileList.length} to Cloud (${formatFileSize(compressed.compressedSize)})...`);
-            const cloudUrl = await uploadCarImage(compressed.blob, car?.id || `kc_${Date.now()}`, file.name);
-            newUploadedUrls.push(cloudUrl);
-            continue;
-          } catch (cloudErr) {
-            console.warn('Firebase Storage upload failed, using optimized inline image:', cloudErr);
+          if (isFirebaseConfigured()) {
+            try {
+              setUploadProgressMsg(`Syncing photo ${i + 1}/${fileList.length}...`);
+              const cloudUrl = await uploadCarImage(compressed.blob, car?.id || `kc_${Date.now()}`, file.name);
+              if (cloudUrl) {
+                finalUrl = cloudUrl;
+              }
+            } catch (cloudErr) {
+              console.warn('Firebase Storage bypassed, using optimized direct image:', cloudErr);
+            }
           }
+
+          // Instantly add to photos list so user sees it right away
+          setImages((prev) => [...prev, finalUrl]);
+        } catch (err) {
+          console.error('Failed to process photo:', file.name, err);
         }
-
-        // Fallback to compressed data URL
-        newUploadedUrls.push(compressed.dataUrl);
-      } catch (err) {
-        console.error('Failed to process photo:', file.name, err);
       }
-    }
-
-    if (newUploadedUrls.length > 0) {
-      setImages((prev) => [...prev, ...newUploadedUrls]);
-    }
-
-    setIsUploadingPhotos(false);
-    setUploadProgressMsg('');
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+    } catch (globalErr) {
+      console.error('Error during photo upload:', globalErr);
+    } finally {
+      setIsUploadingPhotos(false);
+      setUploadProgressMsg('');
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     }
   };
 

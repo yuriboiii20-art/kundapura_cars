@@ -244,14 +244,20 @@ export async function saveSettingsToCloud(settings: SiteSettings): Promise<void>
 }
 
 // ==================== FIREBASE STORAGE IMAGE UPLOAD ====================
+let isStorageDisabled = false;
 
 export async function uploadCarImage(
   fileOrBlob: Blob | File,
   carId: string,
   fileName?: string
 ): Promise<string> {
+  if (isStorageDisabled) {
+    throw new Error('Firebase Storage is currently unavailable or disabled');
+  }
+
   const storage = getFirebaseStorage();
   if (!storage) {
+    isStorageDisabled = true;
     throw new Error('Firebase Storage is not initialized');
   }
 
@@ -262,14 +268,30 @@ export async function uploadCarImage(
   const storagePath = `cars/${carId || 'new_car'}/${safeName}`;
   const imageRef = ref(storage, storagePath);
 
-  const snapshot = await uploadBytes(imageRef, fileOrBlob, {
-    contentType: 'image/jpeg',
-    cacheControl: 'public, max-age=31536000',
-  });
+  // 1.5-second timeout protection: If storage bucket/rules are not set, immediately fallback
+  const timeoutPromise = new Promise<never>((_, reject) =>
+    setTimeout(() => {
+      isStorageDisabled = true;
+      reject(new Error('Firebase Storage upload timed out'));
+    }, 1500)
+  );
 
-  const downloadUrl = await getDownloadURL(snapshot.ref);
-  return downloadUrl;
+  const uploadTask = (async () => {
+    try {
+      const snapshot = await uploadBytes(imageRef, fileOrBlob, {
+        contentType: 'image/jpeg',
+        cacheControl: 'public, max-age=31536000',
+      });
+      return await getDownloadURL(snapshot.ref);
+    } catch (err) {
+      isStorageDisabled = true;
+      throw err;
+    }
+  })();
+
+  return await Promise.race([uploadTask, timeoutPromise]);
 }
+
 
 // ==================== SEED / FULL CLOUD SYNC ====================
 
